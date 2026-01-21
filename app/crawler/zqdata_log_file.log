@@ -1,0 +1,83 @@
+2026-01-13 15:28:12,479 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 15:49:57,610 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 15:51:33,290 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 15:53:57,451 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 15:55:42,176 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 15:55:42,177 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 15:55:42,177 - CustomLogger - INFO - 该集合包含 14 场比赛
+2026-01-13 15:55:42,177 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 15:55:42,178 - CustomLogger - INFO - 解析到的match_id: 2036923
+2026-01-13 15:55:42,352 - CustomLogger - INFO - 新增比赛: 周二 2001 伊朗23 vs 黎巴嫩23
+2026-01-13 15:57:31,113 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 15:58:09,898 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 15:59:27,929 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 15:59:46,830 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 16:00:04,796 - CustomLogger - INFO - 该集合包含 14 场比赛
+2026-01-13 16:00:26,117 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 16:00:29,623 - CustomLogger - INFO - 解析到的match_id: 2036923
+2026-01-13 16:30:58,220 - CustomLogger - ERROR - 获取当前赛事信息失败: (pymysql.err.OperationalError) (2006, "MySQL server has gone away (ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))")
+[SQL: SELECT tczq_match.id AS tczq_match_id, tczq_match.match_id AS tczq_match_match_id, tczq_match.match_num AS tczq_match_match_num, tczq_match.match_num_str AS tczq_match_match_num_str, tczq_match.match_num_date AS tczq_match_match_num_date, tczq_match.match_week AS tczq_match_match_week, tczq_match.match_date AS tczq_match_match_date, tczq_match.match_time AS tczq_match_match_time, tczq_match.business_date AS tczq_match_business_date, tczq_match.tax_date_no AS tczq_match_tax_date_no, tczq_match.league_id AS tczq_match_league_id, tczq_match.home_team_id AS tczq_match_home_team_id, tczq_match.home_team_code AS tczq_match_home_team_code, tczq_match.home_team_all_name AS tczq_match_home_team_all_name, tczq_match.home_team_abb_name AS tczq_match_home_team_abb_name, tczq_match.home_team_abb_en_name AS tczq_match_home_team_abb_en_name, tczq_match.home_rank AS tczq_match_home_rank, tczq_match.away_team_id AS tczq_match_away_team_id, tczq_match.away_team_code AS tczq_match_away_team_code, tczq_match.away_team_all_name AS tczq_match_away_team_all_name, tczq_match.away_team_abb_name AS tczq_match_away_team_abb_name, tczq_match.away_team_abb_en_name AS tczq_match_away_team_abb_en_name, tczq_match.away_rank AS tczq_match_away_rank, tczq_match.base_home_team_id AS tczq_match_base_home_team_id, tczq_match.base_away_team_id AS tczq_match_base_away_team_id, tczq_match.match_name AS tczq_match_match_name, tczq_match.group_name AS tczq_match_group_name, tczq_match.line_num AS tczq_match_line_num, tczq_match.betting_single AS tczq_match_betting_single, tczq_match.betting_all_up AS tczq_match_betting_all_up, tczq_match.remark AS tczq_match_remark, tczq_match.status AS tczq_match_status, tczq_match.created_at AS tczq_match_created_at, tczq_match.updated_at AS tczq_match_updated_at 
+FROM tczq_match 
+WHERE tczq_match.match_id = %(match_id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'match_id_1': 2036923, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-01-13 16:32:28,531 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 16:32:29,623 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 16:32:29,623 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 16:32:29,623 - CustomLogger - INFO - 该集合包含 14 场比赛
+2026-01-13 16:32:32,551 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 16:32:33,588 - CustomLogger - INFO - 解析到的match_id: 2036923
+2026-01-13 16:33:22,965 - CustomLogger - INFO - 更新比赛: 周二 2001 伊朗23 vs 黎巴嫩23
+2026-01-13 16:34:21,977 - CustomLogger - INFO - 处理比赛 2036923 的赔率信息，match对象已获取
+2026-01-13 16:40:13,523 - CustomLogger - ERROR - 获取当前赛事信息失败: (pymysql.err.OperationalError) (2006, "MySQL server has gone away (ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))")
+[SQL: INSERT INTO tczq_had (match_id, h, d, a, hf, df, af, update_date, update_time, created_at, updated_at) VALUES (%(match_id)s, %(h)s, %(d)s, %(a)s, %(hf)s, %(df)s, %(af)s, %(update_date)s, %(update_time)s, %(created_at)s, %(updated_at)s)]
+[parameters: {'match_id': 2036923, 'h': 1.13, 'd': 6.2, 'a': 12.0, 'hf': None, 'df': None, 'af': None, 'update_date': None, 'update_time': None, 'created_at': datetime.datetime(2026, 1, 13, 16, 40, 13, 519669), 'updated_at': datetime.datetime(2026, 1, 13, 16, 40, 13, 519674)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-01-13 16:40:27,678 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 16:40:28,704 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 16:40:28,704 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 16:40:28,705 - CustomLogger - INFO - 该集合包含 14 场比赛
+2026-01-13 16:40:42,703 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 16:40:42,703 - CustomLogger - INFO - 解析到的match_id: 2036923
+2026-01-13 16:41:47,633 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 16:41:48,396 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 16:41:48,397 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 16:41:48,397 - CustomLogger - INFO - 该集合包含 14 场比赛
+2026-01-13 16:41:48,397 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 16:41:48,397 - CustomLogger - INFO - 解析到的match_id: 2036923
+2026-01-13 16:42:01,995 - CustomLogger - INFO - 处理比赛 2036923 的赔率信息，match对象已获取
+2026-01-13 22:17:25,930 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 22:17:26,833 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 22:17:26,833 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 22:17:26,833 - CustomLogger - INFO - 该集合包含 12 场比赛
+2026-01-13 22:17:26,833 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 22:17:26,833 - CustomLogger - INFO - 解析到的match_id: 2036925
+2026-01-13 22:17:26,928 - CustomLogger - INFO - 新增比赛: 周二 2003 奈季沟渠 vs 拉斯永恒
+2026-01-13 22:17:56,628 - CustomLogger - INFO - 处理比赛 2036925 的赔率信息，match对象已获取
+2026-01-13 22:18:17,932 - CustomLogger - INFO - 处理比赛 2036925 的赔率信息，match对象已获取
+2026-01-13 22:36:50,493 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 22:36:51,436 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 22:36:51,436 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 22:36:51,436 - CustomLogger - INFO - 该集合包含 12 场比赛
+2026-01-13 22:36:51,436 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 22:36:51,437 - CustomLogger - INFO - 解析到的match_id: 2036925
+2026-01-13 22:36:54,669 - CustomLogger - INFO - 处理比赛 2036925 的赔率信息，match对象已获取
+2026-01-13 22:37:10,946 - CustomLogger - ERROR - 获取当前赛事信息失败: (pymysql.err.OperationalError) (1054, "Unknown column 'tczq_hafu.haf' in 'field list'")
+[SQL: SELECT tczq_hafu.id AS tczq_hafu_id, tczq_hafu.match_id AS tczq_hafu_match_id, tczq_hafu.hh AS tczq_hafu_hh, tczq_hafu.hd AS tczq_hafu_hd, tczq_hafu.ha AS tczq_hafu_ha, tczq_hafu.dh AS tczq_hafu_dh, tczq_hafu.dd AS tczq_hafu_dd, tczq_hafu.da AS tczq_hafu_da, tczq_hafu.ah AS tczq_hafu_ah, tczq_hafu.ad AS tczq_hafu_ad, tczq_hafu.aa AS tczq_hafu_aa, tczq_hafu.hhf AS tczq_hafu_hhf, tczq_hafu.hdf AS tczq_hafu_hdf, tczq_hafu.haf AS tczq_hafu_haf, tczq_hafu.dhf AS tczq_hafu_dhf, tczq_hafu.ddf AS tczq_hafu_ddf, tczq_hafu.daf AS tczq_hafu_daf, tczq_hafu.ahf AS tczq_hafu_ahf, tczq_hafu.adf AS tczq_hafu_adf, tczq_hafu.aaf AS tczq_hafu_aaf, tczq_hafu.update_date AS tczq_hafu_update_date, tczq_hafu.update_time AS tczq_hafu_update_time, tczq_hafu.created_at AS tczq_hafu_created_at, tczq_hafu.updated_at AS tczq_hafu_updated_at 
+FROM tczq_hafu 
+WHERE tczq_hafu.match_id = %(match_id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'match_id_1': 2036925, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-01-13 22:40:22,365 - CustomLogger - INFO - 正在获取当前赛事信息...
+2026-01-13 22:40:23,467 - CustomLogger - INFO - 共处理 2 个日期/时间段的比赛集合
+2026-01-13 22:40:23,467 - CustomLogger - INFO - 处理第 1 个日期/时间段的比赛集合
+2026-01-13 22:40:23,467 - CustomLogger - INFO - 该集合包含 12 场比赛
+2026-01-13 22:40:23,467 - CustomLogger - INFO - 处理第 1 场比赛
+2026-01-13 22:40:23,467 - CustomLogger - INFO - 解析到的match_id: 2036925
+2026-01-13 22:40:23,512 - CustomLogger - INFO - 新增比赛: 周二 2003 奈季沟渠 vs 拉斯永恒
+2026-01-13 22:40:23,518 - CustomLogger - INFO - 处理比赛 2036925 的赔率信息，match对象已获取
+2026-01-13 22:42:39,967 - CustomLogger - INFO - 开始保存比赛 2036925 的赔率历史记录
+2026-01-13 22:42:51,111 - CustomLogger - INFO - 比赛 2036925 的 result_id: None
+2026-01-13 22:42:51,111 - CustomLogger - INFO - 创建赔率历史主记录 (match_id=2036925)

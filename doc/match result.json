@@ -1,0 +1,1389 @@
+{
+    "dataFrom": "",
+    "emptyFlag": false,
+    "errorCode": "0",
+    "errorMessage": "处理成功",
+    "success": true,
+    "value": {
+        "resultCount": 2,
+        "total": 57,
+        "pages": 2,
+        "leagueList": [
+            {
+                "leagueAbbName": "亚冠精英",
+                "leagueId": 1,
+                "leagueAllName": "亚洲冠军精英联赛"
+            },
+            {
+                "leagueAbbName": "澳超",
+                "leagueId": 2,
+                "leagueAllName": "澳大利亚超级联赛"
+            },
+            {
+                "leagueAbbName": "非洲杯",
+                "leagueId": 3,
+                "leagueAllName": "非洲杯"
+            },
+            {
+                "leagueAbbName": "亚洲杯",
+                "leagueId": 4,
+                "leagueAllName": "亚洲杯"
+            },
+            {
+                "leagueAbbName": "亚预赛",
+                "leagueId": 5,
+                "leagueAllName": "亚洲杯预选赛"
+            },
+            {
+                "leagueAbbName": "巴甲",
+                "leagueId": 6,
+                "leagueAllName": "巴西甲级联赛"
+            },
+            {
+                "leagueAbbName": "巴西杯",
+                "leagueId": 7,
+                "leagueAllName": "巴西杯"
+            },
+            {
+                "leagueAbbName": "联合会杯",
+                "leagueId": 10,
+                "leagueAllName": "联合会杯"
+            },
+            {
+                "leagueAbbName": "金杯赛",
+                "leagueId": 11,
+                "leagueAllName": "中北美金杯赛"
+            },
+            {
+                "leagueAbbName": "俱乐部赛",
+                "leagueId": 12,
+                "leagueAllName": "俱乐部友谊赛"
+            },
+            {
+                "leagueAbbName": "美洲杯",
+                "leagueId": 13,
+                "leagueAllName": "美洲杯"
+            },
+            {
+                "leagueAbbName": "俱世界杯",
+                "leagueId": 14,
+                "leagueAllName": "俱乐部世界杯"
+            },
+            {
+                "leagueAbbName": "荷兰杯",
+                "leagueId": 15,
+                "leagueAllName": "荷兰杯"
+            },
+            {
+                "leagueAbbName": "荷甲",
+                "leagueId": 17,
+                "leagueAllName": "荷兰甲级联赛"
+            },
+            {
+                "leagueAbbName": "荷超杯",
+                "leagueId": 18,
+                "leagueAllName": "荷兰超级杯"
+            },
+            {
+                "leagueAbbName": "欧锦赛21",
+                "leagueId": 19,
+                "leagueAllName": "欧洲U21锦标赛"
+            },
+            {
+                "leagueAbbName": "英冠",
+                "leagueId": 20,
+                "leagueAllName": "英格兰冠军联赛"
+            },
+            {
+                "leagueAbbName": "英甲",
+                "leagueId": 21,
+                "leagueAllName": "英格兰甲级联赛"
+            },
+            {
+                "leagueAbbName": "英乙",
+                "leagueId": 22,
+                "leagueAllName": "英格兰乙级联赛"
+            },
+            {
+                "leagueAbbName": "英足总杯",
+                "leagueId": 23,
+                "leagueAllName": "英格兰足总杯"
+            },
+            {
+                "leagueAbbName": "英联赛杯",
+                "leagueId": 24,
+                "leagueAllName": "英格兰联赛杯"
+            },
+            {
+                "leagueAbbName": "英超",
+                "leagueId": 25,
+                "leagueAllName": "英格兰超级联赛"
+            },
+            {
+                "leagueAbbName": "英社区盾",
+                "leagueId": 26,
+                "leagueAllName": "英格兰社区盾杯"
+            },
+            {
+                "leagueAbbName": "欧洲杯",
+                "leagueId": 27,
+                "leagueAllName": "欧洲杯"
+            },
+            {
+                "leagueAbbName": "欧预赛",
+                "leagueId": 28,
+                "leagueAllName": "欧洲杯预选赛"
+            },
+            {
+                "leagueAbbName": "法超杯",
+                "leagueId": 29,
+                "leagueAllName": "法国超级杯"
+            },
+            {
+                "leagueAbbName": "法国杯",
+                "leagueId": 30,
+                "leagueAllName": "法国杯"
+            },
+            {
+                "leagueAbbName": "法联赛杯",
+                "leagueId": 31,
+                "leagueAllName": "法国联赛杯"
+            },
+            {
+                "leagueAbbName": "法甲",
+                "leagueId": 32,
+                "leagueAllName": "法国甲级联赛"
+            },
+            {
+                "leagueAbbName": "德乙",
+                "leagueId": 34,
+                "leagueAllName": "德国乙级联赛"
+            },
+            {
+                "leagueAbbName": "德国杯",
+                "leagueId": 36,
+                "leagueAllName": "德国杯"
+            },
+            {
+                "leagueAbbName": "德甲",
+                "leagueId": 37,
+                "leagueAllName": "德国甲级联赛"
+            },
+            {
+                "leagueAbbName": "意大利杯",
+                "leagueId": 38,
+                "leagueAllName": "意大利杯"
+            },
+            {
+                "leagueAbbName": "国际赛",
+                "leagueId": 39,
+                "leagueAllName": "国际赛"
+            },
+            {
+                "leagueAbbName": "意甲",
+                "leagueId": 40,
+                "leagueAllName": "意大利甲级联赛"
+            },
+            {
+                "leagueAbbName": "意超杯",
+                "leagueId": 41,
+                "leagueAllName": "意大利超级杯"
+            },
+            {
+                "leagueAbbName": "日职",
+                "leagueId": 42,
+                "leagueAllName": "日本职业联赛"
+            },
+            {
+                "leagueAbbName": "日乙",
+                "leagueId": 43,
+                "leagueAllName": "日本乙级联赛"
+            },
+            {
+                "leagueAbbName": "日天皇杯",
+                "leagueId": 45,
+                "leagueAllName": "日本天皇杯"
+            },
+            {
+                "leagueAbbName": "日联赛杯",
+                "leagueId": 46,
+                "leagueAllName": "日本联赛杯"
+            },
+            {
+                "leagueAbbName": "日超杯",
+                "leagueId": 47,
+                "leagueAllName": "日本超级杯"
+            },
+            {
+                "leagueAbbName": "韩职",
+                "leagueId": 48,
+                "leagueAllName": "韩国职业联赛"
+            },
+            {
+                "leagueAbbName": "解放者杯",
+                "leagueId": 49,
+                "leagueAllName": "南美解放者杯"
+            },
+            {
+                "leagueAbbName": "美职",
+                "leagueId": 50,
+                "leagueAllName": "美国职业大联盟"
+            },
+            {
+                "leagueAbbName": "挪超",
+                "leagueId": 51,
+                "leagueAllName": "挪威超级联赛"
+            },
+            {
+                "leagueAbbName": "挪威杯",
+                "leagueId": 52,
+                "leagueAllName": "挪威杯"
+            },
+            {
+                "leagueAbbName": "葡萄牙杯",
+                "leagueId": 54,
+                "leagueAllName": "葡萄牙杯"
+            },
+            {
+                "leagueAbbName": "葡超",
+                "leagueId": 55,
+                "leagueAllName": "葡萄牙超级联赛"
+            },
+            {
+                "leagueAbbName": "葡联赛杯",
+                "leagueId": 56,
+                "leagueAllName": "葡萄牙联赛杯"
+            },
+            {
+                "leagueAbbName": "葡超杯",
+                "leagueId": 57,
+                "leagueAllName": "葡萄牙超级杯"
+            },
+            {
+                "leagueAbbName": "瑞超",
+                "leagueId": 58,
+                "leagueAllName": "瑞典超级联赛"
+            },
+            {
+                "leagueAbbName": "东南亚锦",
+                "leagueId": 59,
+                "leagueAllName": "东南亚锦标赛"
+            },
+            {
+                "leagueAbbName": "苏足总杯",
+                "leagueId": 60,
+                "leagueAllName": "苏格兰足总杯"
+            },
+            {
+                "leagueAbbName": "西国王杯",
+                "leagueId": 61,
+                "leagueAllName": "西班牙国王杯"
+            },
+            {
+                "leagueAbbName": "西甲",
+                "leagueId": 62,
+                "leagueAllName": "西班牙甲级联赛"
+            },
+            {
+                "leagueAbbName": "苏联赛杯",
+                "leagueId": 63,
+                "leagueAllName": "苏格兰联赛杯"
+            },
+            {
+                "leagueAbbName": "苏超",
+                "leagueId": 64,
+                "leagueAllName": "苏格兰超级联赛"
+            },
+            {
+                "leagueAbbName": "西超杯",
+                "leagueId": 66,
+                "leagueAllName": "西班牙超级杯"
+            },
+            {
+                "leagueAbbName": "瑞典杯",
+                "leagueId": 67,
+                "leagueAllName": "瑞典杯"
+            },
+            {
+                "leagueAbbName": "欧冠",
+                "leagueId": 69,
+                "leagueAllName": "欧洲冠军联赛"
+            },
+            {
+                "leagueAbbName": "欧罗巴",
+                "leagueId": 70,
+                "leagueAllName": "欧罗巴联赛"
+            },
+            {
+                "leagueAbbName": "欧超杯",
+                "leagueId": 71,
+                "leagueAllName": "欧洲超级杯"
+            },
+            {
+                "leagueAbbName": "世界杯",
+                "leagueId": 72,
+                "leagueAllName": "世界杯"
+            },
+            {
+                "leagueAbbName": "世预赛",
+                "leagueId": 73,
+                "leagueAllName": "世界杯预选赛"
+            },
+            {
+                "leagueAbbName": "女世界杯",
+                "leagueId": 74,
+                "leagueAllName": "女足世界杯"
+            },
+            {
+                "leagueAbbName": "世界杯20",
+                "leagueId": 75,
+                "leagueAllName": "U20世界杯"
+            },
+            {
+                "leagueAbbName": "杯赛",
+                "leagueId": 76,
+                "leagueAllName": "杯赛"
+            },
+            {
+                "leagueAbbName": "阿甲",
+                "leagueId": 77,
+                "leagueAllName": "阿根廷甲级联赛"
+            },
+            {
+                "leagueAbbName": "东亚锦",
+                "leagueId": 78,
+                "leagueAllName": "东亚锦标赛"
+            },
+            {
+                "leagueAbbName": "荷乙",
+                "leagueId": 80,
+                "leagueAllName": "荷兰乙级联赛"
+            },
+            {
+                "leagueAbbName": "法乙",
+                "leagueId": 81,
+                "leagueAllName": "法国乙级联赛"
+            },
+            {
+                "leagueAbbName": "德超杯",
+                "leagueId": 82,
+                "leagueAllName": "德国超级杯"
+            },
+            {
+                "leagueAbbName": "亚运男足",
+                "leagueId": 83,
+                "leagueAllName": "亚运会男足"
+            },
+            {
+                "leagueAbbName": "瑞超杯",
+                "leagueId": 84,
+                "leagueAllName": "瑞典超级杯"
+            },
+            {
+                "leagueAbbName": "挪超杯",
+                "leagueId": 85,
+                "leagueAllName": "挪威超级杯"
+            },
+            {
+                "leagueAbbName": "英锦标赛",
+                "leagueId": 86,
+                "leagueAllName": "英格兰锦标赛"
+            },
+            {
+                "leagueAbbName": "公开赛杯",
+                "leagueId": 87,
+                "leagueAllName": "美国公开赛杯"
+            },
+            {
+                "leagueAbbName": "俱乐部杯",
+                "leagueId": 88,
+                "leagueAllName": "南美俱乐部杯"
+            },
+            {
+                "leagueAbbName": "优胜者杯",
+                "leagueId": 89,
+                "leagueAllName": "南美优胜者杯"
+            },
+            {
+                "leagueAbbName": "中北美冠",
+                "leagueId": 90,
+                "leagueAllName": "中北美冠军杯"
+            },
+            {
+                "leagueAbbName": "欧锦预21",
+                "leagueId": 92,
+                "leagueAllName": "欧洲U21预选赛"
+            },
+            {
+                "leagueAbbName": "奥运男足",
+                "leagueId": 93,
+                "leagueAllName": "奥运会男足"
+            },
+            {
+                "leagueAbbName": "奥运女足",
+                "leagueId": 94,
+                "leagueAllName": "奥运会女足"
+            },
+            {
+                "leagueAbbName": "女东亚锦",
+                "leagueId": 95,
+                "leagueAllName": "女足东亚锦标赛"
+            },
+            {
+                "leagueAbbName": "阿根廷杯",
+                "leagueId": 96,
+                "leagueAllName": "阿根廷杯"
+            },
+            {
+                "leagueAbbName": "阿超杯",
+                "leagueId": 97,
+                "leagueAllName": "阿根廷超级杯"
+            },
+            {
+                "leagueAbbName": "圣保罗锦",
+                "leagueId": 98,
+                "leagueAllName": "巴西圣保罗州锦赛"
+            },
+            {
+                "leagueAbbName": "俄超",
+                "leagueId": 100,
+                "leagueAllName": "俄罗斯超级联赛"
+            },
+            {
+                "leagueAbbName": "智利甲",
+                "leagueId": 101,
+                "leagueAllName": "智利甲级联赛"
+            },
+            {
+                "leagueAbbName": "墨超",
+                "leagueId": 102,
+                "leagueAllName": "墨西哥超级联赛"
+            },
+            {
+                "leagueAbbName": "俄罗斯杯",
+                "leagueId": 103,
+                "leagueAllName": "俄罗斯杯"
+            },
+            {
+                "leagueAbbName": "智利杯",
+                "leagueId": 104,
+                "leagueAllName": "智利杯"
+            },
+            {
+                "leagueAbbName": "墨西哥杯",
+                "leagueId": 105,
+                "leagueAllName": "墨西哥杯"
+            },
+            {
+                "leagueAbbName": "亚运女足",
+                "leagueId": 106,
+                "leagueAllName": "亚运会女足"
+            },
+            {
+                "leagueAbbName": "国冠杯",
+                "leagueId": 108,
+                "leagueAllName": "国际冠军杯"
+            },
+            {
+                "leagueAbbName": "俄超杯",
+                "leagueId": 109,
+                "leagueAllName": "俄罗斯超级杯"
+            },
+            {
+                "leagueAbbName": "墨超杯",
+                "leagueId": 110,
+                "leagueAllName": "墨西哥超级杯"
+            },
+            {
+                "leagueAbbName": "智超杯",
+                "leagueId": 111,
+                "leagueAllName": "智利超级杯"
+            },
+            {
+                "leagueAbbName": "墨冠杯",
+                "leagueId": 112,
+                "leagueAllName": "墨西哥冠军杯"
+            },
+            {
+                "leagueAbbName": "澳杯",
+                "leagueId": 114,
+                "leagueAllName": "澳大利亚杯"
+            },
+            {
+                "leagueAbbName": "比甲",
+                "leagueId": 116,
+                "leagueAllName": "比利时甲级联赛"
+            },
+            {
+                "leagueAbbName": "比利时杯",
+                "leagueId": 117,
+                "leagueAllName": "比利时杯"
+            },
+            {
+                "leagueAbbName": "亚洲杯23",
+                "leagueId": 118,
+                "leagueAllName": "U23亚洲杯"
+            },
+            {
+                "leagueAbbName": "韩国杯",
+                "leagueId": 120,
+                "leagueAllName": "韩国杯"
+            },
+            {
+                "leagueAbbName": "比超杯",
+                "leagueId": 122,
+                "leagueAllName": "比利时超级杯"
+            },
+            {
+                "leagueAbbName": "中国杯",
+                "leagueId": 123,
+                "leagueAllName": "中国杯"
+            },
+            {
+                "leagueAbbName": "女欧洲杯",
+                "leagueId": 125,
+                "leagueAllName": "女足欧洲杯"
+            },
+            {
+                "leagueAbbName": "欧国联",
+                "leagueId": 127,
+                "leagueAllName": "欧洲国家联赛"
+            },
+            {
+                "leagueAbbName": "欧协联",
+                "leagueId": 1033103,
+                "leagueAllName": "欧洲协会联赛"
+            },
+            {
+                "leagueAbbName": "芬超",
+                "leagueId": 2064839,
+                "leagueAllName": "芬兰超级联赛"
+            },
+            {
+                "leagueAbbName": "亚冠乙",
+                "leagueId": 2068445,
+                "leagueAllName": "亚洲冠军乙级联赛"
+            },
+            {
+                "leagueAbbName": "沙职",
+                "leagueId": 2068446,
+                "leagueAllName": "沙特职业联赛"
+            }
+        ],
+        "pageNo": 1,
+        "matchResult": [
+            {
+                "a": "",
+                "allAwayTeam": "登博思",
+                "allHomeTeam": "格拉夫夏普",
+                "awayTeam": "登博思",
+                "awayTeamId": 243,
+                "bettingSingle": 0,
+                "d": "",
+                "goalLine": "",
+                "h": "",
+                "homeTeam": "格拉夫",
+                "homeTeamId": 242,
+                "leagueBackColor": "BE2B8F",
+                "leagueId": 80,
+                "leagueName": "荷兰乙级联赛",
+                "leagueNameAbbr": "荷乙",
+                "matchDate": "2026-01-11",
+                "matchId": 2036858,
+                "matchNum": "7010",
+                "matchNumStr": "周日010",
+                "matchResultStatus": "0",
+                "poolStatus": "",
+                "resultStatus": "",
+                "sectionsNo1": "",
+                "sectionsNo999": "取消",
+                "winFlag": ""
+            },
+            {
+                "a": "",
+                "allAwayTeam": "芬洛",
+                "allHomeTeam": "罗达JC",
+                "awayTeam": "芬洛",
+                "awayTeamId": 745,
+                "bettingSingle": 0,
+                "d": "",
+                "goalLine": "",
+                "h": "",
+                "homeTeam": "罗达JC",
+                "homeTeamId": 253,
+                "leagueBackColor": "BE2B8F",
+                "leagueId": 80,
+                "leagueName": "荷兰乙级联赛",
+                "leagueNameAbbr": "荷乙",
+                "matchDate": "2026-01-11",
+                "matchId": 2036851,
+                "matchNum": "7003",
+                "matchNumStr": "周日003",
+                "matchResultStatus": "0",
+                "poolStatus": "",
+                "resultStatus": "",
+                "sectionsNo1": "",
+                "sectionsNo999": "取消",
+                "winFlag": ""
+            },
+            {
+                "a": "3.58",
+                "allAwayTeam": "纽卡斯尔喷气机",
+                "allHomeTeam": "墨尔本城",
+                "awayTeam": "纽喷气机",
+                "awayTeamId": 1136,
+                "bettingSingle": 1,
+                "d": "4.10",
+                "goalLine": "-1",
+                "h": "1.65",
+                "homeTeam": "墨尔本城",
+                "homeTeamId": 1427,
+                "leagueBackColor": "FF7000",
+                "leagueId": 2,
+                "leagueName": "澳大利亚超级联赛",
+                "leagueNameAbbr": "澳超",
+                "matchDate": "2026-01-11",
+                "matchId": 2036849,
+                "matchNum": "7001",
+                "matchNumStr": "周日001",
+                "matchResultStatus": "1",
+                "poolStatus": "Close",
+                "resultStatus": "",
+                "sectionsNo1": "",
+                "sectionsNo999": "",
+                "winFlag": ""
+            },
+            {
+                "a": "5.00",
+                "allAwayTeam": "布雷达",
+                "allHomeTeam": "格罗宁根",
+                "awayTeam": "布雷达",
+                "awayTeamId": 248,
+                "bettingSingle": 0,
+                "d": "3.75",
+                "goalLine": "-1",
+                "h": "1.51",
+                "homeTeam": "格罗宁根",
+                "homeTeamId": 246,
+                "leagueBackColor": "FF6699",
+                "leagueId": 17,
+                "leagueName": "荷兰甲级联赛",
+                "leagueNameAbbr": "荷甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036848,
+                "matchNum": "6036",
+                "matchNumStr": "周六036",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "0:0",
+                "winFlag": "D"
+            },
+            {
+                "a": "3.45",
+                "allAwayTeam": "埃尔切",
+                "allHomeTeam": "巴伦西亚",
+                "awayTeam": "埃尔切",
+                "awayTeamId": 30,
+                "bettingSingle": 0,
+                "d": "3.00",
+                "goalLine": "-1",
+                "h": "1.98",
+                "homeTeam": "巴伦西亚",
+                "homeTeamId": 678,
+                "leagueBackColor": "006633",
+                "leagueId": 62,
+                "leagueName": "西班牙甲级联赛",
+                "leagueNameAbbr": "西甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036847,
+                "matchNum": "6035",
+                "matchNumStr": "周六035",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "1:1",
+                "winFlag": "D"
+            },
+            {
+                "a": "1.22",
+                "allAwayTeam": "切尔西",
+                "allHomeTeam": "查尔顿",
+                "awayTeam": "切尔西",
+                "awayTeamId": 7,
+                "bettingSingle": 0,
+                "d": "5.20",
+                "goalLine": "+1",
+                "h": "8.50",
+                "homeTeam": "查尔顿",
+                "homeTeamId": 6,
+                "leagueBackColor": "003366",
+                "leagueId": 23,
+                "leagueName": "英格兰足总杯",
+                "leagueNameAbbr": "英足总杯",
+                "matchDate": "2026-01-11",
+                "matchId": 2036846,
+                "matchNum": "6034",
+                "matchNumStr": "周六034",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:1",
+                "sectionsNo999": "1:5",
+                "winFlag": "A"
+            },
+            {
+                "a": "6.10",
+                "allAwayTeam": "都灵",
+                "allHomeTeam": "亚特兰大",
+                "awayTeam": "都灵",
+                "awayTeamId": 136,
+                "bettingSingle": 0,
+                "d": "3.70",
+                "goalLine": "-1",
+                "h": "1.44",
+                "homeTeam": "亚特兰大",
+                "homeTeamId": 117,
+                "leagueBackColor": "0066FF",
+                "leagueId": 40,
+                "leagueName": "意大利甲级联赛",
+                "leagueNameAbbr": "意甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036845,
+                "matchNum": "6033",
+                "matchNumStr": "周六033",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "1:0",
+                "sectionsNo999": "2:0",
+                "winFlag": "H"
+            },
+            {
+                "a": "2.20",
+                "allAwayTeam": "科特迪瓦",
+                "allHomeTeam": "埃及",
+                "awayTeam": "科特迪瓦",
+                "awayTeamId": 691,
+                "bettingSingle": 0,
+                "d": "2.68",
+                "goalLine": "+1",
+                "h": "3.31",
+                "homeTeam": "埃及",
+                "homeTeamId": 543,
+                "leagueBackColor": "567576",
+                "leagueId": 3,
+                "leagueName": "非洲杯",
+                "leagueNameAbbr": "非洲杯",
+                "matchDate": "2026-01-11",
+                "matchId": 2036844,
+                "matchNum": "6032",
+                "matchNumStr": "周六032",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "2:1",
+                "sectionsNo999": "3:2",
+                "winFlag": "H"
+            },
+            {
+                "a": "",
+                "allAwayTeam": "SBV精英",
+                "allHomeTeam": "PSV埃因霍温",
+                "awayTeam": "SBV精英",
+                "awayTeamId": 816,
+                "bettingSingle": 0,
+                "d": "",
+                "goalLine": "-2",
+                "h": "",
+                "homeTeam": "埃因霍温",
+                "homeTeamId": 250,
+                "leagueBackColor": "FF6699",
+                "leagueId": 17,
+                "leagueName": "荷兰甲级联赛",
+                "leagueNameAbbr": "荷甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036843,
+                "matchNum": "6031",
+                "matchNumStr": "周六031",
+                "matchResultStatus": "2",
+                "poolStatus": "",
+                "resultStatus": "",
+                "sectionsNo1": "4:1",
+                "sectionsNo999": "5:1",
+                "winFlag": ""
+            },
+            {
+                "a": "9.00",
+                "allAwayTeam": "兹沃勒",
+                "allHomeTeam": "特温特",
+                "awayTeam": "兹沃勒",
+                "awayTeamId": 537,
+                "bettingSingle": 0,
+                "d": "5.45",
+                "goalLine": "-1",
+                "h": "1.20",
+                "homeTeam": "特温特",
+                "homeTeamId": 254,
+                "leagueBackColor": "FF6699",
+                "leagueId": 17,
+                "leagueName": "荷兰甲级联赛",
+                "leagueNameAbbr": "荷甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036842,
+                "matchNum": "6030",
+                "matchNumStr": "周六030",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "1:1",
+                "winFlag": "D"
+            },
+            {
+                "a": "2.36",
+                "allAwayTeam": "阿斯顿维拉",
+                "allHomeTeam": "托特纳姆热刺",
+                "awayTeam": "维拉",
+                "awayTeamId": 2,
+                "bettingSingle": 1,
+                "d": "3.20",
+                "goalLine": "-1",
+                "h": "2.55",
+                "homeTeam": "热刺",
+                "homeTeamId": 19,
+                "leagueBackColor": "003366",
+                "leagueId": 23,
+                "leagueName": "英格兰足总杯",
+                "leagueNameAbbr": "英足总杯",
+                "matchDate": "2026-01-11",
+                "matchId": 2036841,
+                "matchNum": "6029",
+                "matchNumStr": "周六029",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:2",
+                "sectionsNo999": "1:2",
+                "winFlag": "A"
+            },
+            {
+                "a": "2.87",
+                "allAwayTeam": "奥萨苏纳",
+                "allHomeTeam": "赫罗纳",
+                "awayTeam": "奥萨苏纳",
+                "awayTeamId": 534,
+                "bettingSingle": 0,
+                "d": "2.90",
+                "goalLine": "-1",
+                "h": "2.29",
+                "homeTeam": "赫罗纳",
+                "homeTeamId": 1885,
+                "leagueBackColor": "006633",
+                "leagueId": 62,
+                "leagueName": "西班牙甲级联赛",
+                "leagueNameAbbr": "西甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036840,
+                "matchNum": "6028",
+                "matchNumStr": "周六028",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "1:0",
+                "sectionsNo999": "1:0",
+                "winFlag": "H"
+            },
+            {
+                "a": "2.90",
+                "allAwayTeam": "斯图加特",
+                "allHomeTeam": "勒沃库森",
+                "awayTeam": "斯图加特",
+                "awayTeamId": 152,
+                "bettingSingle": 1,
+                "d": "3.65",
+                "goalLine": "-1",
+                "h": "1.96",
+                "homeTeam": "勒沃库森",
+                "homeTeamId": 146,
+                "leagueBackColor": "990099",
+                "leagueId": 37,
+                "leagueName": "德国甲级联赛",
+                "leagueNameAbbr": "德甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036839,
+                "matchNum": "6027",
+                "matchNumStr": "周六027",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:4",
+                "sectionsNo999": "1:4",
+                "winFlag": "A"
+            },
+            {
+                "a": "1.23",
+                "allAwayTeam": "吉达国民",
+                "allHomeTeam": "奈季兰沟渠",
+                "awayTeam": "吉达国民",
+                "awayTeamId": 1666,
+                "bettingSingle": 0,
+                "d": "4.95",
+                "goalLine": "+2",
+                "h": "8.75",
+                "homeTeam": "奈季沟渠",
+                "homeTeamId": 2065836,
+                "leagueBackColor": "2E7D32",
+                "leagueId": 2068446,
+                "leagueName": "沙特职业联赛",
+                "leagueNameAbbr": "沙职",
+                "matchDate": "2026-01-11",
+                "matchId": 2036838,
+                "matchNum": "6026",
+                "matchNumStr": "周六026",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "0:1",
+                "winFlag": "A"
+            },
+            {
+                "a": "5.70",
+                "allAwayTeam": "萨索洛",
+                "allHomeTeam": "罗马",
+                "awayTeam": "萨索洛",
+                "awayTeamId": 1509,
+                "bettingSingle": 0,
+                "d": "3.50",
+                "goalLine": "-1",
+                "h": "1.50",
+                "homeTeam": "罗马",
+                "homeTeamId": 132,
+                "leagueBackColor": "0066FF",
+                "leagueId": 40,
+                "leagueName": "意大利甲级联赛",
+                "leagueNameAbbr": "意甲",
+                "matchDate": "2026-01-11",
+                "matchId": 2036837,
+                "matchNum": "6025",
+                "matchNumStr": "周六025",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "2:0",
+                "winFlag": "H"
+            },
+            {
+                "a": "1.96",
+                "allAwayTeam": "卡塔尔U23",
+                "allHomeTeam": "叙利亚U23",
+                "awayTeam": "卡塔尔23",
+                "awayTeamId": 1631,
+                "bettingSingle": 0,
+                "d": "3.00",
+                "goalLine": "+1",
+                "h": "3.50",
+                "homeTeam": "叙利亚23",
+                "homeTeamId": 1657,
+                "leagueBackColor": "cc9900",
+                "leagueId": 118,
+                "leagueName": "U23亚洲杯",
+                "leagueNameAbbr": "亚洲杯23",
+                "matchDate": "2026-01-11",
+                "matchId": 2036836,
+                "matchNum": "6024",
+                "matchNumStr": "周六024",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "1:0",
+                "winFlag": "H"
+            },
+            {
+                "a": "2.18",
+                "allAwayTeam": "尼日利亚",
+                "allHomeTeam": "阿尔及利亚",
+                "awayTeam": "尼日利亚",
+                "awayTeamId": 773,
+                "bettingSingle": 0,
+                "d": "2.72",
+                "goalLine": "+1",
+                "h": "3.30",
+                "homeTeam": "阿尔及利",
+                "homeTeamId": 985,
+                "leagueBackColor": "567576",
+                "leagueId": 3,
+                "leagueName": "非洲杯",
+                "leagueNameAbbr": "非洲杯",
+                "matchDate": "2026-01-11",
+                "matchId": 2036835,
+                "matchNum": "6023",
+                "matchNumStr": "周六023",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "0:2",
+                "winFlag": "A"
+            },
+            {
+                "a": "",
+                "allAwayTeam": "福伦丹",
+                "allHomeTeam": "阿尔克马尔",
+                "awayTeam": "福伦丹",
+                "awayTeamId": 514,
+                "bettingSingle": 0,
+                "d": "",
+                "goalLine": "-2",
+                "h": "",
+                "homeTeam": "阿尔克马",
+                "homeTeamId": 241,
+                "leagueBackColor": "FF6699",
+                "leagueId": 17,
+                "leagueName": "荷兰甲级联赛",
+                "leagueNameAbbr": "荷甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036834,
+                "matchNum": "6022",
+                "matchNumStr": "周六022",
+                "matchResultStatus": "2",
+                "poolStatus": "",
+                "resultStatus": "",
+                "sectionsNo1": "1:0",
+                "sectionsNo999": "1:0",
+                "winFlag": ""
+            },
+            {
+                "a": "7.20",
+                "allAwayTeam": "阿拉维斯",
+                "allHomeTeam": "比利亚雷亚尔",
+                "awayTeam": "阿拉维斯",
+                "awayTeamId": 171,
+                "bettingSingle": 0,
+                "d": "4.20",
+                "goalLine": "-1",
+                "h": "1.33",
+                "homeTeam": "比利亚雷",
+                "homeTeamId": 679,
+                "leagueBackColor": "006633",
+                "leagueId": 62,
+                "leagueName": "西班牙甲级联赛",
+                "leagueNameAbbr": "西甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036833,
+                "matchNum": "6021",
+                "matchNumStr": "周六021",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "3:1",
+                "winFlag": "H"
+            },
+            {
+                "a": "3.90",
+                "allAwayTeam": "米德尔斯堡",
+                "allHomeTeam": "富勒姆",
+                "awayTeam": "米堡",
+                "awayTeamId": 14,
+                "bettingSingle": 0,
+                "d": "3.35",
+                "goalLine": "-1",
+                "h": "1.74",
+                "homeTeam": "富勒姆",
+                "homeTeamId": 10,
+                "leagueBackColor": "003366",
+                "leagueId": 23,
+                "leagueName": "英格兰足总杯",
+                "leagueNameAbbr": "英足总杯",
+                "matchDate": "2026-01-10",
+                "matchId": 2036832,
+                "matchNum": "6020",
+                "matchNumStr": "周六020",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:1",
+                "sectionsNo999": "3:1",
+                "winFlag": "H"
+            },
+            {
+                "a": "4.70",
+                "allAwayTeam": "伯恩茅斯",
+                "allHomeTeam": "纽卡斯尔联",
+                "awayTeam": "伯恩茅斯",
+                "awayTeamId": 67,
+                "bettingSingle": 1,
+                "d": "4.25",
+                "goalLine": "-1",
+                "h": "1.47",
+                "homeTeam": "纽卡斯尔",
+                "homeTeamId": 15,
+                "leagueBackColor": "003366",
+                "leagueId": 23,
+                "leagueName": "英格兰足总杯",
+                "leagueNameAbbr": "英足总杯",
+                "matchDate": "2026-01-10",
+                "matchId": 2036831,
+                "matchNum": "6019",
+                "matchNumStr": "周六019",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "2:2",
+                "winFlag": "D"
+            },
+            {
+                "a": "4.70",
+                "allAwayTeam": "米尔沃尔",
+                "allHomeTeam": "伯恩利",
+                "awayTeam": "米尔沃尔",
+                "awayTeamId": 51,
+                "bettingSingle": 0,
+                "d": "3.35",
+                "goalLine": "-1",
+                "h": "1.62",
+                "homeTeam": "伯恩利",
+                "homeTeamId": 42,
+                "leagueBackColor": "003366",
+                "leagueId": 23,
+                "leagueName": "英格兰足总杯",
+                "leagueNameAbbr": "英足总杯",
+                "matchDate": "2026-01-10",
+                "matchId": 2036830,
+                "matchNum": "6018",
+                "matchNumStr": "周六018",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "3:0",
+                "sectionsNo999": "5:1",
+                "winFlag": "H"
+            },
+            {
+                "a": "2.00",
+                "allAwayTeam": "迈季迈阿宽广",
+                "allHomeTeam": "利雅得",
+                "awayTeam": "迈季宽广",
+                "awayTeamId": 1046326,
+                "bettingSingle": 0,
+                "d": "3.10",
+                "goalLine": "+1",
+                "h": "3.26",
+                "homeTeam": "利雅得",
+                "homeTeamId": 2065840,
+                "leagueBackColor": "2E7D32",
+                "leagueId": 2068446,
+                "leagueName": "沙特职业联赛",
+                "leagueNameAbbr": "沙职",
+                "matchDate": "2026-01-10",
+                "matchId": 2036829,
+                "matchNum": "6017",
+                "matchNumStr": "周六017",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:1",
+                "sectionsNo999": "1:1",
+                "winFlag": "D"
+            },
+            {
+                "a": "2.30",
+                "allAwayTeam": "图卢兹",
+                "allHomeTeam": "昂热",
+                "awayTeam": "图卢兹",
+                "awayTeamId": 192,
+                "bettingSingle": 0,
+                "d": "2.95",
+                "goalLine": "+1",
+                "h": "2.83",
+                "homeTeam": "昂热",
+                "homeTeamId": 459,
+                "leagueBackColor": "297CA5",
+                "leagueId": 30,
+                "leagueName": "法国杯",
+                "leagueNameAbbr": "法国杯",
+                "matchDate": "2026-01-10",
+                "matchId": 2036828,
+                "matchNum": "6016",
+                "matchNumStr": "周六016",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "1:1",
+                "winFlag": "D"
+            },
+            {
+                "a": "2.30",
+                "allAwayTeam": "科隆",
+                "allHomeTeam": "海登海姆",
+                "awayTeam": "科隆",
+                "awayTeamId": 166,
+                "bettingSingle": 0,
+                "d": "3.32",
+                "goalLine": "+1",
+                "h": "2.55",
+                "homeTeam": "海登海姆",
+                "homeTeamId": 1587,
+                "leagueBackColor": "990099",
+                "leagueId": 37,
+                "leagueName": "德国甲级联赛",
+                "leagueNameAbbr": "德甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036826,
+                "matchNum": "6014",
+                "matchNumStr": "周六014",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "2:1",
+                "sectionsNo999": "2:2",
+                "winFlag": "D"
+            },
+            {
+                "a": "4.75",
+                "allAwayTeam": "汉堡",
+                "allHomeTeam": "弗赖堡",
+                "awayTeam": "汉堡",
+                "awayTeamId": 142,
+                "bettingSingle": 0,
+                "d": "3.60",
+                "goalLine": "-1",
+                "h": "1.56",
+                "homeTeam": "弗赖堡",
+                "homeTeamId": 141,
+                "leagueBackColor": "990099",
+                "leagueId": 37,
+                "leagueName": "德国甲级联赛",
+                "leagueNameAbbr": "德甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036824,
+                "matchNum": "6012",
+                "matchNumStr": "周六012",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "2:1",
+                "winFlag": "H"
+            },
+            {
+                "a": "3.70",
+                "allAwayTeam": "美因茨",
+                "allHomeTeam": "柏林联合",
+                "awayTeam": "美因茨",
+                "awayTeamId": 147,
+                "bettingSingle": 0,
+                "d": "3.15",
+                "goalLine": "-1",
+                "h": "1.85",
+                "homeTeam": "柏林联合",
+                "homeTeamId": 1270,
+                "leagueBackColor": "990099",
+                "leagueId": 37,
+                "leagueName": "德国甲级联赛",
+                "leagueNameAbbr": "德甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036823,
+                "matchNum": "6011",
+                "matchNumStr": "周六011",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:1",
+                "sectionsNo999": "2:2",
+                "winFlag": "D"
+            },
+            {
+                "a": "4.60",
+                "allAwayTeam": "比萨",
+                "allHomeTeam": "乌迪内斯",
+                "awayTeam": "比萨",
+                "awayTeamId": 2448,
+                "bettingSingle": 0,
+                "d": "3.25",
+                "goalLine": "-1",
+                "h": "1.66",
+                "homeTeam": "乌迪内斯",
+                "homeTeamId": 135,
+                "leagueBackColor": "0066FF",
+                "leagueId": 40,
+                "leagueName": "意大利甲级联赛",
+                "leagueNameAbbr": "意甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036822,
+                "matchNum": "6010",
+                "matchNumStr": "周六010",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "2:1",
+                "sectionsNo999": "2:2",
+                "winFlag": "D"
+            },
+            {
+                "a": "3.91",
+                "allAwayTeam": "博洛尼亚",
+                "allHomeTeam": "科莫",
+                "awayTeam": "博洛尼亚",
+                "awayTeamId": 118,
+                "bettingSingle": 1,
+                "d": "3.00",
+                "goalLine": "-1",
+                "h": "1.85",
+                "homeTeam": "科莫",
+                "homeTeamId": 1040070,
+                "leagueBackColor": "0066FF",
+                "leagueId": 40,
+                "leagueName": "意大利甲级联赛",
+                "leagueNameAbbr": "意甲",
+                "matchDate": "2026-01-10",
+                "matchId": 2036821,
+                "matchNum": "6009",
+                "matchNumStr": "周六009",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:0",
+                "sectionsNo999": "1:1",
+                "winFlag": "D"
+            },
+            {
+                "a": "4.10",
+                "allAwayTeam": "穆拜赖兹征服",
+                "allHomeTeam": "新未来SC",
+                "awayTeam": "穆拜征服",
+                "awayTeamId": 1915,
+                "bettingSingle": 0,
+                "d": "3.85",
+                "goalLine": "-1",
+                "h": "1.60",
+                "homeTeam": "新未来SC",
+                "homeTeamId": 2065842,
+                "leagueBackColor": "2E7D32",
+                "leagueId": 2068446,
+                "leagueName": "沙特职业联赛",
+                "leagueNameAbbr": "沙职",
+                "matchDate": "2026-01-10",
+                "matchId": 2036820,
+                "matchNum": "6008",
+                "matchNumStr": "周六008",
+                "matchResultStatus": "2",
+                "poolStatus": "Payout",
+                "resultStatus": "",
+                "sectionsNo1": "0:1",
+                "sectionsNo999": "0:1",
+                "winFlag": "A"
+            }
+        ],
+        "pageSize": 30,
+        "lastUpdateTime": "2026-01-11 09:45:09"
+    }
+}

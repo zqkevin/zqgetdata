@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" createEmptyFolders="true" filePermissions="420" folderPermissions="493" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
+    <serverData>
+      <paths name="root@192.168.2.18:22 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/pyvenv/getzqdata" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@www.threeq.work:22 key">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/opt/pyobj" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
