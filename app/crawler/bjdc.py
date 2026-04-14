@@ -257,6 +257,9 @@ class BjdcDataCollector:
                         localdb.update(existing_match, close=False)
                         logger.debug(f'更新比赛：{homename} vs {awayname}')
                     
+                    # 4. 提取并保存胜负平赔率
+                    self._save_spf_odds(tr, int(fid))
+                    
                 except Exception as e:
                     logger.error(f'处理比赛失败：{e}')
                     import traceback
@@ -579,6 +582,128 @@ class BjdcDataCollector:
                 continue
         
         logger.info(f'上下单双数据处理完成，更新{upcount}场')
+    
+    def _save_spf_odds(self, tr, match_id):
+        """
+        保存胜负平赔率
+        :param tr: HTML tr 元素
+        :param match_id: 比赛 ID
+        """
+        try:
+            td_list = tr.find_all('td')
+            
+            # 检查是否有足够的 td 元素
+            if len(td_list) < 11:
+                logger.debug(f"胜负平数据列数不足，跳过：match_id={match_id}, cols={len(td_list)}")
+                return
+            
+            # 提取胜负平赔率（td[8], td[9], td[10]）
+            win_odd = self._try_parse_float(td_list[8].text.strip())
+            draw_odd = self._try_parse_float(td_list[9].text.strip())
+            lose_odd = self._try_parse_float(td_list[10].text.strip())
+            
+            # 如果赔率为空，跳过
+            if not all([win_odd, draw_odd, lose_odd]):
+                logger.debug(f"胜负平赔率不完整，跳过：match_id={match_id}")
+                return
+            
+            # 查询比赛是否存在
+            match = localdb.query(BjdcMatch).filter_by(match_id=match_id).first()
+            if not match:
+                logger.debug(f"未找到比赛，跳过胜负平赔率更新：match_id={match_id}")
+                return
+            
+            # 检查是否已有赔率记录
+            existing_odds = localdb.query(BjdcSpfOdds).filter_by(match_id=match_id).first()
+            
+            if not existing_odds:
+                # 新增赔率记录
+                new_odds = BjdcSpfOdds(
+                    match_id=match_id,
+                    win_pl=win_odd,
+                    draw_pl=draw_odd,
+                    lose_pl=lose_odd
+                )
+                localdb.add(new_odds, close=False)
+                logger.info(f'新增胜负平赔率：match_id={match_id}, 主胜={win_odd}, 平={draw_odd}, 客胜={lose_odd}')
+            else:
+                # 记录赔率变化（如果需要）
+                self._log_odds_change(
+                    match_id=match_id,
+                    odds_table='bjdc_spf_odds',
+                    odds_record_id=existing_odds.id,
+                    new_data={
+                        'win_pl': win_odd,
+                        'draw_pl': draw_odd,
+                        'lose_pl': lose_odd
+                    },
+                    fields=['win_pl', 'draw_pl', 'lose_pl']
+                )
+                
+                # 更新现有赔率记录
+                existing_odds.win_pl = win_odd
+                existing_odds.draw_pl = draw_odd
+                existing_odds.lose_pl = lose_odd
+                localdb.update(existing_odds, close=False)
+                logger.debug(f'更新胜负平赔率：match_id={match_id}')
+                
+        except Exception as e:
+            logger.error(f'处理胜负平赔率失败：{e}')
+            import traceback
+            logger.error(traceback.format_exc())
+    
+    def _log_odds_change(self, match_id, odds_table, odds_record_id, new_data, fields):
+        """
+        记录赔率变化日志（带阈值判断）
+        
+        Args:
+            match_id: 比赛ID
+            odds_table: 赔率表名 (如 bjdc_spf_odds)
+            odds_record_id: 赔率记录ID
+            new_data: 新数据字典
+            fields: 需要检查变化的字段列表
+        """
+        from app.database import BjdcOddsChangeLog
+        from datetime import datetime
+        from app.common._utils import should_log_odds_change
+        
+        try:
+            for field in fields:
+                if field not in new_data:
+                    continue
+                
+                new_value = new_data[field]
+                
+                # 使用通用函数判断是否应该记录
+                should_log, current_value, diff = should_log_odds_change(
+                    odds_record_id=odds_record_id,
+                    field_name=field,
+                    new_value=float(new_value),
+                    odds_table=odds_table,
+                    sport_type='bjdc',  # 北京单场
+                    threshold=0.05  # 波动阈值 ±0.05
+                )
+                
+                if should_log:
+                    change_log = BjdcOddsChangeLog(
+                        match_id=match_id,
+                        odds_table=odds_table,
+                        odds_record_id=odds_record_id,
+                        odds_field=field,
+                        old_value=float(current_value) if current_value != 0.0 else 0.0,
+                        new_value=float(new_value),
+                        change_time=datetime.now()
+                    )
+                    localdb.add(change_log, close=False)
+                    logger.info(f"✓ 记录北单赔率变化: {odds_table}.{field} "
+                              f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+                else:
+                    logger.debug(f"⊘ 忽略北单小幅波动: {odds_table}.{field} "
+                               f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+        except Exception as e:
+            logger.error(f"记录北单赔率变化失败: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
     
     def collect_matches(self) -> bool:
         """采集北京单场比赛数据"""
