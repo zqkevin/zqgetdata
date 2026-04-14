@@ -12341,3 +12341,145 @@ AttributeError: 'mydb' object has no attribute 'commit'
 2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a4
 2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a5
 2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a6
+2026-04-14 22:15:44 - tczq_data - INFO - 开始获取并保存体彩足球比赛结果...
+2026-04-14 22:15:44 - tczq_data - INFO - 开始获取体彩足球比赛结果...
+2026-04-14 22:15:44 - tczq_data - ERROR - 获取比赛结果失败：'SportteryAPI' object has no attribute 'get_football_match_results'
+2026-04-14 22:15:44 - tczq_data - WARNING - 没有获取到比赛结果
+2026-04-14 22:15:55 - tczq_data - INFO - 开始获取并保存体彩足球比赛结果...
+2026-04-14 22:15:55 - tczq_data - INFO - 开始获取体彩足球比赛结果...
+2026-04-14 22:15:55 - tczq_data - ERROR - 获取比赛结果失败：'SportteryAPI' object has no attribute 'get_football_match_results'
+2026-04-14 22:15:55 - tczq_data - WARNING - 没有获取到比赛结果
+2026-04-14 22:16:35 - tczq_data - INFO - 开始获取并保存体彩足球比赛结果...
+2026-04-14 22:16:35 - tczq_data - INFO - 开始获取体彩足球比赛结果...
+2026-04-14 22:16:36 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-14 22:16:37 - tczq_data - INFO - 成功获取 113 条比赛结果
+2026-04-14 22:16:37 - tczq_data - INFO - 成功获取 113 条比赛结果
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - ERROR - 保存赛果失败 (match_id=None): 'matchId' is an invalid keyword argument for TczqMatchResult
+2026-04-14 22:16:37 - tczq_data - INFO - 成功保存 0 条赛果记录
+2026-04-14 22:18:03 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-14 22:19:01 - tczq_data - INFO - 开始获取并保存体彩足球比赛结果...
+2026-04-14 22:19:01 - tczq_data - INFO - 开始获取体彩足球比赛结果...
+2026-04-14 22:19:02 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-14 22:19:02 - tczq_data - INFO - 成功获取 113 条比赛结果
+2026-04-14 22:19:02 - tczq_data - INFO - 成功获取 113 条比赛结果
+2026-04-14 22:19:05 - tczq_data - INFO - 成功保存 113 条赛果记录
+2026-04-14 22:19:23 - tczq_data - INFO - 开始获取并保存体彩足球比赛结果...
+2026-04-14 22:19:23 - tczq_data - INFO - 开始获取体彩足球比赛结果...
+2026-04-14 22:19:24 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-14 22:19:24 - tczq_data - INFO - 成功获取 113 条比赛结果
+2026-04-14 22:19:24 - tczq_data - INFO - 成功获取 113 条比赛结果
+2026-04-14 22:19:27 - tczq_data - INFO - 成功保存 113 条赛果记录
+2026-04-14 22:21:22 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-14 22:21:54 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页

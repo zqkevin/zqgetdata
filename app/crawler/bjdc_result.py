@@ -108,24 +108,32 @@ class BjdcResultCollector:
                 # 检查是否已存在赛果记录
                 existing_result = localdb.query(BjdcMatchResult).filter_by(match_id=match_id).first()
                 
+                # 转换 API 字段名为数据库字段名
+                db_result_data = {}
+                for key, value in result_data.items():
+                    db_key = self._convert_api_field_to_db(key)
+                    # 特殊字段映射
+                    field_mapping = {
+                        'home_score': 'home_team_goals',
+                        'away_score': 'away_team_goals',
+                        'half_home_score': 'half_time_home_goals',
+                        'half_away_score': 'half_time_away_goals'
+                    }
+                    if db_key in field_mapping:
+                        db_key = field_mapping[db_key]
+                    
+                    if hasattr(BjdcMatchResult, db_key):
+                        db_result_data[db_key] = value
+                
                 if existing_result:
                     # 更新现有记录
-                    for key, value in result_data.items():
-                        # 将 API 字段名转换为数据库字段名
-                        db_key = self._convert_api_field_to_db(key)
-                        if hasattr(existing_result, db_key):
-                            setattr(existing_result, db_key, value)
+                    for key, value in db_result_data.items():
+                        setattr(existing_result, key, value)
                     localdb.update(existing_result, close=False)
                     logger.debug(f"更新赛果：match_id={match_id}")
                 else:
-                    # 创建新记录 - 先转换字段名
-                    db_result_data = {}
-                    for key, value in result_data.items():
-                        db_key = self._convert_api_field_to_db(key)
-                        if hasattr(BjdcMatchResult, db_key):
-                            db_result_data[db_key] = value
-                    
-                    if db_result_data:  # 只有有有效字段才创建
+                    # 创建新记录
+                    if db_result_data:
                         new_result = BjdcMatchResult(**db_result_data)
                         localdb.add(new_result, close=False)
                         logger.debug(f"新增赛果：match_id={match_id}")
