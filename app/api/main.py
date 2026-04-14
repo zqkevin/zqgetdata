@@ -10,10 +10,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 import datetime
 
-from app.database import localdb
-from app.database.tczq_models import TczqMatch
-from app.database.tcbk_models import TcbkMatch
-from app.database.digital_lottery_models import DigitalLotteryDrawResult
+from app.database import localdb, TczqMatch, TcbkMatch, DigitalLotteryDraw
 
 # 创建FastAPI应用实例
 app = FastAPI(
@@ -180,22 +177,22 @@ async def get_digital_lottery(
     获取数字彩票开奖结果
     """
     try:
-        query = localdb.query(DigitalLotteryDrawResult)
+        query = localdb.query(DigitalLotteryDraw)
         
         # 筛选条件
         if lottery_id:
-            query = query.filter(DigitalLotteryDrawResult.lottery_id == lottery_id)
+            query = query.filter(DigitalLotteryDraw.lottery_code == lottery_id)
         
         if start_date:
             start = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
-            query = query.filter(DigitalLotteryDrawResult.draw_date >= start)
+            query = query.filter(DigitalLotteryDraw.draw_time >= start)
         
         if end_date:
             end = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()
-            query = query.filter(DigitalLotteryDrawResult.draw_date <= end)
+            query = query.filter(DigitalLotteryDraw.draw_time <= end)
         
         # 按日期倒序排序
-        query = query.order_by(DigitalLotteryDrawResult.draw_date.desc())
+        query = query.order_by(DigitalLotteryDraw.draw_time.desc())
         
         # 分页
         total = query.count()
@@ -230,19 +227,20 @@ async def get_lottery_result(
     获取指定彩票的最新开奖结果
     """
     try:
-        query = localdb.query(DigitalLotteryDrawResult)
-        query = query.filter(DigitalLotteryDrawResult.lottery_id == lottery_id)
+        query = localdb.query(DigitalLotteryDraw)
+        query = query.filter(DigitalLotteryDraw.lottery_code == lottery_id)
         
         # 筛选条件
         if draw_number:
-            query = query.filter(DigitalLotteryDrawResult.draw_number == draw_number)
+            query = query.filter(DigitalLotteryDraw.draw_num == draw_number)
         
         if draw_date:
             draw_date_obj = datetime.datetime.strptime(draw_date, "%Y-%m-%d").date()
-            query = query.filter(DigitalLotteryDrawResult.draw_date == draw_date_obj)
+            query = query.filter(DigitalLotteryDraw.draw_time >= draw_date_obj)
+            query = query.filter(DigitalLotteryDraw.draw_time < draw_date_obj + datetime.timedelta(days=1))
         
         # 按日期倒序排序，取最新结果
-        query = query.order_by(DigitalLotteryDrawResult.draw_date.desc(), DigitalLotteryDrawResult.draw_number.desc())
+        query = query.order_by(DigitalLotteryDraw.draw_time.desc(), DigitalLotteryDraw.draw_num.desc())
         result = query.first()
         
         if not result:

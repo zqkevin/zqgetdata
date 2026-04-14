@@ -17,8 +17,8 @@ config = {
     'local': {
         'host': '127.0.0.1',
         'port': 3306,
-        'user': 'soccer_data',
-        'password': 'pety93033',
+        'user': 'soccer',
+        'password': '123456',
         'database': 'soccer_data'
     }
 }

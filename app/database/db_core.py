@@ -250,6 +250,21 @@ class mydb():
         if self.session:
             self.session.close()
             self.session = None
+    
+    def commit(self):
+        """
+        提交当前事务
+        """
+        try:
+            if self.session and self.session.is_active:
+                self.session.commit()
+        except Exception as e:
+            if self.session:
+                try:
+                    self.session.rollback()
+                except:
+                    pass
+            raise e
 
 
 # 不再创建全局数据库实例，用户需要在使用时动态创建

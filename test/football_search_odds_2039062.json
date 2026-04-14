@@ -1,0 +1,371 @@
+{
+  "winNum": 4,
+  "a": "2.05",
+  "dRate": "28.57",
+  "d": "3.40",
+  "matchList": [
+    {
+      "awayTeamAbbName": "鹿岛鹿角",
+      "awayTeamAllName": "鹿岛鹿角",
+      "awayTeamId": 551,
+      "backColor": "009900",
+      "homeTeamAbbName": "川崎前锋",
+      "homeTeamAllName": "川崎前锋",
+      "homeTeamId": 553,
+      "leagueId": 42,
+      "leaguesAbbName": "日职",
+      "leaguesAllName": "日本职业联赛",
+      "matchId": 2039033,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "A",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2026-04-12 14:15:54",
+          "status": 3
+        }
+      ],
+      "sectionsNo999": "0:2",
+      "single": 1
+    },
+    {
+      "awayTeamAbbName": "凯泽",
+      "awayTeamAllName": "凯泽斯劳滕",
+      "awayTeamId": 145,
+      "backColor": "DB31EE",
+      "homeTeamAbbName": "不伦瑞克",
+      "homeTeamAllName": "不伦瑞克",
+      "homeTeamId": 163,
+      "leagueId": 34,
+      "leaguesAbbName": "德乙",
+      "leaguesAllName": "德国乙级联赛",
+      "matchId": 2035520,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "H",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-11-29 19:12:38",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "2:0",
+      "single": 1
+    },
+    {
+      "awayTeamAbbName": "里昂",
+      "awayTeamAllName": "里昂",
+      "awayTeamId": 181,
+      "backColor": "6B2B2B",
+      "homeTeamAbbName": "布雷斯特",
+      "homeTeamAllName": "布雷斯特",
+      "homeTeamId": 204,
+      "leagueId": 32,
+      "leaguesAbbName": "法甲",
+      "leaguesAllName": "法国甲级联赛",
+      "matchId": 2034675,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "D",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-11-02 15:59:34",
+          "status": 3
+        }
+      ],
+      "sectionsNo999": "0:0",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "基尔",
+      "awayTeamAllName": "基尔",
+      "awayTeamId": 697,
+      "backColor": "DB31EE",
+      "homeTeamAbbName": "明斯特",
+      "homeTeamAllName": "明斯特普鲁士",
+      "homeTeamId": 1718,
+      "leagueId": 34,
+      "leaguesAbbName": "德乙",
+      "leaguesAllName": "德国乙级联赛",
+      "matchId": 2034560,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "H",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-10-31 10:45:37",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "2:1",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "库奥皮奥",
+      "awayTeamAllName": "库奥皮奥",
+      "awayTeamId": 586,
+      "backColor": "0057B7",
+      "homeTeamAbbName": "塞伊奈",
+      "homeTeamAllName": "塞伊奈约基",
+      "homeTeamId": 2348,
+      "leagueId": 2064839,
+      "leaguesAbbName": "芬超",
+      "leaguesAllName": "芬兰超级联赛",
+      "matchId": 2034419,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "A",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-10-27 21:30:36",
+          "status": 3
+        }
+      ],
+      "sectionsNo999": "0:1",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "莱加内斯",
+      "awayTeamAllName": "莱加内斯",
+      "awayTeamId": 2242,
+      "backColor": "006633",
+      "homeTeamAbbName": "拉帕马斯",
+      "homeTeamAllName": "拉斯帕尔马斯",
+      "homeTeamId": 1035,
+      "leagueId": 62,
+      "leaguesAbbName": "西甲",
+      "leaguesAllName": "西班牙甲级联赛",
+      "matchId": 2031810,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "A",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-05-18 17:36:55",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "0:1",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "勒沃库森",
+      "awayTeamAllName": "勒沃库森",
+      "awayTeamId": 146,
+      "backColor": "990099",
+      "homeTeamAbbName": "斯图加特",
+      "homeTeamAllName": "斯图加特",
+      "homeTeamId": 152,
+      "leagueId": 37,
+      "leaguesAbbName": "德甲",
+      "leaguesAllName": "德国甲级联赛",
+      "matchId": 2030537,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "A",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-03-16 22:25:16",
+          "status": 3
+        }
+      ],
+      "sectionsNo999": "3:4",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "法兰克福",
+      "awayTeamAllName": "法兰克福",
+      "awayTeamId": 170,
+      "backColor": "990099",
+      "homeTeamAbbName": "波鸿",
+      "homeTeamAllName": "波鸿",
+      "homeTeamId": 139,
+      "leagueId": 37,
+      "leaguesAbbName": "德甲",
+      "leaguesAllName": "德国甲级联赛",
+      "matchId": 2030522,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "A",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-03-16 14:11:41",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "1:3",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "拜仁",
+      "awayTeamAllName": "拜仁慕尼黑",
+      "awayTeamId": 137,
+      "backColor": "990099",
+      "homeTeamAbbName": "勒沃库森",
+      "homeTeamAllName": "勒沃库森",
+      "homeTeamId": 146,
+      "leagueId": 37,
+      "leaguesAbbName": "德甲",
+      "leaguesAllName": "德国甲级联赛",
+      "matchId": 1029912,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "D",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2025-02-15 13:14:56",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "0:0",
+      "single": 1
+    },
+    {
+      "awayTeamAbbName": "法兰克福",
+      "awayTeamAllName": "法兰克福",
+      "awayTeamId": 170,
+      "backColor": "CC9933",
+      "homeTeamAbbName": "中日德兰",
+      "homeTeamAllName": "中日德兰",
+      "homeTeamId": 709,
+      "leagueId": 70,
+      "leaguesAbbName": "欧罗巴",
+      "leaguesAllName": "欧罗巴联赛",
+      "matchId": 1028213,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "A",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2024-11-28 14:21:53",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "1:2",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "沃特福德",
+      "awayTeamAllName": "沃特福德",
+      "awayTeamId": 61,
+      "backColor": "CC3300",
+      "homeTeamAbbName": "普利茅斯",
+      "homeTeamAllName": "普利茅斯",
+      "homeTeamId": 53,
+      "leagueId": 20,
+      "leaguesAbbName": "英冠",
+      "leaguesAllName": "英格兰冠军联赛",
+      "matchId": 1028047,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "D",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2024-11-21 09:18:41",
+          "status": 1
+        }
+      ],
+      "sectionsNo999": "2:2",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "上海申花",
+      "awayTeamAllName": "上海申花",
+      "awayTeamId": 958,
+      "backColor": "336600",
+      "homeTeamAbbName": "中央海岸",
+      "homeTeamAllName": "中央海岸水手",
+      "homeTeamId": 1135,
+      "leagueId": 1,
+      "leaguesAbbName": "亚冠精英",
+      "leaguesAllName": "亚洲冠军精英联赛",
+      "matchId": 1027744,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "D",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2024-11-05 13:10:00",
+          "status": 2
+        },
+        {
+          "a": "2.05",
+          "combination": "D",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2024-11-05 14:41:19",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "2:2",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "川崎前锋",
+      "awayTeamAllName": "川崎前锋",
+      "awayTeamId": 553,
+      "backColor": "336600",
+      "homeTeamAbbName": "上海申花",
+      "homeTeamAllName": "上海申花",
+      "homeTeamId": 958,
+      "leagueId": 1,
+      "leaguesAbbName": "亚冠精英",
+      "leaguesAllName": "亚洲冠军精英联赛",
+      "matchId": 1027461,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "H",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2024-10-23 18:40:21",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "2:0",
+      "single": 0
+    },
+    {
+      "awayTeamAbbName": "伯恩茅斯",
+      "awayTeamAllName": "伯恩茅斯",
+      "awayTeamId": 67,
+      "backColor": "FF3333",
+      "homeTeamAbbName": "莱切斯特",
+      "homeTeamAllName": "莱切斯特城",
+      "homeTeamId": 50,
+      "leagueId": 25,
+      "leaguesAbbName": "英超",
+      "leaguesAllName": "英格兰超级联赛",
+      "matchId": 1027244,
+      "odds": [
+        {
+          "a": "2.05",
+          "combination": "H",
+          "d": "3.40",
+          "h": "2.88",
+          "matchDate": "2024-10-05 12:44:24",
+          "status": 2
+        }
+      ],
+      "sectionsNo999": "1:0",
+      "single": 0
+    }
+  ],
+  "drawNum": 4,
+  "hRate": "28.57",
+  "h": "2.88",
+  "aRate": "42.86",
+  "loseNum": 6
+}

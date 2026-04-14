@@ -1,0 +1,6078 @@
+[
+  {
+    "team_id": 97985,
+    "team_code": "97985",
+    "team_full_name": "A F S",
+    "team_short_name": "A F S",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54206,
+    "team_code": "54206",
+    "team_full_name": "AC奥卢",
+    "team_short_name": "AC奥卢",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3682,
+    "team_code": "3682",
+    "team_full_name": "AC米兰",
+    "team_short_name": "AC米兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 32623,
+    "team_code": "32623",
+    "team_full_name": "AFC伯恩茅斯",
+    "team_short_name": "AFC伯恩茅斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61620,
+    "team_code": "61620",
+    "team_full_name": "AFC温布尔登",
+    "team_short_name": "AFC温布尔登",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59610,
+    "team_code": "59610",
+    "team_full_name": "AIK索尔纳",
+    "team_short_name": "AIK索尔纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76264,
+    "team_code": "76264",
+    "team_full_name": "B 93",
+    "team_short_name": "B 93",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82863,
+    "team_code": "82863",
+    "team_full_name": "CD费伦斯",
+    "team_short_name": "CD费伦斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96405,
+    "team_code": "96405",
+    "team_full_name": "CF蒙特利尔",
+    "team_short_name": "CF蒙特利尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 19723,
+    "team_code": "19723",
+    "team_full_name": "CS克拉约瓦大学",
+    "team_short_name": "CS克拉约瓦大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21288,
+    "team_code": "21288",
+    "team_full_name": "EIF埃克奈斯",
+    "team_short_name": "EIF埃克奈斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20505,
+    "team_code": "20505",
+    "team_full_name": "FAC维也纳",
+    "team_short_name": "FAC维也纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59914,
+    "team_code": "FC东",
+    "team_full_name": "FC东京",
+    "team_short_name": "FC东",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99000,
+    "team_code": "99000",
+    "team_full_name": "FC埃因霍温",
+    "team_short_name": "FC埃因霍温",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91531,
+    "team_code": "91531",
+    "team_full_name": "FC安养",
+    "team_short_name": "FC安养",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22330,
+    "team_code": "FC安",
+    "team_full_name": "FC安道尔",
+    "team_short_name": "FC安",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 74277,
+    "team_code": "74277",
+    "team_full_name": "FC辛辛那提",
+    "team_short_name": "FC辛辛那提",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60348,
+    "team_code": "60348",
+    "team_full_name": "FC达拉斯",
+    "team_short_name": "FC达拉斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31236,
+    "team_code": "31236",
+    "team_full_name": "FC首尔",
+    "team_short_name": "FC首尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24714,
+    "team_code": "24714",
+    "team_full_name": "FH哈夫纳夫约杜尔",
+    "team_short_name": "FH哈夫纳夫约杜尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 83479,
+    "team_code": "83479",
+    "team_full_name": "HB克厄",
+    "team_short_name": "HB克厄",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33464,
+    "team_code": "33464",
+    "team_full_name": "IA阿克拉内斯",
+    "team_short_name": "IA阿克拉内斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49464,
+    "team_code": "49464",
+    "team_full_name": "IBV韦斯特曼纳",
+    "team_short_name": "IBV韦斯特曼纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45707,
+    "team_code": "45707",
+    "team_full_name": "KA阿克雷里",
+    "team_short_name": "KA阿克雷里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77500,
+    "team_code": "77500",
+    "team_full_name": "KFUM奥斯陆",
+    "team_short_name": "KFUM奥斯陆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89066,
+    "team_code": "89066",
+    "team_full_name": "KR雷克雅未克",
+    "team_short_name": "KR雷克雅未克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54181,
+    "team_code": "KTP",
+    "team_full_name": "KTP科特卡",
+    "team_short_name": "KTP",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28924,
+    "team_code": "28924",
+    "team_full_name": "LASK林茨",
+    "team_short_name": "LASK林茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15364,
+    "team_code": "15364",
+    "team_full_name": "MP米凯利",
+    "team_short_name": "MP米凯利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27887,
+    "team_code": "27887",
+    "team_full_name": "PK-35",
+    "team_short_name": "PK-35",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 79055,
+    "team_code": "79055",
+    "team_full_name": "PSV埃因霍温",
+    "team_short_name": "PSV埃因霍温",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 72434,
+    "team_code": "72434",
+    "team_full_name": "PSV埃因霍温青年",
+    "team_short_name": "PSV埃因霍温青年",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58229,
+    "team_code": "58229",
+    "team_full_name": "RB莱比锡",
+    "team_short_name": "RB莱比锡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12811,
+    "team_code": "12811",
+    "team_full_name": "RFC列日",
+    "team_short_name": "RFC列日",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87748,
+    "team_code": "87748",
+    "team_full_name": "SC法伦斯",
+    "team_short_name": "SC法伦斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25450,
+    "team_code": "25450",
+    "team_full_name": "TPS图尔库",
+    "team_short_name": "TPS图尔库",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3285,
+    "team_code": "3285",
+    "team_full_name": "UTA阿拉德",
+    "team_short_name": "UTA阿拉德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16791,
+    "team_code": "16791",
+    "team_full_name": "WSG蒂罗尔",
+    "team_short_name": "WSG蒂罗尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84646,
+    "team_code": "84646",
+    "team_full_name": "不伦瑞克",
+    "team_short_name": "不伦瑞克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23101,
+    "team_code": "23101",
+    "team_full_name": "东京绿茵",
+    "team_short_name": "东京绿茵",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24906,
+    "team_code": "中国",
+    "team_full_name": "中国",
+    "team_short_name": "中国",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73215,
+    "team_code": "73215",
+    "team_full_name": "中央海岸水手",
+    "team_short_name": "中央海岸水手",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3296,
+    "team_code": "3296",
+    "team_full_name": "中日德兰",
+    "team_short_name": "中日德兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 83575,
+    "team_code": "丹麦",
+    "team_full_name": "丹麦",
+    "team_short_name": "丹麦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39046,
+    "team_code": "丹麦U",
+    "team_full_name": "丹麦U21",
+    "team_short_name": "丹麦U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36600,
+    "team_code": "36600",
+    "team_full_name": "乌德勒支",
+    "team_short_name": "乌德勒支",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40886,
+    "team_code": "40886",
+    "team_full_name": "乌迪内斯",
+    "team_short_name": "乌迪内斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55031,
+    "team_code": "55031",
+    "team_full_name": "乔治罗尼亚",
+    "team_short_name": "乔治罗尼亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 74069,
+    "team_code": "74069",
+    "team_full_name": "云达不来梅",
+    "team_short_name": "云达不来梅",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50284,
+    "team_code": "50284",
+    "team_full_name": "亚布洛内茨",
+    "team_short_name": "亚布洛内茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49526,
+    "team_code": "49526",
+    "team_full_name": "亚特兰大",
+    "team_short_name": "亚特兰大",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93033,
+    "team_code": "93033",
+    "team_full_name": "亚特兰大联",
+    "team_short_name": "亚特兰大联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41152,
+    "team_code": "41152",
+    "team_full_name": "亚眠",
+    "team_short_name": "亚眠",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38122,
+    "team_code": "亚美尼",
+    "team_full_name": "亚美尼亚U21",
+    "team_short_name": "亚美尼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76075,
+    "team_code": "76075",
+    "team_full_name": "亨克",
+    "team_short_name": "亨克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29284,
+    "team_code": "29284",
+    "team_full_name": "亨克预备队",
+    "team_short_name": "亨克预备队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9460,
+    "team_code": "9460",
+    "team_full_name": "京都不死鸟",
+    "team_short_name": "京都不死鸟",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50549,
+    "team_code": "50549",
+    "team_full_name": "什切青波贡",
+    "team_short_name": "什切青波贡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93861,
+    "team_code": "93861",
+    "team_full_name": "什鲁斯伯里",
+    "team_short_name": "什鲁斯伯里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56769,
+    "team_code": "56769",
+    "team_full_name": "仁川联",
+    "team_short_name": "仁川联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53708,
+    "team_code": "53708",
+    "team_full_name": "代格福什",
+    "team_short_name": "代格福什",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15425,
+    "team_code": "15425",
+    "team_full_name": "伊尔维斯",
+    "team_short_name": "伊尔维斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73017,
+    "team_code": "伊拉克",
+    "team_full_name": "伊拉克",
+    "team_short_name": "伊拉克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54426,
+    "team_code": "54426",
+    "team_full_name": "伊普斯维奇",
+    "team_short_name": "伊普斯维奇",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95648,
+    "team_code": "95648",
+    "team_full_name": "伊韦尔东体育",
+    "team_short_name": "伊韦尔东体育",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95671,
+    "team_code": "95671",
+    "team_full_name": "休斯敦迪纳摩",
+    "team_short_name": "休斯敦迪纳摩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23902,
+    "team_code": "休达",
+    "team_full_name": "休达",
+    "team_short_name": "休达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6237,
+    "team_code": "6237",
+    "team_full_name": "伯尔尼年轻人",
+    "team_short_name": "伯尔尼年轻人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99342,
+    "team_code": "99342",
+    "team_full_name": "伯明翰",
+    "team_short_name": "伯明翰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69346,
+    "team_code": "69346",
+    "team_full_name": "伯顿",
+    "team_short_name": "伯顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77846,
+    "team_code": "77846",
+    "team_full_name": "佐加顿斯",
+    "team_short_name": "佐加顿斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95847,
+    "team_code": "95847",
+    "team_full_name": "佛罗伦萨",
+    "team_short_name": "佛罗伦萨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81063,
+    "team_code": "81063",
+    "team_full_name": "佩斯卡拉",
+    "team_short_name": "佩斯卡拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 67162,
+    "team_code": "67162",
+    "team_full_name": "佩特罗鲁",
+    "team_short_name": "佩特罗鲁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44803,
+    "team_code": "44803",
+    "team_full_name": "佩纳菲耶尔",
+    "team_short_name": "佩纳菲耶尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81418,
+    "team_code": "81418",
+    "team_full_name": "俄斯特拉发",
+    "team_short_name": "俄斯特拉发",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10721,
+    "team_code": "保加利",
+    "team_full_name": "保加利亚U21",
+    "team_short_name": "保加利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40835,
+    "team_code": "40835",
+    "team_full_name": "光州FC",
+    "team_short_name": "光州FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89392,
+    "team_code": "89392",
+    "team_full_name": "克劳利",
+    "team_short_name": "克劳利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 72207,
+    "team_code": "72207",
+    "team_full_name": "克卢日",
+    "team_short_name": "克卢日",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30639,
+    "team_code": "30639",
+    "team_full_name": "克卢日大学",
+    "team_short_name": "克卢日大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56789,
+    "team_code": "56789",
+    "team_full_name": "克拉科维亚",
+    "team_short_name": "克拉科维亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69849,
+    "team_code": "克罗地",
+    "team_full_name": "克罗地亚U21",
+    "team_short_name": "克罗地",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 64074,
+    "team_code": "64074",
+    "team_full_name": "克莱蒙",
+    "team_short_name": "克莱蒙",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77872,
+    "team_code": "77872",
+    "team_full_name": "克里斯蒂安松",
+    "team_short_name": "克里斯蒂安松",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92979,
+    "team_code": "克里西",
+    "team_full_name": "克里西乌马",
+    "team_short_name": "克里西",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 67292,
+    "team_code": "67292",
+    "team_full_name": "克雷塔罗",
+    "team_short_name": "克雷塔罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 35218,
+    "team_code": "35218",
+    "team_full_name": "克雷莫纳",
+    "team_short_name": "克雷莫纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 35825,
+    "team_code": "35825",
+    "team_full_name": "克鲁",
+    "team_short_name": "克鲁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93542,
+    "team_code": "93542",
+    "team_full_name": "全北现代",
+    "team_short_name": "全北现代",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70579,
+    "team_code": "70579",
+    "team_full_name": "全南天龙",
+    "team_short_name": "全南天龙",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96370,
+    "team_code": "96370",
+    "team_full_name": "兰斯",
+    "team_short_name": "兰斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10692,
+    "team_code": "10692",
+    "team_full_name": "兰斯克鲁纳",
+    "team_short_name": "兰斯克鲁纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93463,
+    "team_code": "93463",
+    "team_full_name": "兰讷斯",
+    "team_short_name": "兰讷斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66387,
+    "team_code": "66387",
+    "team_full_name": "兰黑姆",
+    "team_short_name": "兰黑姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21117,
+    "team_code": "21117",
+    "team_full_name": "兹林",
+    "team_short_name": "兹林",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30627,
+    "team_code": "30627",
+    "team_full_name": "兹沃勒",
+    "team_short_name": "兹沃勒",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41106,
+    "team_code": "41106",
+    "team_full_name": "内卡萨",
+    "team_short_name": "内卡萨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52773,
+    "team_code": "52773",
+    "team_full_name": "冈山绿雉",
+    "team_short_name": "冈山绿雉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77225,
+    "team_code": "77225",
+    "team_full_name": "凯夫拉维克",
+    "team_short_name": "凯夫拉维克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11380,
+    "team_code": "11380",
+    "team_full_name": "凯尔特人",
+    "team_short_name": "凯尔特人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77211,
+    "team_code": "77211",
+    "team_full_name": "凯尔采科罗纳",
+    "team_short_name": "凯尔采科罗纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29830,
+    "team_code": "29830",
+    "team_full_name": "凯泽斯劳滕",
+    "team_short_name": "凯泽斯劳滕",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 74345,
+    "team_code": "74345",
+    "team_full_name": "凯里",
+    "team_short_name": "凯里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4178,
+    "team_code": "4178",
+    "team_full_name": "切塞纳",
+    "team_short_name": "切塞纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 71384,
+    "team_code": "71384",
+    "team_full_name": "切尔滕汉姆",
+    "team_short_name": "切尔滕汉姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70566,
+    "team_code": "70566",
+    "team_full_name": "切尔西",
+    "team_short_name": "切尔西",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55226,
+    "team_code": "55226",
+    "team_full_name": "切斯特菲尔德",
+    "team_short_name": "切斯特菲尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 71341,
+    "team_code": "71341",
+    "team_full_name": "列夫林",
+    "team_short_name": "列夫林",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60579,
+    "team_code": "60579",
+    "team_full_name": "列斯特拉体育",
+    "team_short_name": "列斯特拉体育",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90694,
+    "team_code": "刚果金",
+    "team_full_name": "刚果金",
+    "team_short_name": "刚果金",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58854,
+    "team_code": "58854",
+    "team_full_name": "利兹联",
+    "team_short_name": "利兹联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 88362,
+    "team_code": "88362",
+    "team_full_name": "利勒斯特伦",
+    "team_short_name": "利勒斯特伦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76439,
+    "team_code": "76439",
+    "team_full_name": "利尔斯",
+    "team_short_name": "利尔斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85699,
+    "team_code": "85699",
+    "team_full_name": "利恩",
+    "team_short_name": "利恩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93330,
+    "team_code": "93330",
+    "team_full_name": "利文斯顿",
+    "team_short_name": "利文斯顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26086,
+    "team_code": "26086",
+    "team_full_name": "利物浦",
+    "team_short_name": "利物浦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 71035,
+    "team_code": "ASH",
+    "team_full_name": "利雅得青年",
+    "team_short_name": "利雅青年",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40998,
+    "team_code": "40998",
+    "team_full_name": "利马体育大学",
+    "team_short_name": "利马体育大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82808,
+    "team_code": "82808",
+    "team_full_name": "利马切",
+    "team_short_name": "利马切",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77740,
+    "team_code": "77740",
+    "team_full_name": "前进之鹰",
+    "team_short_name": "前进之鹰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85855,
+    "team_code": "剑桥联",
+    "team_full_name": "剑桥联",
+    "team_short_name": "剑桥联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3867,
+    "team_code": "3867",
+    "team_full_name": "加尔斯",
+    "team_short_name": "加尔斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5838,
+    "team_code": "5838",
+    "team_full_name": "加拉茨钢铁",
+    "team_short_name": "加拉茨钢铁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49919,
+    "team_code": "加拿大",
+    "team_full_name": "加拿大",
+    "team_short_name": "加拿大",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84001,
+    "team_code": "加的斯",
+    "team_full_name": "加的斯",
+    "team_short_name": "加的斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55326,
+    "team_code": "55326",
+    "team_full_name": "勒沃库森",
+    "team_short_name": "勒沃库森",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 8683,
+    "team_code": "8683",
+    "team_full_name": "勒芒",
+    "team_short_name": "勒芒",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81957,
+    "team_code": "81957",
+    "team_full_name": "勒阿弗尔",
+    "team_short_name": "勒阿弗尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43920,
+    "team_code": "匈牙利",
+    "team_full_name": "匈牙利",
+    "team_short_name": "匈牙利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 48243,
+    "team_code": "48243",
+    "team_full_name": "北安普顿",
+    "team_short_name": "北安普顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66380,
+    "team_code": "北爱尔",
+    "team_full_name": "北爱尔兰U21",
+    "team_short_name": "北爱尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 79344,
+    "team_code": "79344",
+    "team_full_name": "北西兰",
+    "team_short_name": "北西兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38007,
+    "team_code": "38007",
+    "team_full_name": "北雪平",
+    "team_short_name": "北雪平",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11070,
+    "team_code": "北马其",
+    "team_full_name": "北马其顿U21",
+    "team_short_name": "北马其",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80862,
+    "team_code": "80862",
+    "team_full_name": "千叶市原",
+    "team_short_name": "千叶市原",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92254,
+    "team_code": "92254",
+    "team_full_name": "华城FC",
+    "team_short_name": "华城FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61905,
+    "team_code": "61905",
+    "team_full_name": "华沙莱吉亚",
+    "team_short_name": "华沙莱吉亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78450,
+    "team_code": "78450",
+    "team_full_name": "华盛顿联",
+    "team_short_name": "华盛顿联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28530,
+    "team_code": "28530",
+    "team_full_name": "华雷斯",
+    "team_short_name": "华雷斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84481,
+    "team_code": "SOU",
+    "team_full_name": "南安普敦",
+    "team_short_name": "南安普敦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97848,
+    "team_code": "97848",
+    "team_full_name": "南安普顿",
+    "team_short_name": "南安普顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49914,
+    "team_code": "49914",
+    "team_full_name": "南特",
+    "team_short_name": "南特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70157,
+    "team_code": "70157",
+    "team_full_name": "南蒂罗尔",
+    "team_short_name": "南蒂罗尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22605,
+    "team_code": "22605",
+    "team_full_name": "南锡",
+    "team_short_name": "南锡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76114,
+    "team_code": "博卡青",
+    "team_full_name": "博卡青年",
+    "team_short_name": "博卡青",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21466,
+    "team_code": "博塔弗",
+    "team_full_name": "博塔弗戈SP",
+    "team_short_name": "博塔弗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78701,
+    "team_code": "78701",
+    "team_full_name": "博尔顿",
+    "team_short_name": "博尔顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91937,
+    "team_code": "91937",
+    "team_full_name": "博德闪耀",
+    "team_short_name": "博德闪耀",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87116,
+    "team_code": "87116",
+    "team_full_name": "博托沙尼",
+    "team_short_name": "博托沙尼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30530,
+    "team_code": "30530",
+    "team_full_name": "博洛尼亚",
+    "team_short_name": "博洛尼亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75177,
+    "team_code": "75177",
+    "team_full_name": "卡利亚里",
+    "team_short_name": "卡利亚里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29672,
+    "team_code": "29672",
+    "team_full_name": "卡坦扎罗",
+    "team_short_name": "卡坦扎罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54575,
+    "team_code": "54575",
+    "team_full_name": "卡尔斯鲁厄",
+    "team_short_name": "卡尔斯鲁厄",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11323,
+    "team_code": "11323",
+    "team_full_name": "卡尔马",
+    "team_short_name": "卡尔马",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37176,
+    "team_code": "37176",
+    "team_full_name": "卡帕",
+    "team_short_name": "卡帕",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5046,
+    "team_code": "5046",
+    "team_full_name": "卡托维兹",
+    "team_short_name": "卡托维兹",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 8821,
+    "team_code": "8821",
+    "team_full_name": "卡拉拉",
+    "team_short_name": "卡拉拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93886,
+    "team_code": "卡斯特",
+    "team_full_name": "卡斯特利翁",
+    "team_short_name": "卡斯特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58244,
+    "team_code": "58244",
+    "team_full_name": "卡普芬贝格",
+    "team_short_name": "卡普芬贝格",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 19642,
+    "team_code": "19642",
+    "team_full_name": "卡萨皮亚",
+    "team_short_name": "卡萨皮亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18384,
+    "team_code": "18384",
+    "team_full_name": "卡迪夫城",
+    "team_short_name": "卡迪夫城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27919,
+    "team_code": "27919",
+    "team_full_name": "卡鲁日星",
+    "team_short_name": "卡鲁日星",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29232,
+    "team_code": "29232",
+    "team_full_name": "卢加诺",
+    "team_short_name": "卢加诺",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 32269,
+    "team_code": "32269",
+    "team_full_name": "卢塞恩",
+    "team_short_name": "卢塞恩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97496,
+    "team_code": "97496",
+    "team_full_name": "卢宾扎格勒比",
+    "team_short_name": "卢宾扎格勒比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39695,
+    "team_code": "39695",
+    "team_full_name": "卢布林莫托",
+    "team_short_name": "卢布林莫托",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14276,
+    "team_code": "14276",
+    "team_full_name": "卢顿",
+    "team_short_name": "卢顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4355,
+    "team_code": "4355",
+    "team_full_name": "厄勒布鲁",
+    "team_short_name": "厄勒布鲁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94373,
+    "team_code": "94373",
+    "team_full_name": "厄尔格里特",
+    "team_short_name": "厄尔格里特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53933,
+    "team_code": "53933",
+    "team_full_name": "厄斯特什",
+    "team_short_name": "厄斯特什",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76387,
+    "team_code": "76387",
+    "team_full_name": "厄斯特松德",
+    "team_short_name": "厄斯特松德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91605,
+    "team_code": "厄瓜多",
+    "team_full_name": "厄瓜多尔",
+    "team_short_name": "厄瓜多",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62724,
+    "team_code": "62724",
+    "team_full_name": "吉尔维森特",
+    "team_short_name": "吉尔维森特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66296,
+    "team_code": "66296",
+    "team_full_name": "吉林汉姆",
+    "team_short_name": "吉林汉姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25488,
+    "team_code": "25488",
+    "team_full_name": "吉波",
+    "team_short_name": "吉波",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52871,
+    "team_code": "52871",
+    "team_full_name": "吉马良斯",
+    "team_short_name": "吉马良斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12374,
+    "team_code": "12374",
+    "team_full_name": "名古屋鲸",
+    "team_short_name": "名古屋鲸",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3539,
+    "team_code": "哈卡",
+    "team_full_name": "哈卡",
+    "team_short_name": "哈卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43008,
+    "team_code": "43008",
+    "team_full_name": "哈尔姆斯塔德",
+    "team_short_name": "哈尔姆斯塔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96068,
+    "team_code": "96068",
+    "team_full_name": "哈德斯菲尔德",
+    "team_short_name": "哈德斯菲尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 83239,
+    "team_code": "83239",
+    "team_full_name": "哈特贝格",
+    "team_short_name": "哈特贝格",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52146,
+    "team_code": "52146",
+    "team_full_name": "哈维德夫",
+    "team_short_name": "哈维德夫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25847,
+    "team_code": "25847",
+    "team_full_name": "哈罗盖特",
+    "team_short_name": "哈罗盖特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69926,
+    "team_code": "69926",
+    "team_full_name": "哈茨",
+    "team_short_name": "哈茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21671,
+    "team_code": "哈萨克",
+    "team_full_name": "哈萨克斯坦U21",
+    "team_short_name": "哈萨克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 64940,
+    "team_code": "64940",
+    "team_full_name": "哈马比",
+    "team_short_name": "哈马比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 17021,
+    "team_code": "17021",
+    "team_full_name": "哥伦布机员",
+    "team_short_name": "哥伦布机员",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18416,
+    "team_code": "18416",
+    "team_full_name": "哥德堡",
+    "team_short_name": "哥德堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34171,
+    "team_code": "34171",
+    "team_full_name": "哥本哈根",
+    "team_short_name": "哥本哈根",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90051,
+    "team_code": "90051",
+    "team_full_name": "唐卡斯特",
+    "team_short_name": "唐卡斯特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 19086,
+    "team_code": "喀麦隆",
+    "team_full_name": "喀麦隆",
+    "team_short_name": "喀麦隆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60667,
+    "team_code": "60667",
+    "team_full_name": "国际图尔库",
+    "team_short_name": "国际图尔库",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15056,
+    "team_code": "15056",
+    "team_full_name": "国际米兰",
+    "team_short_name": "国际米兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9256,
+    "team_code": "9256",
+    "team_full_name": "国际迈阿密",
+    "team_short_name": "国际迈阿密",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54792,
+    "team_code": "54792",
+    "team_full_name": "图卢兹",
+    "team_short_name": "图卢兹",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18582,
+    "team_code": "18582",
+    "team_full_name": "图库曼竞技",
+    "team_short_name": "图库曼竞技",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43491,
+    "team_code": "土耳其",
+    "team_full_name": "土耳其U21",
+    "team_short_name": "土耳其",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61365,
+    "team_code": "61365",
+    "team_full_name": "圣何塞地震",
+    "team_short_name": "圣何塞地震",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25296,
+    "team_code": "25296",
+    "team_full_name": "圣保利",
+    "team_short_name": "圣保利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27166,
+    "team_code": "圣保罗",
+    "team_full_name": "圣保罗",
+    "team_short_name": "圣保罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12853,
+    "team_code": "12853",
+    "team_full_name": "圣加仑",
+    "team_short_name": "圣加仑",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 8310,
+    "team_code": "8310",
+    "team_full_name": "圣埃蒂安",
+    "team_short_name": "圣埃蒂安",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95842,
+    "team_code": "95842",
+    "team_full_name": "圣塔克拉拉",
+    "team_short_name": "圣塔克拉拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49651,
+    "team_code": "49651",
+    "team_full_name": "圣帕特里克竞技",
+    "team_short_name": "圣帕特里克竞技",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18658,
+    "team_code": "18658",
+    "team_full_name": "圣旺红星",
+    "team_short_name": "圣旺红星",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31644,
+    "team_code": "31644",
+    "team_full_name": "圣洛伦索",
+    "team_short_name": "圣洛伦索",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76628,
+    "team_code": "76628",
+    "team_full_name": "圣特赖登",
+    "team_short_name": "圣特赖登",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14902,
+    "team_code": "14902",
+    "team_full_name": "圣珀尔滕",
+    "team_short_name": "圣珀尔滕",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47270,
+    "team_code": "47270",
+    "team_full_name": "圣米伦",
+    "team_short_name": "圣米伦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34660,
+    "team_code": "34660",
+    "team_full_name": "圣约翰斯通",
+    "team_short_name": "圣约翰斯通",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70925,
+    "team_code": "ISF",
+    "team_full_name": "圣菲独立",
+    "team_short_name": "圣菲独立",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 48562,
+    "team_code": "48562",
+    "team_full_name": "圣菲联合",
+    "team_short_name": "圣菲联合",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10263,
+    "team_code": "圣贝尔",
+    "team_full_name": "圣贝尔纳多",
+    "team_short_name": "圣贝尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58097,
+    "team_code": "58097",
+    "team_full_name": "圣路易斯城",
+    "team_short_name": "圣路易斯城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 32818,
+    "team_code": "32818",
+    "team_full_name": "圣路易斯竞技",
+    "team_short_name": "圣路易斯竞技",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94592,
+    "team_code": "94592",
+    "team_full_name": "圣迭戈FC",
+    "team_short_name": "圣迭戈FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14051,
+    "team_code": "14051",
+    "team_full_name": "坎布尔",
+    "team_short_name": "坎布尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80463,
+    "team_code": "80463",
+    "team_full_name": "坡州前沿",
+    "team_short_name": "坡州前沿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60328,
+    "team_code": "60328",
+    "team_full_name": "埃克塞特城",
+    "team_short_name": "埃克塞特城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53855,
+    "team_code": "埃及",
+    "team_full_name": "埃及",
+    "team_short_name": "埃及",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10756,
+    "team_code": "10756",
+    "team_full_name": "埃尔切",
+    "team_short_name": "埃尔切",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14736,
+    "team_code": "14736",
+    "team_full_name": "埃尔夫斯堡",
+    "team_short_name": "埃尔夫斯堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25504,
+    "team_code": "25504",
+    "team_full_name": "埃尔沃斯贝格",
+    "team_short_name": "埃尔沃斯贝格",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6405,
+    "team_code": "6405",
+    "team_full_name": "埃弗顿",
+    "team_short_name": "埃弗顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 2766,
+    "team_code": "2766",
+    "team_full_name": "埃斯托里尔",
+    "team_short_name": "埃斯托里尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99054,
+    "team_code": "99054",
+    "team_full_name": "埃斯比约",
+    "team_short_name": "埃斯比约",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37267,
+    "team_code": "37267",
+    "team_full_name": "埃格尔松",
+    "team_short_name": "埃格尔松",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50781,
+    "team_code": "埃瓦尔",
+    "team_full_name": "埃瓦尔",
+    "team_short_name": "埃瓦尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62987,
+    "team_code": "62987",
+    "team_full_name": "埃门",
+    "team_short_name": "埃门",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12120,
+    "team_code": "12120",
+    "team_full_name": "城南FC",
+    "team_short_name": "城南FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 46722,
+    "team_code": "46722",
+    "team_full_name": "基多体育大学",
+    "team_short_name": "基多体育大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 1964,
+    "team_code": "1964",
+    "team_full_name": "基尔",
+    "team_short_name": "基尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23638,
+    "team_code": "23638",
+    "team_full_name": "基尔马诺克",
+    "team_short_name": "基尔马诺克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 17639,
+    "team_code": "17639",
+    "team_full_name": "堪萨斯城体育",
+    "team_short_name": "堪萨斯城体育",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77941,
+    "team_code": "塔勒瑞",
+    "team_full_name": "塔勒瑞斯",
+    "team_short_name": "塔勒瑞",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6770,
+    "team_code": "6770",
+    "team_full_name": "塞伊奈约基",
+    "team_short_name": "塞伊奈约基",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84641,
+    "team_code": "84641",
+    "team_full_name": "塞伊奈约基学院",
+    "team_short_name": "塞伊奈约基学院",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 65432,
+    "team_code": "65432",
+    "team_full_name": "塞尔维特",
+    "team_short_name": "塞尔维特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51890,
+    "team_code": "塞浦路",
+    "team_full_name": "塞浦路斯U21",
+    "team_short_name": "塞浦路",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16171,
+    "team_code": "16171",
+    "team_full_name": "塞维利亚",
+    "team_short_name": "塞维利亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27039,
+    "team_code": "塞阿拉",
+    "team_full_name": "塞阿拉",
+    "team_short_name": "塞阿拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78046,
+    "team_code": "78046",
+    "team_full_name": "墨尔本城",
+    "team_short_name": "墨尔本城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11627,
+    "team_code": "11627",
+    "team_full_name": "墨尔本胜利",
+    "team_short_name": "墨尔本胜利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 67051,
+    "team_code": "墨西哥",
+    "team_full_name": "墨西哥",
+    "team_short_name": "墨西哥",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62748,
+    "team_code": "62748",
+    "team_full_name": "墨西哥美洲",
+    "team_short_name": "墨西哥美洲",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25966,
+    "team_code": "25966",
+    "team_full_name": "夏洛特FC",
+    "team_short_name": "夏洛特FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 46889,
+    "team_code": "46889",
+    "team_full_name": "多伦多FC",
+    "team_short_name": "多伦多FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97958,
+    "team_code": "97958",
+    "team_full_name": "多德雷赫特",
+    "team_short_name": "多德雷赫特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81557,
+    "team_code": "81557",
+    "team_full_name": "多特蒙德",
+    "team_short_name": "多特蒙德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12951,
+    "team_code": "12951",
+    "team_full_name": "大田韩亚市民",
+    "team_short_name": "大田韩亚市民",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 13507,
+    "team_code": "13507",
+    "team_full_name": "大邱FC",
+    "team_short_name": "大邱FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73529,
+    "team_code": "73529",
+    "team_full_name": "大阪樱花",
+    "team_short_name": "大阪樱花",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 48866,
+    "team_code": "48866",
+    "team_full_name": "大阪钢巴",
+    "team_short_name": "大阪钢巴",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61920,
+    "team_code": "天主教",
+    "team_full_name": "天主教大学",
+    "team_short_name": "天主教",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47058,
+    "team_code": "47058",
+    "team_full_name": "天安城",
+    "team_short_name": "天安城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78935,
+    "team_code": "78935",
+    "team_full_name": "天狼星",
+    "team_short_name": "天狼星",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21718,
+    "team_code": "21718",
+    "team_full_name": "奇克塞雷达",
+    "team_short_name": "奇克塞雷达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41364,
+    "team_code": "41364",
+    "team_full_name": "奈梅亨",
+    "team_short_name": "奈梅亨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92687,
+    "team_code": "92687",
+    "team_full_name": "奥伊金斯",
+    "team_short_name": "奥伊金斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5567,
+    "team_code": "5567",
+    "team_full_name": "奥克兰FC",
+    "team_short_name": "奥克兰FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81680,
+    "team_code": "81680",
+    "team_full_name": "奥兰多城",
+    "team_short_name": "奥兰多城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15468,
+    "team_code": "15468",
+    "team_full_name": "奥利韦伦斯",
+    "team_short_name": "奥利韦伦斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47138,
+    "team_code": "47138",
+    "team_full_name": "奥勒松",
+    "team_short_name": "奥勒松",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33534,
+    "team_code": "奥地利",
+    "team_full_name": "奥地利U21",
+    "team_short_name": "奥地利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81941,
+    "team_code": "81941",
+    "team_full_name": "奥地利克拉根福",
+    "team_short_name": "奥地利克拉根福",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 72568,
+    "team_code": "72568",
+    "team_full_name": "奥地利卢斯特瑙",
+    "team_short_name": "奥地利卢斯特瑙",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97035,
+    "team_code": "97035",
+    "team_full_name": "奥地利维也纳",
+    "team_short_name": "奥地利维也纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 46711,
+    "team_code": "46711",
+    "team_full_name": "奥地利维也纳二队",
+    "team_short_name": "奥地利维也纳二队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94837,
+    "team_code": "94837",
+    "team_full_name": "奥地利萨尔茨堡",
+    "team_short_name": "奥地利萨尔茨堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37712,
+    "team_code": "37712",
+    "team_full_name": "奥尔堡",
+    "team_short_name": "奥尔堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40242,
+    "team_code": "40242",
+    "team_full_name": "奥德",
+    "team_short_name": "奥德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58775,
+    "team_code": "58775",
+    "team_full_name": "奥德汉姆",
+    "team_short_name": "奥德汉姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7855,
+    "team_code": "7855",
+    "team_full_name": "奥德赫维里鲁汶",
+    "team_short_name": "奥德赫维里鲁汶",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28272,
+    "team_code": "28272",
+    "team_full_name": "奥斯",
+    "team_short_name": "奥斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20256,
+    "team_code": "20256",
+    "team_full_name": "奥斯汀FC",
+    "team_short_name": "奥斯汀FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37145,
+    "team_code": "37145",
+    "team_full_name": "奥格斯堡",
+    "team_short_name": "奥格斯堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 67767,
+    "team_code": "67767",
+    "team_full_name": "奥桑内",
+    "team_short_name": "奥桑内",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78262,
+    "team_code": "78262",
+    "team_full_name": "奥洛穆茨",
+    "team_short_name": "奥洛穆茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89828,
+    "team_code": "89828",
+    "team_full_name": "奥胡斯",
+    "team_short_name": "奥胡斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9508,
+    "team_code": "9508",
+    "team_full_name": "奥胡斯前进",
+    "team_short_name": "奥胡斯前进",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26822,
+    "team_code": "26822",
+    "team_full_name": "奥萨苏纳",
+    "team_short_name": "奥萨苏纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30319,
+    "team_code": "30319",
+    "team_full_name": "奥达克斯意大利人",
+    "team_short_name": "奥达克斯意大利人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93567,
+    "team_code": "93567",
+    "team_full_name": "奥迪沃德",
+    "team_short_name": "奥迪沃德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36836,
+    "team_code": "36836",
+    "team_full_name": "女王公园",
+    "team_short_name": "女王公园",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 35533,
+    "team_code": "35533",
+    "team_full_name": "女王公园巡游者",
+    "team_short_name": "女王公园巡游者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 65301,
+    "team_code": "65301",
+    "team_full_name": "姆拉达博莱斯拉夫",
+    "team_short_name": "姆拉达博莱斯拉夫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10459,
+    "team_code": "威尔士",
+    "team_full_name": "威尔士U21",
+    "team_short_name": "威尔士",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95885,
+    "team_code": "95885",
+    "team_full_name": "威尼斯",
+    "team_short_name": "威尼斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7132,
+    "team_code": "7132",
+    "team_full_name": "威廉二世",
+    "team_short_name": "威廉二世",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96843,
+    "team_code": "96843",
+    "team_full_name": "威科姆流浪者",
+    "team_short_name": "威科姆流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73741,
+    "team_code": "73741",
+    "team_full_name": "孔斯温厄尔",
+    "team_short_name": "孔斯温厄尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87146,
+    "team_code": "87146",
+    "team_full_name": "安山绿人",
+    "team_short_name": "安山绿人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81117,
+    "team_code": "81117",
+    "team_full_name": "安德莱赫特",
+    "team_short_name": "安德莱赫特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7474,
+    "team_code": "7474",
+    "team_full_name": "安德莱赫特预备队",
+    "team_short_name": "安德莱赫特预备队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6567,
+    "team_code": "6567",
+    "team_full_name": "安特卫普",
+    "team_short_name": "安特卫普",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 88515,
+    "team_code": "88515",
+    "team_full_name": "富勒姆",
+    "team_short_name": "富勒姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40202,
+    "team_code": "40202",
+    "team_full_name": "富川1995",
+    "team_short_name": "富川1995",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44981,
+    "team_code": "尤文图",
+    "team_full_name": "尤文图德",
+    "team_short_name": "尤文图",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92495,
+    "team_code": "92495",
+    "team_full_name": "尤文图斯",
+    "team_short_name": "尤文图斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55287,
+    "team_code": "55287",
+    "team_full_name": "尤维斯塔比亚",
+    "team_short_name": "尤维斯塔比亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37236,
+    "team_code": "37236",
+    "team_full_name": "尼斯",
+    "team_short_name": "尼斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 64530,
+    "team_code": "64530",
+    "team_full_name": "尼永奈斯",
+    "team_short_name": "尼永奈斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15880,
+    "team_code": "15880",
+    "team_full_name": "川崎前锋",
+    "team_short_name": "川崎前锋",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99621,
+    "team_code": "巴伊亚",
+    "team_full_name": "巴伊亚",
+    "team_short_name": "巴伊亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37937,
+    "team_code": "37937",
+    "team_full_name": "巴兰基亚青年",
+    "team_short_name": "巴兰基亚青年",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3704,
+    "team_code": "3704",
+    "team_full_name": "巴列卡诺",
+    "team_short_name": "巴列卡诺",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7535,
+    "team_code": "巴利亚",
+    "team_full_name": "巴利亚多利德",
+    "team_short_name": "巴利亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 32516,
+    "team_code": "巴勒斯",
+    "team_full_name": "巴勒斯坦人",
+    "team_short_name": "巴勒斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69126,
+    "team_code": "69126",
+    "team_full_name": "巴勒莫",
+    "team_short_name": "巴勒莫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 63076,
+    "team_code": "63076",
+    "team_full_name": "巴塞罗那",
+    "team_short_name": "巴塞罗那",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14574,
+    "team_code": "14574",
+    "team_full_name": "巴尼特",
+    "team_short_name": "巴尼特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40287,
+    "team_code": "40287",
+    "team_full_name": "巴恩斯利",
+    "team_short_name": "巴恩斯利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22593,
+    "team_code": "巴拉卡",
+    "team_full_name": "巴拉卡斯中央",
+    "team_short_name": "巴拉卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21228,
+    "team_code": "巴拉圭",
+    "team_full_name": "巴拉圭",
+    "team_short_name": "巴拉圭",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38059,
+    "team_code": "巴拉纳",
+    "team_full_name": "巴拉纳竞技",
+    "team_short_name": "巴拉纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77189,
+    "team_code": "77189",
+    "team_full_name": "巴斯蒂亚",
+    "team_short_name": "巴斯蒂亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84514,
+    "team_code": "84514",
+    "team_full_name": "巴罗",
+    "team_short_name": "巴罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82207,
+    "team_code": "巴西",
+    "team_full_name": "巴西",
+    "team_short_name": "巴西",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22548,
+    "team_code": "巴西国",
+    "team_full_name": "巴西国际",
+    "team_short_name": "巴西国",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30390,
+    "team_code": "巴西雷",
+    "team_full_name": "巴西雷加塔斯",
+    "team_short_name": "巴西雷",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39149,
+    "team_code": "39149",
+    "team_full_name": "巴里",
+    "team_short_name": "巴里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96591,
+    "team_code": "96591",
+    "team_full_name": "巴黎FC",
+    "team_short_name": "巴黎FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98064,
+    "team_code": "PSG",
+    "team_full_name": "巴黎圣日尔曼",
+    "team_short_name": "巴黎圣曼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16245,
+    "team_code": "16245",
+    "team_full_name": "巴黎圣日耳曼",
+    "team_short_name": "巴黎圣日耳曼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60491,
+    "team_code": "60491",
+    "team_full_name": "布伦特福德",
+    "team_short_name": "布伦特福德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3027,
+    "team_code": "3027",
+    "team_full_name": "布兰",
+    "team_short_name": "布兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34784,
+    "team_code": "34784",
+    "team_full_name": "布加勒斯特快速",
+    "team_short_name": "布加勒斯特快速",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21305,
+    "team_code": "21305",
+    "team_full_name": "布加勒斯特星",
+    "team_short_name": "布加勒斯特星",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94001,
+    "team_code": "94001",
+    "team_full_name": "布加勒斯特迪纳摩",
+    "team_short_name": "布加勒斯特迪纳摩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24939,
+    "team_code": "布尔戈",
+    "team_full_name": "布尔戈斯",
+    "team_short_name": "布尔戈",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49210,
+    "team_code": "49210",
+    "team_full_name": "布拉加",
+    "team_short_name": "布拉加",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33696,
+    "team_code": "布拉干",
+    "team_full_name": "布拉干蒂诺红牛",
+    "team_short_name": "布拉干",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 1638,
+    "team_code": "1638",
+    "team_full_name": "布拉德福德城",
+    "team_short_name": "布拉德福德城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43652,
+    "team_code": "43652",
+    "team_full_name": "布拉格斯巴达",
+    "team_short_name": "布拉格斯巴达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89367,
+    "team_code": "89367",
+    "team_full_name": "布拉格斯拉维亚",
+    "team_short_name": "布拉格斯拉维亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87099,
+    "team_code": "87099",
+    "team_full_name": "布洛涅",
+    "team_short_name": "布洛涅",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4108,
+    "team_code": "4108",
+    "team_full_name": "布瑞恩斯",
+    "team_short_name": "布瑞恩斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45726,
+    "team_code": "45726",
+    "team_full_name": "布罗姆利",
+    "team_short_name": "布罗姆利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96879,
+    "team_code": "96879",
+    "team_full_name": "布莱克本",
+    "team_short_name": "布莱克本",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77382,
+    "team_code": "77382",
+    "team_full_name": "布莱克浦",
+    "team_short_name": "布莱克浦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66234,
+    "team_code": "66234",
+    "team_full_name": "布莱尼",
+    "team_short_name": "布莱尼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 86522,
+    "team_code": "86522",
+    "team_full_name": "布莱格",
+    "team_short_name": "布莱格",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96847,
+    "team_code": "96847",
+    "team_full_name": "布里斯托尔城",
+    "team_short_name": "布里斯托尔城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73644,
+    "team_code": "73644",
+    "team_full_name": "布里斯托尔流浪者",
+    "team_short_name": "布里斯托尔流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21010,
+    "team_code": "布里斯",
+    "team_full_name": "布里斯班狮吼",
+    "team_short_name": "布里斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39465,
+    "team_code": "39465",
+    "team_full_name": "布隆德比",
+    "team_short_name": "布隆德比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10677,
+    "team_code": "10677",
+    "team_full_name": "布雷流浪者",
+    "team_short_name": "布雷流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 88650,
+    "team_code": "88650",
+    "team_full_name": "布雷达",
+    "team_short_name": "布雷达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37831,
+    "team_code": "37831",
+    "team_full_name": "布鲁日",
+    "team_short_name": "布鲁日",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12240,
+    "team_code": "12240",
+    "team_full_name": "布鲁日NXT",
+    "team_short_name": "布鲁日NXT",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28894,
+    "team_code": "28894",
+    "team_full_name": "布鲁马波卡纳",
+    "team_short_name": "布鲁马波卡纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 71871,
+    "team_code": "71871",
+    "team_full_name": "希伯尼安",
+    "team_short_name": "希伯尼安",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45324,
+    "team_code": "45324",
+    "team_full_name": "希勒勒",
+    "team_short_name": "希勒勒",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55320,
+    "team_code": "希洪体",
+    "team_full_name": "希洪体育",
+    "team_short_name": "希洪体",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 83733,
+    "team_code": "希腊",
+    "team_full_name": "希腊",
+    "team_short_name": "希腊",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20750,
+    "team_code": "希腊U",
+    "team_full_name": "希腊U21",
+    "team_short_name": "希腊U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18059,
+    "team_code": "18059",
+    "team_full_name": "帕丘卡",
+    "team_short_name": "帕丘卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9649,
+    "team_code": "9649",
+    "team_full_name": "帕多瓦",
+    "team_short_name": "帕多瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7712,
+    "team_code": "7712",
+    "team_full_name": "帕尔杜比采",
+    "team_short_name": "帕尔杜比采",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9894,
+    "team_code": "帕尔梅",
+    "team_full_name": "帕尔梅拉斯",
+    "team_short_name": "帕尔梅",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 74463,
+    "team_code": "74463",
+    "team_full_name": "帕尔蒂克蓟花",
+    "team_short_name": "帕尔蒂克蓟花",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 74293,
+    "team_code": "74293",
+    "team_full_name": "帕尔马",
+    "team_short_name": "帕尔马",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60206,
+    "team_code": "60206",
+    "team_full_name": "帕德博恩",
+    "team_short_name": "帕德博恩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27602,
+    "team_code": "27602",
+    "team_full_name": "帕索斯费雷拉",
+    "team_short_name": "帕索斯费雷拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61370,
+    "team_code": "61370",
+    "team_full_name": "广岛三箭",
+    "team_short_name": "广岛三箭",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9308,
+    "team_code": "9308",
+    "team_full_name": "庆南FC",
+    "team_short_name": "庆南FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 35666,
+    "team_code": "库拉索",
+    "team_full_name": "库拉索",
+    "team_short_name": "库拉索",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41256,
+    "team_code": "41256",
+    "team_full_name": "库斯科",
+    "team_short_name": "库斯科",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92347,
+    "team_code": "92347",
+    "team_full_name": "库普斯",
+    "team_short_name": "库普斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24862,
+    "team_code": "庞特普",
+    "team_full_name": "庞特普雷塔",
+    "team_short_name": "庞特普",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66883,
+    "team_code": "66883",
+    "team_full_name": "康塞普西翁",
+    "team_short_name": "康塞普西翁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62960,
+    "team_code": "62960",
+    "team_full_name": "康塞普西翁大学",
+    "team_short_name": "康塞普西翁大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22807,
+    "team_code": "22807",
+    "team_full_name": "康斯坦察法鲁尔",
+    "team_short_name": "康斯坦察法鲁尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55563,
+    "team_code": "55563",
+    "team_full_name": "弗利特伍德",
+    "team_short_name": "弗利特伍德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87491,
+    "team_code": "87491",
+    "team_full_name": "弗拉姆",
+    "team_short_name": "弗拉姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95935,
+    "team_code": "弗拉门",
+    "team_full_name": "弗拉门戈",
+    "team_short_name": "弗拉门",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77548,
+    "team_code": "77548",
+    "team_full_name": "弗罗西诺内",
+    "team_short_name": "弗罗西诺内",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33062,
+    "team_code": "33062",
+    "team_full_name": "弗赖堡",
+    "team_short_name": "弗赖堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44629,
+    "team_code": "弗鲁米",
+    "team_full_name": "弗鲁米嫩塞",
+    "team_short_name": "弗鲁米",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59641,
+    "team_code": "59641",
+    "team_full_name": "彼得堡联",
+    "team_short_name": "彼得堡联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60385,
+    "team_code": "德国U",
+    "team_full_name": "德国U21",
+    "team_short_name": "德国U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23821,
+    "team_code": "23821",
+    "team_full_name": "德比郡",
+    "team_short_name": "德比郡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99499,
+    "team_code": "99499",
+    "team_full_name": "德累斯顿",
+    "team_short_name": "德累斯顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90523,
+    "team_code": "90523",
+    "team_full_name": "德罗赫达联",
+    "team_short_name": "德罗赫达联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4860,
+    "team_code": "4860",
+    "team_full_name": "德里城",
+    "team_short_name": "德里城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66609,
+    "team_code": "66609",
+    "team_full_name": "忠北清州FC",
+    "team_short_name": "忠北清州FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53282,
+    "team_code": "53282",
+    "team_full_name": "忠南牙山FC",
+    "team_short_name": "忠南牙山FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73222,
+    "team_code": "73222",
+    "team_full_name": "恩波利",
+    "team_short_name": "恩波利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15024,
+    "team_code": "15024",
+    "team_full_name": "恩特拉",
+    "team_short_name": "恩特拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 32409,
+    "team_code": "悉尼F",
+    "team_full_name": "悉尼FC",
+    "team_short_name": "悉尼F",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9806,
+    "team_code": "9806",
+    "team_full_name": "惠灵顿凤凰",
+    "team_short_name": "惠灵顿凤凰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38542,
+    "team_code": "意大利",
+    "team_full_name": "意大利U21",
+    "team_short_name": "意大利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 17826,
+    "team_code": "戈亚尼",
+    "team_full_name": "戈亚尼亚竞技",
+    "team_short_name": "戈亚尼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98778,
+    "team_code": "戈亚斯",
+    "team_full_name": "戈亚斯",
+    "team_short_name": "戈亚斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16453,
+    "team_code": "16453",
+    "team_full_name": "戈尔韦联",
+    "team_short_name": "戈尔韦联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38854,
+    "team_code": "38854",
+    "team_full_name": "扎布热矿工",
+    "team_short_name": "扎布热矿工",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18546,
+    "team_code": "18546",
+    "team_full_name": "托利马",
+    "team_short_name": "托利马",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94368,
+    "team_code": "94368",
+    "team_full_name": "托卢卡",
+    "team_short_name": "托卢卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50019,
+    "team_code": "50019",
+    "team_full_name": "托尔",
+    "team_short_name": "托尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85885,
+    "team_code": "85885",
+    "team_full_name": "托特纳姆热刺",
+    "team_short_name": "托特纳姆热刺",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4426,
+    "team_code": "4426",
+    "team_full_name": "托里什恩斯",
+    "team_short_name": "托里什恩斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56270,
+    "team_code": "拉努斯",
+    "team_full_name": "拉努斯",
+    "team_short_name": "拉努斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49991,
+    "team_code": "49991",
+    "team_full_name": "拉卡莱拉联合",
+    "team_short_name": "拉卡莱拉联合",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95637,
+    "team_code": "95637",
+    "team_full_name": "拉塞雷纳",
+    "team_short_name": "拉塞雷纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55529,
+    "team_code": "55529",
+    "team_full_name": "拉多米亚克",
+    "team_short_name": "拉多米亚克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38553,
+    "team_code": "拉斯帕",
+    "team_full_name": "拉斯帕尔马斯",
+    "team_short_name": "拉斯帕",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90512,
+    "team_code": "90512",
+    "team_full_name": "拉普拉塔体操",
+    "team_short_name": "拉普拉塔体操",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12450,
+    "team_code": "12450",
+    "team_full_name": "拉普拉塔大学生",
+    "team_short_name": "拉普拉塔大学生",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 13760,
+    "team_code": "13760",
+    "team_full_name": "拉珀斯维尔约纳",
+    "team_short_name": "拉珀斯维尔约纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 64390,
+    "team_code": "64390",
+    "team_full_name": "拉瓜伊拉",
+    "team_short_name": "拉瓜伊拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49179,
+    "team_code": "49179",
+    "team_full_name": "拉瓦勒",
+    "team_short_name": "拉瓦勒",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6701,
+    "team_code": "拉科鲁",
+    "team_full_name": "拉科鲁尼亚",
+    "team_short_name": "拉科鲁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49731,
+    "team_code": "拉脱维",
+    "team_full_name": "拉脱维亚U21",
+    "team_short_name": "拉脱维",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81962,
+    "team_code": "81962",
+    "team_full_name": "拉茨流浪者",
+    "team_short_name": "拉茨流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81164,
+    "team_code": "81164",
+    "team_full_name": "拉赫蒂",
+    "team_short_name": "拉赫蒂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6479,
+    "team_code": "6479",
+    "team_full_name": "拉路维尔",
+    "team_short_name": "拉路维尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77708,
+    "team_code": "77708",
+    "team_full_name": "拉齐奥",
+    "team_short_name": "拉齐奥",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58210,
+    "team_code": "58210",
+    "team_full_name": "拜仁慕尼黑",
+    "team_short_name": "拜仁慕尼黑",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75418,
+    "team_code": "挪威",
+    "team_full_name": "挪威",
+    "team_short_name": "挪威",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54010,
+    "team_code": "挪威U",
+    "team_full_name": "挪威U21",
+    "team_short_name": "挪威U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39910,
+    "team_code": "捷克",
+    "team_full_name": "捷克",
+    "team_short_name": "捷克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36520,
+    "team_code": "36520",
+    "team_full_name": "摩德纳",
+    "team_short_name": "摩德纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22667,
+    "team_code": "摩洛哥",
+    "team_full_name": "摩洛哥",
+    "team_short_name": "摩洛哥",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98297,
+    "team_code": "98297",
+    "team_full_name": "摩纳哥",
+    "team_short_name": "摩纳哥",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85248,
+    "team_code": "85248",
+    "team_full_name": "摩雷伦斯",
+    "team_short_name": "摩雷伦斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92174,
+    "team_code": "92174",
+    "team_full_name": "敦刻尔克",
+    "team_short_name": "敦刻尔克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 32131,
+    "team_code": "32131",
+    "team_full_name": "斯佩齐亚",
+    "team_short_name": "斯佩齐亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92991,
+    "team_code": "92991",
+    "team_full_name": "斯图加特",
+    "team_short_name": "斯图加特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81820,
+    "team_code": "81820",
+    "team_full_name": "斯塔尔南",
+    "team_short_name": "斯塔尔南",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96268,
+    "team_code": "96268",
+    "team_full_name": "斯塔贝克",
+    "team_short_name": "斯塔贝克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96740,
+    "team_code": "96740",
+    "team_full_name": "斯托克城",
+    "team_short_name": "斯托克城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14112,
+    "team_code": "14112",
+    "team_full_name": "斯托克波特郡",
+    "team_short_name": "斯托克波特郡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81561,
+    "team_code": "81561",
+    "team_full_name": "斯托姆加斯特",
+    "team_short_name": "斯托姆加斯特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68159,
+    "team_code": "68159",
+    "team_full_name": "斯托曼",
+    "team_short_name": "斯托曼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 65872,
+    "team_code": "斯文登",
+    "team_full_name": "斯文登",
+    "team_short_name": "斯文登",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15235,
+    "team_code": "15235",
+    "team_full_name": "斯旺西",
+    "team_short_name": "斯旺西",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 1941,
+    "team_code": "1941",
+    "team_full_name": "斯洛博齐亚乌尼拉",
+    "team_short_name": "斯洛博齐亚乌尼拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27459,
+    "team_code": "斯洛文",
+    "team_full_name": "斯洛文尼亚U21",
+    "team_short_name": "斯洛文",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39939,
+    "team_code": "39939",
+    "team_full_name": "斯洛瓦茨科",
+    "team_short_name": "斯洛瓦茨科",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70372,
+    "team_code": "70372",
+    "team_full_name": "斯莱戈流浪者",
+    "team_short_name": "斯莱戈流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98916,
+    "team_code": "98916",
+    "team_full_name": "斯蒂夫尼奇",
+    "team_short_name": "斯蒂夫尼奇",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55216,
+    "team_code": "55216",
+    "team_full_name": "斯达",
+    "team_short_name": "斯达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26824,
+    "team_code": "新奥里",
+    "team_full_name": "新奥里藏蒂诺",
+    "team_short_name": "新奥里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92558,
+    "team_code": "92558",
+    "team_full_name": "新英格兰革命",
+    "team_short_name": "新英格兰革命",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 63200,
+    "team_code": "日本",
+    "team_full_name": "日本",
+    "team_short_name": "日本",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15524,
+    "team_code": "15524",
+    "team_full_name": "昂热",
+    "team_short_name": "昂热",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59174,
+    "team_code": "59174",
+    "team_full_name": "明尼苏达联",
+    "team_short_name": "明尼苏达联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43431,
+    "team_code": "43431",
+    "team_full_name": "明斯特",
+    "team_short_name": "明斯特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 63154,
+    "team_code": "63154",
+    "team_full_name": "普利茅斯",
+    "team_short_name": "普利茅斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7088,
+    "team_code": "7088",
+    "team_full_name": "普埃布拉",
+    "team_short_name": "普埃布拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41278,
+    "team_code": "普拉腾",
+    "team_full_name": "普拉腾斯",
+    "team_short_name": "普拉腾",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39972,
+    "team_code": "39972",
+    "team_full_name": "普沃茨克维斯瓦",
+    "team_short_name": "普沃茨克维斯瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47200,
+    "team_code": "47200",
+    "team_full_name": "普雷斯顿",
+    "team_short_name": "普雷斯顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24377,
+    "team_code": "24377",
+    "team_full_name": "普马斯",
+    "team_short_name": "普马斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26134,
+    "team_code": "26134",
+    "team_full_name": "智利大学",
+    "team_short_name": "智利大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16180,
+    "team_code": "16180",
+    "team_full_name": "曼彻斯特城",
+    "team_short_name": "曼彻斯特城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39518,
+    "team_code": "39518",
+    "team_full_name": "曼彻斯特联",
+    "team_short_name": "曼彻斯特联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45038,
+    "team_code": "45038",
+    "team_full_name": "曼托瓦",
+    "team_short_name": "曼托瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 2876,
+    "team_code": "2876",
+    "team_full_name": "曼斯菲尔德",
+    "team_short_name": "曼斯菲尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 42558,
+    "team_code": "42558",
+    "team_full_name": "朗福德城",
+    "team_short_name": "朗福德城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 37966,
+    "team_code": "37966",
+    "team_full_name": "本菲卡",
+    "team_short_name": "本菲卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55159,
+    "team_code": "55159",
+    "team_full_name": "本菲卡B队",
+    "team_short_name": "本菲卡B队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 19788,
+    "team_code": "POR",
+    "team_full_name": "朴次茅斯",
+    "team_short_name": "朴次茅斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 57508,
+    "team_code": "57508",
+    "team_full_name": "朴茨茅斯",
+    "team_short_name": "朴茨茅斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69601,
+    "team_code": "69601",
+    "team_full_name": "杜克拉",
+    "team_short_name": "杜克拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 64361,
+    "team_code": "64361",
+    "team_full_name": "杜塞尔多夫",
+    "team_short_name": "杜塞尔多夫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25602,
+    "team_code": "25602",
+    "team_full_name": "条约联",
+    "team_short_name": "条约联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41335,
+    "team_code": "41335",
+    "team_full_name": "松兹瓦尔",
+    "team_short_name": "松兹瓦尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41449,
+    "team_code": "41449",
+    "team_full_name": "松达尔",
+    "team_short_name": "松达尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3364,
+    "team_code": "3364",
+    "team_full_name": "林肯城",
+    "team_short_name": "林肯城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27441,
+    "team_code": "27441",
+    "team_full_name": "柏太阳神",
+    "team_short_name": "柏太阳神",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 79977,
+    "team_code": "79977",
+    "team_full_name": "柏林联合",
+    "team_short_name": "柏林联合",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93046,
+    "team_code": "93046",
+    "team_full_name": "柏林赫塔",
+    "team_short_name": "柏林赫塔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24986,
+    "team_code": "24986",
+    "team_full_name": "查尔顿",
+    "team_short_name": "查尔顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 63494,
+    "team_code": "63494",
+    "team_full_name": "查路",
+    "team_short_name": "查路",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5462,
+    "team_code": "5462",
+    "team_full_name": "标准列日",
+    "team_short_name": "标准列日",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95071,
+    "team_code": "95071",
+    "team_full_name": "根特",
+    "team_short_name": "根特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12724,
+    "team_code": "12724",
+    "team_full_name": "根特预备队",
+    "team_short_name": "根特预备队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5844,
+    "team_code": "5844",
+    "team_full_name": "格丁尼亚阿尔卡",
+    "team_short_name": "格丁尼亚阿尔卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12302,
+    "team_code": "12302",
+    "team_full_name": "格但斯克莱希亚",
+    "team_short_name": "格但斯克莱希亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69404,
+    "team_code": "69404",
+    "team_full_name": "格利维采皮亚斯特",
+    "team_short_name": "格利维采皮亚斯特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55496,
+    "team_code": "55496",
+    "team_full_name": "格勒诺布尔",
+    "team_short_name": "格勒诺布尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93739,
+    "team_code": "93739",
+    "team_full_name": "格尼斯坦",
+    "team_short_name": "格尼斯坦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27470,
+    "team_code": "27470",
+    "team_full_name": "格拉夫夏普",
+    "team_short_name": "格拉夫夏普",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94401,
+    "team_code": "94401",
+    "team_full_name": "格拉斯哥流浪者",
+    "team_short_name": "格拉斯哥流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78454,
+    "team_code": "格拉纳",
+    "team_full_name": "格拉纳达",
+    "team_short_name": "格拉纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98499,
+    "team_code": "98499",
+    "team_full_name": "格拉茨AK",
+    "team_short_name": "格拉茨AK",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45965,
+    "team_code": "45965",
+    "team_full_name": "格拉茨风暴",
+    "team_short_name": "格拉茨风暴",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27747,
+    "team_code": "27747",
+    "team_full_name": "格拉茨风暴二队",
+    "team_short_name": "格拉茨风暴二队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36439,
+    "team_code": "36439",
+    "team_full_name": "格罗宁根",
+    "team_short_name": "格罗宁根",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5171,
+    "team_code": "5171",
+    "team_full_name": "格里姆斯比",
+    "team_short_name": "格里姆斯比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 1103,
+    "team_code": "1103",
+    "team_full_name": "格里诺克摩顿",
+    "team_short_name": "格里诺克摩顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82141,
+    "team_code": "格雷米",
+    "team_full_name": "格雷米奥",
+    "team_short_name": "格雷米",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11629,
+    "team_code": "11629",
+    "team_full_name": "桑内斯乌尔夫",
+    "team_short_name": "桑内斯乌尔夫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96893,
+    "team_code": "桑坦德",
+    "team_full_name": "桑坦德竞技",
+    "team_short_name": "桑坦德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97879,
+    "team_code": "97879",
+    "team_full_name": "桑德兰",
+    "team_short_name": "桑德兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78406,
+    "team_code": "78406",
+    "team_full_name": "桑德捷斯基",
+    "team_short_name": "桑德捷斯基",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23463,
+    "team_code": "23463",
+    "team_full_name": "桑德维肯",
+    "team_short_name": "桑德维肯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92187,
+    "team_code": "桑托斯",
+    "team_full_name": "桑托斯",
+    "team_short_name": "桑托斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68340,
+    "team_code": "68340",
+    "team_full_name": "桑托斯拉古纳",
+    "team_short_name": "桑托斯拉古纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69481,
+    "team_code": "69481",
+    "team_full_name": "桑普多利亚",
+    "team_short_name": "桑普多利亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36121,
+    "team_code": "36121",
+    "team_full_name": "桑讷菲尤尔",
+    "team_short_name": "桑讷菲尤尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66663,
+    "team_code": "66663",
+    "team_full_name": "梅塔洛格洛布斯",
+    "team_short_name": "梅塔洛格洛布斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29897,
+    "team_code": "29897",
+    "team_full_name": "梅斯",
+    "team_short_name": "梅斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30230,
+    "team_code": "30230",
+    "team_full_name": "横滨水手",
+    "team_short_name": "横滨水手",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 35040,
+    "team_code": "35040",
+    "team_full_name": "欧塞尔",
+    "team_short_name": "欧塞尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 57955,
+    "team_code": "57955",
+    "team_full_name": "欧本",
+    "team_short_name": "欧本",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 67954,
+    "team_code": "67954",
+    "team_full_name": "欧登塞",
+    "team_short_name": "欧登塞",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75945,
+    "team_code": "75945",
+    "team_full_name": "比利亚雷亚尔",
+    "team_short_name": "比利亚雷亚尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89659,
+    "team_code": "比利时",
+    "team_full_name": "比利时",
+    "team_short_name": "比利时",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68781,
+    "team_code": "68781",
+    "team_full_name": "比勒费尔德",
+    "team_short_name": "比勒费尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 57722,
+    "team_code": "57722",
+    "team_full_name": "比尔森胜利",
+    "team_short_name": "比尔森胜利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12440,
+    "team_code": "12440",
+    "team_full_name": "比尔肖特",
+    "team_short_name": "比尔肖特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85192,
+    "team_code": "85192",
+    "team_full_name": "比尼亚德马埃弗顿",
+    "team_short_name": "比尼亚德马埃弗顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43923,
+    "team_code": "43923",
+    "team_full_name": "比萨",
+    "team_short_name": "比萨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62158,
+    "team_code": "62158",
+    "team_full_name": "毕尔巴鄂竞技",
+    "team_short_name": "毕尔巴鄂竞技",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 88479,
+    "team_code": "88479",
+    "team_full_name": "水原FC",
+    "team_short_name": "水原FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14137,
+    "team_code": "14137",
+    "team_full_name": "水原三星蓝翼",
+    "team_short_name": "水原三星蓝翼",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95409,
+    "team_code": "95409",
+    "team_full_name": "水户蜀葵",
+    "team_short_name": "水户蜀葵",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56615,
+    "team_code": "56615",
+    "team_full_name": "水晶宫",
+    "team_short_name": "水晶宫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38032,
+    "team_code": "38032",
+    "team_full_name": "永斯基",
+    "team_short_name": "永斯基",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6185,
+    "team_code": "6185",
+    "team_full_name": "汉坎",
+    "team_short_name": "汉坎",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50460,
+    "team_code": "50460",
+    "team_full_name": "汉堡",
+    "team_short_name": "汉堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 71943,
+    "team_code": "71943",
+    "team_full_name": "汉诺威96",
+    "team_short_name": "汉诺威96",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59525,
+    "team_code": "59525",
+    "team_full_name": "江原FC",
+    "team_short_name": "江原FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80193,
+    "team_code": "80193",
+    "team_full_name": "沃尔夫斯堡",
+    "team_short_name": "沃尔夫斯堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28910,
+    "team_code": "28910",
+    "team_full_name": "沃尔夫斯贝格",
+    "team_short_name": "沃尔夫斯贝格",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78599,
+    "team_code": "78599",
+    "team_full_name": "沃尔索尔",
+    "team_short_name": "沃尔索尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47925,
+    "team_code": "47925",
+    "team_full_name": "沃特福德",
+    "team_short_name": "沃特福德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43117,
+    "team_code": "43117",
+    "team_full_name": "沃特福德FC",
+    "team_short_name": "沃特福德FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41260,
+    "team_code": "沙佩科",
+    "team_full_name": "沙佩科恩斯",
+    "team_short_name": "沙佩科",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29196,
+    "team_code": "29196",
+    "team_full_name": "沙勒罗瓦",
+    "team_short_name": "沙勒罗瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75173,
+    "team_code": "75173",
+    "team_full_name": "沙勒罗瓦奥林匹克",
+    "team_short_name": "沙勒罗瓦奥林匹克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59944,
+    "team_code": "59944",
+    "team_full_name": "沙姆洛克流浪者",
+    "team_short_name": "沙姆洛克流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21764,
+    "team_code": "21764",
+    "team_full_name": "沙尔克04",
+    "team_short_name": "沙尔克04",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6795,
+    "team_code": "6795",
+    "team_full_name": "沙维什",
+    "team_short_name": "沙维什",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23582,
+    "team_code": "23582",
+    "team_full_name": "河床",
+    "team_short_name": "河床",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44517,
+    "team_code": "44517",
+    "team_full_name": "法兰克福",
+    "team_short_name": "法兰克福",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22454,
+    "team_code": "22454",
+    "team_full_name": "法尔肯贝里",
+    "team_short_name": "法尔肯贝里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55047,
+    "team_code": "55047",
+    "team_full_name": "法马利康",
+    "team_short_name": "法马利康",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 79380,
+    "team_code": "波兰",
+    "team_full_name": "波兰",
+    "team_short_name": "波兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24265,
+    "team_code": "波兰U",
+    "team_full_name": "波兰U21",
+    "team_short_name": "波兰U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 86498,
+    "team_code": "86498",
+    "team_full_name": "波兹南莱赫",
+    "team_short_name": "波兹南莱赫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 72918,
+    "team_code": "72918",
+    "team_full_name": "波城",
+    "team_short_name": "波城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 72304,
+    "team_code": "72304",
+    "team_full_name": "波尔图",
+    "team_short_name": "波尔图",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91061,
+    "team_code": "91061",
+    "team_full_name": "波尔图B队",
+    "team_short_name": "波尔图B队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43173,
+    "team_code": "43173",
+    "team_full_name": "波尔蒂芒斯",
+    "team_short_name": "波尔蒂芒斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80027,
+    "team_code": "80027",
+    "team_full_name": "波希米亚人",
+    "team_short_name": "波希米亚人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76947,
+    "team_code": "76947",
+    "team_full_name": "波希米亚人1905",
+    "team_short_name": "波希米亚人1905",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12109,
+    "team_code": "12109",
+    "team_full_name": "波特兰伐木者",
+    "team_short_name": "波特兰伐木者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59512,
+    "team_code": "59512",
+    "team_full_name": "波特诺山丘",
+    "team_short_name": "波特诺山丘",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22170,
+    "team_code": "22170",
+    "team_full_name": "波鸿",
+    "team_short_name": "波鸿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40204,
+    "team_code": "波黑",
+    "team_full_name": "波黑",
+    "team_short_name": "波黑",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97394,
+    "team_code": "97394",
+    "team_full_name": "洛克伦",
+    "team_short_name": "洛克伦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 42622,
+    "team_code": "42622",
+    "team_full_name": "洛杉矶FC",
+    "team_short_name": "洛杉矶FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73820,
+    "team_code": "73820",
+    "team_full_name": "洛杉矶银河",
+    "team_short_name": "洛杉矶银河",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 3583,
+    "team_code": "3583",
+    "team_full_name": "洛桑乌契",
+    "team_short_name": "洛桑乌契",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90719,
+    "team_code": "90719",
+    "team_full_name": "洛桑体育",
+    "team_short_name": "洛桑体育",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56052,
+    "team_code": "56052",
+    "team_full_name": "洛罗萨卢西塔尼亚",
+    "team_short_name": "洛罗萨卢西塔尼亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 42920,
+    "team_code": "42920",
+    "team_full_name": "洛里昂",
+    "team_short_name": "洛里昂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21762,
+    "team_code": "21762",
+    "team_full_name": "洛默尔",
+    "team_short_name": "洛默尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97991,
+    "team_code": "97991",
+    "team_full_name": "济州SK",
+    "team_short_name": "济州SK",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84480,
+    "team_code": "84480",
+    "team_full_name": "浦和红钻",
+    "team_short_name": "浦和红钻",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93152,
+    "team_code": "93152",
+    "team_full_name": "浦项铁人",
+    "team_short_name": "浦项铁人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31754,
+    "team_code": "31754",
+    "team_full_name": "海于格松",
+    "team_short_name": "海于格松",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54188,
+    "team_code": "54188",
+    "team_full_name": "海伦芬",
+    "team_short_name": "海伦芬",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4825,
+    "team_code": "4825",
+    "team_full_name": "海尔蒙德体育",
+    "team_short_name": "海尔蒙德体育",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41498,
+    "team_code": "41498",
+    "team_full_name": "海牙",
+    "team_short_name": "海牙",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85648,
+    "team_code": "85648",
+    "team_full_name": "海登海姆",
+    "team_short_name": "海登海姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62928,
+    "team_code": "62928",
+    "team_full_name": "涅切查",
+    "team_short_name": "涅切查",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58557,
+    "team_code": "清水心",
+    "team_full_name": "清水心跳",
+    "team_short_name": "清水心",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43042,
+    "team_code": "43042",
+    "team_full_name": "温哥华白浪",
+    "team_short_name": "温哥华白浪",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50171,
+    "team_code": "50171",
+    "team_full_name": "温特图尔",
+    "team_short_name": "温特图尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18934,
+    "team_code": "澳大利",
+    "team_full_name": "澳大利亚",
+    "team_short_name": "澳大利",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45183,
+    "team_code": "45183",
+    "team_full_name": "灵比",
+    "team_short_name": "灵比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 1107,
+    "team_code": "1107",
+    "team_full_name": "热那亚",
+    "team_short_name": "热那亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54401,
+    "team_code": "爱尔兰",
+    "team_full_name": "爱尔兰U21",
+    "team_short_name": "爱尔兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55661,
+    "team_code": "牙买加",
+    "team_full_name": "牙买加",
+    "team_short_name": "牙买加",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45267,
+    "team_code": "45267",
+    "team_full_name": "牛津联",
+    "team_short_name": "牛津联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81987,
+    "team_code": "81987",
+    "team_full_name": "特兰米尔流浪者",
+    "team_short_name": "特兰米尔流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20202,
+    "team_code": "20202",
+    "team_full_name": "特尔斯达",
+    "team_short_name": "特尔斯达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58245,
+    "team_code": "58245",
+    "team_full_name": "特普利采",
+    "team_short_name": "特普利采",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31478,
+    "team_code": "31478",
+    "team_full_name": "特温特",
+    "team_short_name": "特温特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55847,
+    "team_code": "55847",
+    "team_full_name": "特罗姆瑟",
+    "team_short_name": "特罗姆瑟",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 13874,
+    "team_code": "13874",
+    "team_full_name": "特鲁瓦",
+    "team_short_name": "特鲁瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4398,
+    "team_code": "4398",
+    "team_full_name": "狼队",
+    "team_short_name": "狼队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20320,
+    "team_code": "20320",
+    "team_full_name": "玛丽港",
+    "team_short_name": "玛丽港",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80948,
+    "team_code": "80948",
+    "team_full_name": "玻利瓦尔",
+    "team_short_name": "玻利瓦尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16265,
+    "team_code": "玻利维",
+    "team_full_name": "玻利维亚",
+    "team_short_name": "玻利维",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85907,
+    "team_code": "85907",
+    "team_full_name": "珀斯光荣",
+    "team_short_name": "珀斯光荣",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41907,
+    "team_code": "41907",
+    "team_full_name": "班菲尔德",
+    "team_short_name": "班菲尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25681,
+    "team_code": "25681",
+    "team_full_name": "琴斯托霍瓦",
+    "team_short_name": "琴斯托霍瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4822,
+    "team_code": "瑞典",
+    "team_full_name": "瑞典",
+    "team_short_name": "瑞典",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5895,
+    "team_code": "瑞典U",
+    "team_full_name": "瑞典U21",
+    "team_short_name": "瑞典U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52207,
+    "team_code": "瑞士",
+    "team_full_name": "瑞士",
+    "team_short_name": "瑞士",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10340,
+    "team_code": "10340",
+    "team_full_name": "瑟兰",
+    "team_short_name": "瑟兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 71083,
+    "team_code": "71083",
+    "team_full_name": "瓜亚基尔巴塞罗那",
+    "team_short_name": "瓜亚基尔巴塞罗那",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23454,
+    "team_code": "23454",
+    "team_full_name": "瓜达拉哈拉",
+    "team_short_name": "瓜达拉哈拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68586,
+    "team_code": "68586",
+    "team_full_name": "瓦伦西亚",
+    "team_short_name": "瓦伦西亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 46659,
+    "team_code": "46659",
+    "team_full_name": "瓦勒伦加",
+    "team_short_name": "瓦勒伦加",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61811,
+    "team_code": "61811",
+    "team_full_name": "瓦埃勒",
+    "team_short_name": "瓦埃勒",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51786,
+    "team_code": "51786",
+    "team_full_name": "瓦奇巴托",
+    "team_short_name": "瓦奇巴托",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81192,
+    "team_code": "81192",
+    "team_full_name": "瓦尔贝里",
+    "team_short_name": "瓦尔贝里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23651,
+    "team_code": "23651",
+    "team_full_name": "瓦尔韦克",
+    "team_short_name": "瓦尔韦克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12175,
+    "team_code": "12175",
+    "team_full_name": "瓦斯科达伽马",
+    "team_short_name": "瓦斯科达伽马",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84789,
+    "team_code": "84789",
+    "team_full_name": "瓦杜兹",
+    "team_short_name": "瓦杜兹",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89123,
+    "team_code": "89123",
+    "team_full_name": "瓦萨",
+    "team_short_name": "瓦萨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93875,
+    "team_code": "93875",
+    "team_full_name": "瓦路尔",
+    "team_short_name": "瓦路尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66969,
+    "team_code": "66969",
+    "team_full_name": "甘冈",
+    "team_short_name": "甘冈",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21003,
+    "team_code": "町田泽",
+    "team_full_name": "町田泽维亚",
+    "team_short_name": "町田泽",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69382,
+    "team_code": "白俄罗",
+    "team_full_name": "白俄罗斯U21",
+    "team_short_name": "白俄罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70113,
+    "team_code": "70113",
+    "team_full_name": "皇家奥维耶多",
+    "team_short_name": "皇家奥维耶多",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93304,
+    "team_code": "93304",
+    "team_full_name": "皇家社会",
+    "team_short_name": "皇家社会",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33175,
+    "team_code": "皇家社",
+    "team_full_name": "皇家社会B队",
+    "team_short_name": "皇家社",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34231,
+    "team_code": "34231",
+    "team_full_name": "皇家贝蒂斯",
+    "team_short_name": "皇家贝蒂斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 22417,
+    "team_code": "22417",
+    "team_full_name": "皇家马德里",
+    "team_short_name": "皇家马德里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80747,
+    "team_code": "直布罗",
+    "team_full_name": "直布罗陀",
+    "team_short_name": "直布罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30774,
+    "team_code": "神户胜",
+    "team_full_name": "神户胜利船",
+    "team_short_name": "神户胜",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54894,
+    "team_code": "54894",
+    "team_full_name": "福伦丹",
+    "team_short_name": "福伦丹",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 42626,
+    "team_code": "42626",
+    "team_full_name": "福冈黄蜂",
+    "team_short_name": "福冈黄蜂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25828,
+    "team_code": "25828",
+    "team_full_name": "福塔莱萨",
+    "team_short_name": "福塔莱萨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56652,
+    "team_code": "56652",
+    "team_full_name": "福尔柯克",
+    "team_short_name": "福尔柯克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66072,
+    "team_code": "66072",
+    "team_full_name": "科克城",
+    "team_short_name": "科克城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52175,
+    "team_code": "52175",
+    "team_full_name": "科夫漫步者",
+    "team_short_name": "科夫漫步者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21807,
+    "team_code": "21807",
+    "team_full_name": "科尔切斯特联",
+    "team_short_name": "科尔切斯特联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91769,
+    "team_code": "科尔多",
+    "team_full_name": "科尔多瓦",
+    "team_short_name": "科尔多",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75125,
+    "team_code": "75125",
+    "team_full_name": "科尔多瓦中央",
+    "team_short_name": "科尔多瓦中央",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 65413,
+    "team_code": "65413",
+    "team_full_name": "科尔多瓦学院",
+    "team_short_name": "科尔多瓦学院",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91909,
+    "team_code": "91909",
+    "team_full_name": "科布雷萨尔",
+    "team_short_name": "科布雷萨尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31865,
+    "team_code": "科林蒂",
+    "team_full_name": "科林蒂安",
+    "team_short_name": "科林蒂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 8260,
+    "team_code": "8260",
+    "team_full_name": "科灵",
+    "team_short_name": "科灵",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29448,
+    "team_code": "29448",
+    "team_full_name": "科特赖克",
+    "team_short_name": "科特赖克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29192,
+    "team_code": "科特迪",
+    "team_full_name": "科特迪瓦",
+    "team_short_name": "科特迪",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99800,
+    "team_code": "科索沃",
+    "team_full_name": "科索沃",
+    "team_short_name": "科索沃",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91246,
+    "team_code": "91246",
+    "team_full_name": "科罗拉多急流",
+    "team_short_name": "科罗拉多急流",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94943,
+    "team_code": "94943",
+    "team_full_name": "科莫",
+    "team_short_name": "科莫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20332,
+    "team_code": "20332",
+    "team_full_name": "科金博联",
+    "team_short_name": "科金博联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 63022,
+    "team_code": "63022",
+    "team_full_name": "科隆",
+    "team_short_name": "科隆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38102,
+    "team_code": "突尼斯",
+    "team_full_name": "突尼斯",
+    "team_short_name": "突尼斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68894,
+    "team_code": "68894",
+    "team_full_name": "竞技俱乐部",
+    "team_short_name": "竞技俱乐部",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49778,
+    "team_code": "49778",
+    "team_full_name": "第一维也纳",
+    "team_short_name": "第一维也纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 48125,
+    "team_code": "48125",
+    "team_full_name": "米亚尔比",
+    "team_short_name": "米亚尔比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31020,
+    "team_code": "米兰德",
+    "team_full_name": "米兰德斯",
+    "team_short_name": "米兰德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47796,
+    "team_code": "米内罗",
+    "team_full_name": "米内罗美洲",
+    "team_short_name": "米内罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59671,
+    "team_code": "59671",
+    "team_full_name": "米尔沃尔",
+    "team_short_name": "米尔沃尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 66415,
+    "team_code": "66415",
+    "team_full_name": "米尔顿凯恩斯",
+    "team_short_name": "米尔顿凯恩斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6514,
+    "team_code": "6514",
+    "team_full_name": "米德尔斯堡",
+    "team_short_name": "米德尔斯堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 17466,
+    "team_code": "17466",
+    "team_full_name": "米德尔法特",
+    "team_short_name": "米德尔法特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 48881,
+    "team_code": "米拉索",
+    "team_full_name": "米拉索尔",
+    "team_short_name": "米拉索",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44943,
+    "team_code": "米纳斯",
+    "team_full_name": "米纳斯吉拉斯竞技",
+    "team_short_name": "米纳斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59013,
+    "team_code": "59013",
+    "team_full_name": "索尔福德城",
+    "team_short_name": "索尔福德城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53864,
+    "team_code": "累西腓",
+    "team_full_name": "累西腓航海",
+    "team_short_name": "累西腓",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28349,
+    "team_code": "28349",
+    "team_full_name": "纳什维尔SC",
+    "team_short_name": "纳什维尔SC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70727,
+    "team_code": "70727",
+    "team_full_name": "纳沙泰尔",
+    "team_short_name": "纳沙泰尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94172,
+    "team_code": "94172",
+    "team_full_name": "纽伦堡",
+    "team_short_name": "纽伦堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85532,
+    "team_code": "纽卡斯",
+    "team_full_name": "纽卡斯尔喷气机",
+    "team_short_name": "纽卡斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 2372,
+    "team_code": "2372",
+    "team_full_name": "纽卡斯尔联",
+    "team_short_name": "纽卡斯尔联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 15752,
+    "team_code": "15752",
+    "team_full_name": "纽布莱恩斯",
+    "team_short_name": "纽布莱恩斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7222,
+    "team_code": "7222",
+    "team_full_name": "纽波特郡",
+    "team_short_name": "纽波特郡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 19205,
+    "team_code": "19205",
+    "team_full_name": "纽约城",
+    "team_short_name": "纽约城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85495,
+    "team_code": "85495",
+    "team_full_name": "纽约红牛",
+    "team_short_name": "纽约红牛",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70615,
+    "team_code": "70615",
+    "team_full_name": "纽维尔老男孩",
+    "team_short_name": "纽维尔老男孩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59564,
+    "team_code": "59564",
+    "team_full_name": "维也纳快速",
+    "team_short_name": "维也纳快速",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50738,
+    "team_code": "50738",
+    "team_full_name": "维也纳快速二队",
+    "team_short_name": "维也纳快速二队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27294,
+    "team_code": "27294",
+    "team_full_name": "维京",
+    "team_short_name": "维京",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 80313,
+    "team_code": "80313",
+    "team_full_name": "维京古尔",
+    "team_short_name": "维京古尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58533,
+    "team_code": "维冈竞",
+    "team_full_name": "维冈竞技",
+    "team_short_name": "维冈竞",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50943,
+    "team_code": "50943",
+    "team_full_name": "维堡",
+    "team_short_name": "维堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54638,
+    "team_code": "54638",
+    "team_full_name": "维塞乌学院",
+    "team_short_name": "维塞乌学院",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 29312,
+    "team_code": "29312",
+    "team_full_name": "维多利亚",
+    "team_short_name": "维多利亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 63072,
+    "team_code": "63072",
+    "team_full_name": "维尔港",
+    "team_short_name": "维尔港",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47692,
+    "team_code": "47692",
+    "team_full_name": "维戈塞尔塔",
+    "team_short_name": "维戈塞尔塔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 56354,
+    "team_code": "维拉诺",
+    "team_full_name": "维拉诺瓦",
+    "team_short_name": "维拉诺",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30406,
+    "team_code": "30406",
+    "team_full_name": "维泽拉",
+    "team_short_name": "维泽拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 20583,
+    "team_code": "20583",
+    "team_full_name": "维罗纳",
+    "team_short_name": "维罗纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51909,
+    "team_code": "51909",
+    "team_full_name": "罗兹维德祖",
+    "team_short_name": "罗兹维德祖",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77615,
+    "team_code": "77615",
+    "team_full_name": "罗德兹",
+    "team_short_name": "罗德兹",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82448,
+    "team_code": "82448",
+    "team_full_name": "罗斯郡",
+    "team_short_name": "罗斯郡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95972,
+    "team_code": "95972",
+    "team_full_name": "罗森博格",
+    "team_short_name": "罗森博格",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51751,
+    "team_code": "51751",
+    "team_full_name": "罗瑟汉姆联",
+    "team_short_name": "罗瑟汉姆联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28856,
+    "team_code": "28856",
+    "team_full_name": "罗萨里奥中央",
+    "team_short_name": "罗萨里奥中央",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 35335,
+    "team_code": "35335",
+    "team_full_name": "罗达JC",
+    "team_short_name": "罗达JC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27742,
+    "team_code": "27742",
+    "team_full_name": "罗马",
+    "team_short_name": "罗马",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45651,
+    "team_code": "45651",
+    "team_full_name": "美因茨",
+    "team_short_name": "美因茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85206,
+    "team_code": "美国",
+    "team_full_name": "美国",
+    "team_short_name": "美国",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 55440,
+    "team_code": "55440",
+    "team_full_name": "老虎大学",
+    "team_short_name": "老虎大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18245,
+    "team_code": "18245",
+    "team_full_name": "考文垂",
+    "team_short_name": "考文垂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6229,
+    "team_code": "6229",
+    "team_full_name": "耶尔文佩",
+    "team_short_name": "耶尔文佩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60146,
+    "team_code": "AQA",
+    "team_full_name": "胡巴尔卡德西亚",
+    "team_short_name": "胡巴卡德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45676,
+    "team_code": "45676",
+    "team_full_name": "腓特烈斯塔",
+    "team_short_name": "腓特烈斯塔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 8803,
+    "team_code": "8803",
+    "team_full_name": "腓特烈西亚",
+    "team_short_name": "腓特烈西亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 19836,
+    "team_code": "19836",
+    "team_full_name": "色格拉布鲁日",
+    "team_short_name": "色格拉布鲁日",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54762,
+    "team_code": "54762",
+    "team_full_name": "艾尔德里人",
+    "team_short_name": "艾尔德里人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90535,
+    "team_code": "90535",
+    "team_full_name": "艾尔联",
+    "team_short_name": "艾尔联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47418,
+    "team_code": "47418",
+    "team_full_name": "芝加哥火焰",
+    "team_short_name": "芝加哥火焰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52340,
+    "team_code": "芬兰U",
+    "team_full_name": "芬兰U21",
+    "team_short_name": "芬兰U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28255,
+    "team_code": "28255",
+    "team_full_name": "芬洛",
+    "team_short_name": "芬洛",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 88328,
+    "team_code": "苏格兰",
+    "team_full_name": "苏格兰U21",
+    "team_short_name": "苏格兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24942,
+    "team_code": "24942",
+    "team_full_name": "苏黎世",
+    "team_short_name": "苏黎世",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70454,
+    "team_code": "英格兰",
+    "team_full_name": "英格兰",
+    "team_short_name": "英格兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49772,
+    "team_code": "49772",
+    "team_full_name": "草蜢",
+    "team_short_name": "草蜢",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 83010,
+    "team_code": "荷兰",
+    "team_full_name": "荷兰",
+    "team_short_name": "荷兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 7545,
+    "team_code": "7545",
+    "team_full_name": "莫伦贝克",
+    "team_short_name": "莫伦贝克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45763,
+    "team_code": "45763",
+    "team_full_name": "莫尔德",
+    "team_short_name": "莫尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 88128,
+    "team_code": "88128",
+    "team_full_name": "莫斯",
+    "team_short_name": "莫斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5006,
+    "team_code": "5006",
+    "team_full_name": "莱万特",
+    "team_short_name": "莱万特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44435,
+    "team_code": "44435",
+    "team_full_name": "莱切",
+    "team_short_name": "莱切",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45905,
+    "team_code": "莱加内",
+    "team_full_name": "莱加内斯",
+    "team_short_name": "莱加内",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95175,
+    "team_code": "95175",
+    "team_full_name": "莱斯特城",
+    "team_short_name": "莱斯特城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53185,
+    "team_code": "53185",
+    "team_full_name": "莱昂",
+    "team_short_name": "莱昂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10694,
+    "team_code": "莱昂文",
+    "team_full_name": "莱昂文化体育",
+    "team_short_name": "莱昂文",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18885,
+    "team_code": "18885",
+    "team_full_name": "莱里亚",
+    "team_short_name": "莱里亚",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69614,
+    "team_code": "莱顿东",
+    "team_full_name": "莱顿东方",
+    "team_short_name": "莱顿东",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97117,
+    "team_code": "97117",
+    "team_full_name": "菲尔特",
+    "team_short_name": "菲尔特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26396,
+    "team_code": "26396",
+    "team_full_name": "萨尔普斯堡",
+    "team_short_name": "萨尔普斯堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 95100,
+    "team_code": "95100",
+    "team_full_name": "萨尔茨堡红牛",
+    "team_short_name": "萨尔茨堡红牛",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27968,
+    "team_code": "萨拉戈",
+    "team_full_name": "萨拉戈萨",
+    "team_short_name": "萨拉戈",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90102,
+    "team_code": "90102",
+    "team_full_name": "萨斯菲尔德",
+    "team_short_name": "萨斯菲尔德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10983,
+    "team_code": "萨米恩",
+    "team_full_name": "萨米恩托",
+    "team_short_name": "萨米恩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 2525,
+    "team_code": "2525",
+    "team_full_name": "萨索洛",
+    "team_short_name": "萨索洛",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59104,
+    "team_code": "葡萄牙",
+    "team_full_name": "葡萄牙U21",
+    "team_short_name": "葡萄牙",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38283,
+    "team_code": "38283",
+    "team_full_name": "葡萄牙体育",
+    "team_short_name": "葡萄牙体育",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34176,
+    "team_code": "34176",
+    "team_full_name": "葡萄牙体育B队",
+    "team_short_name": "葡萄牙体育B队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89412,
+    "team_code": "89412",
+    "team_full_name": "葡萄牙国民",
+    "team_short_name": "葡萄牙国民",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77950,
+    "team_code": "77950",
+    "team_full_name": "蒂华纳",
+    "team_short_name": "蒂华纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75295,
+    "team_code": "蒂格雷",
+    "team_full_name": "蒂格雷",
+    "team_short_name": "蒂格雷",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 86308,
+    "team_code": "86308",
+    "team_full_name": "蒙彼利埃",
+    "team_short_name": "蒙彼利埃",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 27942,
+    "team_code": "27942",
+    "team_full_name": "蒙得维的亚国民",
+    "team_short_name": "蒙得维的亚国民",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11216,
+    "team_code": "11216",
+    "team_full_name": "蒙得维的亚城力矩",
+    "team_short_name": "蒙得维的亚城力矩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51540,
+    "team_code": "51540",
+    "team_full_name": "蒙扎",
+    "team_short_name": "蒙扎",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77874,
+    "team_code": "77874",
+    "team_full_name": "蒙特雷",
+    "team_short_name": "蒙特雷",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78714,
+    "team_code": "78714",
+    "team_full_name": "蓝十字",
+    "team_short_name": "蓝十字",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21157,
+    "team_code": "21157",
+    "team_full_name": "蓝白林茨",
+    "team_short_name": "蓝白林茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58480,
+    "team_code": "58480",
+    "team_full_name": "蔚山HD",
+    "team_short_name": "蔚山HD",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84339,
+    "team_code": "USH",
+    "team_full_name": "蔚山现代",
+    "team_short_name": "蔚山现代",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 64460,
+    "team_code": "64460",
+    "team_full_name": "西布朗维奇",
+    "team_short_name": "西布朗维奇",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 42560,
+    "team_code": "42560",
+    "team_full_name": "西悉尼流浪者",
+    "team_short_name": "西悉尼流浪者",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23901,
+    "team_code": "23901",
+    "team_full_name": "西汉姆联",
+    "team_short_name": "西汉姆联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36131,
+    "team_code": "西班牙",
+    "team_full_name": "西班牙",
+    "team_short_name": "西班牙",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6120,
+    "team_code": "6120",
+    "team_full_name": "西班牙人",
+    "team_short_name": "西班牙人",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60671,
+    "team_code": "60671",
+    "team_full_name": "诺丁汉森林",
+    "team_short_name": "诺丁汉森林",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24284,
+    "team_code": "24284",
+    "team_full_name": "诺尔比",
+    "team_short_name": "诺尔比",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23265,
+    "team_code": "23265",
+    "team_full_name": "诺维奇",
+    "team_short_name": "诺维奇",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44199,
+    "team_code": "44199",
+    "team_full_name": "诺茨郡",
+    "team_short_name": "诺茨郡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97574,
+    "team_code": "97574",
+    "team_full_name": "诺迪克联",
+    "team_short_name": "诺迪克联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26353,
+    "team_code": "26353",
+    "team_full_name": "谢尔伯恩",
+    "team_short_name": "谢尔伯恩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 86805,
+    "team_code": "86805",
+    "team_full_name": "谢菲尔德联",
+    "team_short_name": "谢菲尔德联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28757,
+    "team_code": "28757",
+    "team_full_name": "贝尔格拉诺",
+    "team_short_name": "贝尔格拉诺",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36204,
+    "team_code": "36204",
+    "team_full_name": "贝林佐纳",
+    "team_short_name": "贝林佐纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31142,
+    "team_code": "31142",
+    "team_full_name": "贝雷达比历克",
+    "team_short_name": "贝雷达比历克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77893,
+    "team_code": "77893",
+    "team_full_name": "费城联合",
+    "team_short_name": "费城联合",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 94054,
+    "team_code": "94054",
+    "team_full_name": "费尔盖拉斯",
+    "team_short_name": "费尔盖拉斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33130,
+    "team_code": "33130",
+    "team_full_name": "费恩哈普",
+    "team_short_name": "费恩哈普",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 67765,
+    "team_code": "67765",
+    "team_full_name": "费耶诺德",
+    "team_short_name": "费耶诺德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9400,
+    "team_code": "9400",
+    "team_full_name": "赖于福斯",
+    "team_short_name": "赖于福斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 4148,
+    "team_code": "4148",
+    "team_full_name": "赫塔费",
+    "team_short_name": "赫塔费",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93052,
+    "team_code": "93052",
+    "team_full_name": "赫尔城",
+    "team_short_name": "赫尔城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31781,
+    "team_code": "31781",
+    "team_full_name": "赫尔辛基",
+    "team_short_name": "赫尔辛基",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 40550,
+    "team_code": "40550",
+    "team_full_name": "赫尔辛基预备队",
+    "team_short_name": "赫尔辛基预备队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59791,
+    "team_code": "59791",
+    "team_full_name": "赫尔辛堡",
+    "team_short_name": "赫尔辛堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 24826,
+    "team_code": "24826",
+    "team_full_name": "赫德",
+    "team_short_name": "赫德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60133,
+    "team_code": "60133",
+    "team_full_name": "赫拉克勒斯",
+    "team_short_name": "赫拉克勒斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 43716,
+    "team_code": "43716",
+    "team_full_name": "赫拉德茨克拉洛韦",
+    "team_short_name": "赫拉德茨克拉洛韦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98489,
+    "team_code": "98489",
+    "team_full_name": "赫曼施塔特",
+    "team_short_name": "赫曼施塔特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51976,
+    "team_code": "51976",
+    "team_full_name": "赫根",
+    "team_short_name": "赫根",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98752,
+    "team_code": "98752",
+    "team_full_name": "赫罗纳",
+    "team_short_name": "赫罗纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85001,
+    "team_code": "85001",
+    "team_full_name": "达姆施塔特",
+    "team_short_name": "达姆施塔特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 21550,
+    "team_code": "21550",
+    "team_full_name": "通德拉",
+    "team_short_name": "通德拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23705,
+    "team_code": "23705",
+    "team_full_name": "邓伯什",
+    "team_short_name": "邓伯什",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14516,
+    "team_code": "14516",
+    "team_full_name": "邓多克",
+    "team_short_name": "邓多克",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33646,
+    "team_code": "33646",
+    "team_full_name": "邓弗姆林竞技",
+    "team_short_name": "邓弗姆林竞技",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76415,
+    "team_code": "76415",
+    "team_full_name": "邓迪FC",
+    "team_short_name": "邓迪FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69629,
+    "team_code": "69629",
+    "team_full_name": "邓迪联",
+    "team_short_name": "邓迪联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 93902,
+    "team_code": "93902",
+    "team_full_name": "那不勒斯",
+    "team_short_name": "那不勒斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14614,
+    "team_code": "14614",
+    "team_full_name": "都柏林大学",
+    "team_short_name": "都柏林大学",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61080,
+    "team_code": "61080",
+    "team_full_name": "都灵",
+    "team_short_name": "都灵",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25202,
+    "team_code": "25202",
+    "team_full_name": "里奥夸尔托大学生",
+    "team_short_name": "里奥夸尔托大学生",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69754,
+    "team_code": "69754",
+    "team_full_name": "里奥阿维",
+    "team_short_name": "里奥阿维",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6382,
+    "team_code": "6382",
+    "team_full_name": "里尔",
+    "team_short_name": "里尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 89379,
+    "team_code": "89379",
+    "team_full_name": "里德",
+    "team_short_name": "里德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 57651,
+    "team_code": "SPO",
+    "team_full_name": "里斯本竞技",
+    "team_short_name": "里斯本",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 41901,
+    "team_code": "41901",
+    "team_full_name": "里昂",
+    "team_short_name": "里昂",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 85298,
+    "team_code": "里瓦达",
+    "team_full_name": "里瓦达维亚独立",
+    "team_short_name": "里瓦达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52170,
+    "team_code": "52170",
+    "team_full_name": "金泉尚武",
+    "team_short_name": "金泉尚武",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 46741,
+    "team_code": "46741",
+    "team_full_name": "金浦FC",
+    "team_short_name": "金浦FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 17107,
+    "team_code": "17107",
+    "team_full_name": "金海FC",
+    "team_short_name": "金海FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9117,
+    "team_code": "9117",
+    "team_full_name": "釜山IPark",
+    "team_short_name": "釜山IPark",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 1793,
+    "team_code": "铁路工",
+    "team_full_name": "铁路工人",
+    "team_short_name": "铁路工",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 84595,
+    "team_code": "84595",
+    "team_full_name": "锡塔德福图纳",
+    "team_short_name": "锡塔德福图纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 11741,
+    "team_code": "11741",
+    "team_full_name": "锡尔克堡",
+    "team_short_name": "锡尔克堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 14459,
+    "team_code": "14459",
+    "team_full_name": "锡永",
+    "team_short_name": "锡永",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82918,
+    "team_code": "82918",
+    "team_full_name": "长崎成功丸",
+    "team_short_name": "长崎成功丸",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 18169,
+    "team_code": "18169",
+    "team_full_name": "门兴格拉德巴赫",
+    "team_short_name": "门兴格拉德巴赫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78233,
+    "team_code": "78233",
+    "team_full_name": "门多萨体操",
+    "team_short_name": "门多萨体操",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 96534,
+    "team_code": "96534",
+    "team_full_name": "防卫与正义",
+    "team_short_name": "防卫与正义",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51750,
+    "team_code": "51750",
+    "team_full_name": "阿伯丁",
+    "team_short_name": "阿伯丁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 2499,
+    "team_code": "2499",
+    "team_full_name": "阿克灵顿",
+    "team_short_name": "阿克灵顿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 36262,
+    "team_code": "36262",
+    "team_full_name": "阿劳",
+    "team_short_name": "阿劳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 8828,
+    "team_code": "阿塞拜",
+    "team_full_name": "阿塞拜疆U21",
+    "team_short_name": "阿塞拜",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 79088,
+    "team_code": "79088",
+    "team_full_name": "阿姆施泰滕",
+    "team_short_name": "阿姆施泰滕",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 50281,
+    "team_code": "50281",
+    "team_full_name": "阿尔克马尔",
+    "team_short_name": "阿尔克马尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 76540,
+    "team_code": "76540",
+    "team_full_name": "阿尔克马尔青年队",
+    "team_short_name": "阿尔克马尔青年队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 54843,
+    "team_code": "阿尔多",
+    "team_full_name": "阿尔多希维",
+    "team_short_name": "阿尔多",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 57473,
+    "team_code": "57473",
+    "team_full_name": "阿尔杰什",
+    "team_short_name": "阿尔杰什",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82705,
+    "team_code": "82705",
+    "team_full_name": "阿尔梅勒城",
+    "team_short_name": "阿尔梅勒城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75743,
+    "team_code": "阿尔梅",
+    "team_full_name": "阿尔梅里亚",
+    "team_short_name": "阿尔梅",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34505,
+    "team_code": "34505",
+    "team_full_name": "阿尔特阿赫",
+    "team_short_name": "阿尔特阿赫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99885,
+    "team_code": "阿尔瓦",
+    "team_full_name": "阿尔瓦塞特",
+    "team_short_name": "阿尔瓦",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60812,
+    "team_code": "60812",
+    "team_full_name": "阿布罗斯",
+    "team_short_name": "阿布罗斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 58593,
+    "team_code": "58593",
+    "team_full_name": "阿德米拉",
+    "team_short_name": "阿德米拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 53831,
+    "team_code": "53831",
+    "team_full_name": "阿德莱德联",
+    "team_short_name": "阿德莱德联",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 82602,
+    "team_code": "82602",
+    "team_full_name": "阿拉维斯",
+    "team_short_name": "阿拉维斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39081,
+    "team_code": "39081",
+    "team_full_name": "阿斯隆城",
+    "team_short_name": "阿斯隆城",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77414,
+    "team_code": "77414",
+    "team_full_name": "阿斯顿维拉",
+    "team_short_name": "阿斯顿维拉",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68326,
+    "team_code": "68326",
+    "team_full_name": "阿根廷独立",
+    "team_short_name": "阿根廷独立",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 38444,
+    "team_code": "阿根廷",
+    "team_full_name": "阿根廷青年人",
+    "team_short_name": "阿根廷",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99615,
+    "team_code": "99615",
+    "team_full_name": "阿森纳",
+    "team_short_name": "阿森纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 98971,
+    "team_code": "98971",
+    "team_full_name": "阿特拉斯",
+    "team_short_name": "阿特拉斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 34577,
+    "team_code": "阿瓦伊",
+    "team_full_name": "阿瓦伊",
+    "team_short_name": "阿瓦伊",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 74035,
+    "team_code": "74035",
+    "team_full_name": "阿维卡",
+    "team_short_name": "阿维卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 52208,
+    "team_code": "52208",
+    "team_full_name": "阿罗卡",
+    "team_short_name": "阿罗卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92940,
+    "team_code": "92940",
+    "team_full_name": "阿讷西",
+    "team_short_name": "阿讷西",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 6805,
+    "team_code": "6805",
+    "team_full_name": "阿贾克斯",
+    "team_short_name": "阿贾克斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 31540,
+    "team_code": "31540",
+    "team_full_name": "阿贾克斯青年队",
+    "team_short_name": "阿贾克斯青年队",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23941,
+    "team_code": "23941",
+    "team_full_name": "阿韦利诺",
+    "team_short_name": "阿韦利诺",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 90698,
+    "team_code": "90698",
+    "team_full_name": "阿马多拉之星",
+    "team_short_name": "阿马多拉之星",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 46786,
+    "team_code": "隆德里",
+    "team_full_name": "隆德里纳",
+    "team_short_name": "隆德里",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 59885,
+    "team_code": "59885",
+    "team_full_name": "雷丁",
+    "team_short_name": "雷丁",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87404,
+    "team_code": "87404",
+    "team_full_name": "雷克瑟姆",
+    "team_short_name": "雷克瑟姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 60102,
+    "team_code": "60102",
+    "team_full_name": "雷克索斯",
+    "team_short_name": "雷克索斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 72337,
+    "team_code": "72337",
+    "team_full_name": "雷吉亚纳",
+    "team_short_name": "雷吉亚纳",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 25632,
+    "team_code": "25632",
+    "team_full_name": "雷恩",
+    "team_short_name": "雷恩",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 26403,
+    "team_code": "26403",
+    "team_full_name": "雷科莱塔",
+    "team_short_name": "雷科莱塔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28394,
+    "team_code": "雷莫",
+    "team_full_name": "雷莫",
+    "team_short_name": "雷莫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33807,
+    "team_code": "33807",
+    "team_full_name": "霍布罗",
+    "team_short_name": "霍布罗",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 49473,
+    "team_code": "49473",
+    "team_full_name": "霍森斯",
+    "team_short_name": "霍森斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 28356,
+    "team_code": "28356",
+    "team_full_name": "霍芬海姆",
+    "team_short_name": "霍芬海姆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39967,
+    "team_code": "39967",
+    "team_full_name": "韦克斯福德",
+    "team_short_name": "韦克斯福德",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 30958,
+    "team_code": "30958",
+    "team_full_name": "韦尔",
+    "team_short_name": "韦尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 62834,
+    "team_code": "62834",
+    "team_full_name": "韦尔斯赫塔",
+    "team_short_name": "韦尔斯赫塔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 47250,
+    "team_code": "韦斯卡",
+    "team_full_name": "韦斯卡",
+    "team_short_name": "韦斯卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 92965,
+    "team_code": "92965",
+    "team_full_name": "韦斯特洛",
+    "team_short_name": "韦斯特洛",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 12210,
+    "team_code": "12210",
+    "team_full_name": "韦斯特罗斯",
+    "team_short_name": "韦斯特罗斯",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 39965,
+    "team_code": "39965",
+    "team_full_name": "韦纳穆",
+    "team_short_name": "韦纳穆",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 91001,
+    "team_code": "韩国",
+    "team_full_name": "韩国",
+    "team_short_name": "韩国",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 45655,
+    "team_code": "45655",
+    "team_full_name": "飓风",
+    "team_short_name": "飓风",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 81846,
+    "team_code": "SEO",
+    "team_full_name": "首尔FC",
+    "team_short_name": "首尔FC",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 77166,
+    "team_code": "77166",
+    "team_full_name": "首尔衣恋",
+    "team_short_name": "首尔衣恋",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69253,
+    "team_code": "69253",
+    "team_full_name": "马尔默",
+    "team_short_name": "马尔默",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 23736,
+    "team_code": "23736",
+    "team_full_name": "马德里竞技",
+    "team_short_name": "马德里竞技",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 70436,
+    "team_code": "马拉加",
+    "team_full_name": "马拉加",
+    "team_short_name": "马拉加",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 33875,
+    "team_code": "33875",
+    "team_full_name": "马斯特里赫特",
+    "team_short_name": "马斯特里赫特",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 61769,
+    "team_code": "61769",
+    "team_full_name": "马格德堡",
+    "team_short_name": "马格德堡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 69438,
+    "team_code": "69438",
+    "team_full_name": "马瑟韦尔",
+    "team_short_name": "马瑟韦尔",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 75873,
+    "team_code": "75873",
+    "team_full_name": "马略卡",
+    "team_short_name": "马略卡",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 44659,
+    "team_code": "44659",
+    "team_full_name": "马萨特兰",
+    "team_short_name": "马萨特兰",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 68683,
+    "team_code": "68683",
+    "team_full_name": "马赛",
+    "team_short_name": "马赛",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 73895,
+    "team_code": "73895",
+    "team_full_name": "马里迪莫",
+    "team_short_name": "马里迪莫",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 97064,
+    "team_code": "97064",
+    "team_full_name": "鹿岛鹿角",
+    "team_short_name": "鹿岛鹿角",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 99926,
+    "team_code": "99926",
+    "team_full_name": "鹿特丹斯巴达",
+    "team_short_name": "鹿特丹斯巴达",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 78597,
+    "team_code": "78597",
+    "team_full_name": "鹿特丹精英",
+    "team_short_name": "鹿特丹精英",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 5636,
+    "team_code": "麦克阿",
+    "team_full_name": "麦克阿瑟",
+    "team_short_name": "麦克阿",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 9088,
+    "team_code": "MCF",
+    "team_full_name": "麦克阿瑟FC",
+    "team_short_name": "麦克阿瑟",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 16579,
+    "team_code": "黑山",
+    "team_full_name": "黑山",
+    "team_short_name": "黑山",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 10870,
+    "team_code": "黑山U",
+    "team_full_name": "黑山U21",
+    "team_short_name": "黑山U",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 87930,
+    "team_code": "87930",
+    "team_full_name": "黑白布雷根茨",
+    "team_short_name": "黑白布雷根茨",
+    "team_short_en_name": ""
+  },
+  {
+    "team_id": 51199,
+    "team_code": "51199",
+    "team_full_name": "龙仁FC",
+    "team_short_name": "龙仁FC",
+    "team_short_en_name": ""
+  }
+]

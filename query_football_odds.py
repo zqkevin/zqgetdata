@@ -10,12 +10,7 @@ from datetime import datetime
 project_root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(project_root)
 
-from app.database import localdb
-from app.database.tczq_models import (
-    TczqMatch, TczqCrs, TczqHad, TczqHhad, TczqHafu, TczqTtg,
-    TczqOddsHistory, TczqOddsHistoryHad, TczqOddsHistoryHhad,
-    TczqOddsHistoryHafu, TczqOddsHistoryTtg, TczqOddsHistoryCrs
-)
+from app.database import localdb, TczqMatch, TczqScoreOdds, TczqHandicapSpfOdds, TczqSpfOdds, TczqHalfTimeFullTimeOdds, TczqTotalGoalOdds, TczqOddsHistory, TczqOddsHistoryHad, TczqOddsHistoryHhad, TczqOddsHistoryHafu, TczqOddsHistoryTtg, TczqOddsHistoryCrs
 
 def query_football_odds():
     """
@@ -249,28 +244,28 @@ if __name__ == "__main__":
         
         # 查询当前赔率
         # 胜平负赔率
-        had = localdb.query(TczqHad).filter_by(match_id=match.match_id).first()
+        had = localdb.query(TczqHandicapSpfOdds).filter_by(match_id=match.match_id).first()
         if had and had.h > 0 and had.d > 0 and had.a > 0:
             print(f"胜平负赔率: 主胜-{had.h}, 平局-{had.d}, 客胜-{had.a}")
         else:
             print("胜平负赔率: 暂无数据或数据不完整")
         
         # 让球胜平负赔率
-        hhad = localdb.query(TczqHhad).filter_by(match_id=match.match_id).first()
+        hhad = localdb.query(TczqSpfOdds).filter_by(match_id=match.match_id).first()
         if hhad and hhad.h > 0 and hhad.d > 0 and hhad.a > 0:
             print(f"让球胜平负赔率: 让球-{hhad.goal_line}, 主胜-{hhad.h}, 平局-{hhad.d}, 客胜-{hhad.a}")
         else:
             print("让球胜平负赔率: 暂无数据或数据不完整")
         
         # 总进球数赔率
-        ttg = localdb.query(TczqTtg).filter_by(match_id=match.match_id).first()
+        ttg = localdb.query(TczqTotalGoalOdds).filter_by(match_id=match.match_id).first()
         if ttg:
             print(f"总进球数赔率: 0球-{ttg.s0}, 1球-{ttg.s1}, 2球-{ttg.s2}, 3球-{ttg.s3}, 4球-{ttg.s4}, 5球-{ttg.s5}, 6球-{ttg.s6}, 7+球-{ttg.s7}")
         else:
             print("总进球数赔率: 暂无数据")
         
         # 半全场赔率
-        hafu = localdb.query(TczqHafu).filter_by(match_id=match.match_id).first()
+        hafu = localdb.query(TczqHalfTimeFullTimeOdds).filter_by(match_id=match.match_id).first()
         if hafu:
             print(f"半全场赔率: 主胜主胜-{hafu.hh}, 主胜平局-{hafu.hd}, 主胜客胜-{hafu.ha}, 平局主胜-{hafu.dh}, 平局平局-{hafu.dd}, 平局客胜-{hafu.da}, 客胜主胜-{hafu.ah}, 客胜平局-{hafu.ad}, 客胜客胜-{hafu.aa}")
         else:

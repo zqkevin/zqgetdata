@@ -1,13 +1,13 @@
 import random
 import time
 import os
-from app.bjdc.spider_data import get_bjdc_data
-from app.crawler.spider_tczq import TczqSpider
-from app.crawler.spider_jcbk import get_jcbk_data
-from app.crawler.spider_lottery import LotterySpider
-from app.common.logger import log
-from sqlalchemy import create_engine
-
+from app.crawler import (
+    TczqDataCollector, TczqResultCollector,
+    JcbkDataCollector, JcbkResultCollector,
+    BjdcDataCollector, BjdcResultCollector,
+    LotteryDataCollector
+)
+from app.log.logger import log
 
 count = 0
 def job():
@@ -16,96 +16,127 @@ def job():
     log.info(f'开始第{count}次任务执行')
     
     try:
-        # 更新北京单场足球比赛结果
-        bjdcdata = get_bjdc_data()
-        bjdcdata.result_match()
-        # 更新北京单场足球比赛数据和赔率
-        bjdcdata.get_gamedata()
-    except Exception as e:
-        log.error(f'北京单场数据爬取失败: {str(e)}')
+        # 更新北京单场足球比赛信息和赛果
+        log.info('开始更新北京单场足球比赛信息')
+        bjdc_collector = BjdcDataCollector()
+        bjdc_collector.collect_matches()
+        
+        log.info('开始更新北京单场足球比赛结果')
+        bjdc_result = BjdcResultCollector()
+        bjdc_result.get_and_save_results()
     
-    try:
-        # 更新足球比赛数据和赔率
-        log.info('开始更新足球比赛数据')
-        tczq_spider = TczqSpider()
-        tczq_spider.get_current_matches()
     except Exception as e:
-        log.error(f'足球数据爬取失败: {str(e)}')
-    
+        log.error(f'北京单场数据爬取失败：{str(e)}')
+        
     try:
-        # 更新篮球比赛数据和赔率
+        # 更新竞彩足球比赛信息和赛果
+        log.info('开始更新竞彩足球比赛数据')
+        tczq_collector = TczqDataCollector()
+        tczq_collector.get_current_matches()
+        
+        log.info('开始更新竞彩足球比赛结果')
+        tczq_result = TczqResultCollector()
+        tczq_result.get_and_save_results()
+    except Exception as e:
+        log.error(f'足球数据爬取失败：{str(e)}')
+        
+    try:
+        # 更新竞彩篮球比赛信息和赛果
         log.info('开始更新篮球比赛数据')
-        jcbk_data = get_jcbk_data()
-        jcbk_data.get_gamedata()
+        jcbk_collector = JcbkDataCollector()
+        jcbk_collector.get_matches_with_odds()
+        
+        log.info('开始更新篮球比赛结果')
+        jcbk_result = JcbkResultCollector()
+        jcbk_result.get_and_save_results()
     except Exception as e:
-        log.error(f'篮球数据爬取失败: {str(e)}')
+        log.error(f'篮球数据爬取失败：{str(e)}')
     
     try:
         # 更新数字彩数据
         log.info('开始更新数字彩数据')
-        lottery_spider = LotterySpider()
-        lottery_spider.update_latest_lottery_data()
+        lottery_collector = LotteryDataCollector()
+        lottery_collector.update_latest_lottery_data()
     except Exception as e:
-        log.error(f'数字彩数据爬取失败: {str(e)}')
+        log.error(f'数字彩数据爬取失败：{str(e)}')
 
-def init_db():
+def init_db(rebuild=False):
     """
     初始化所有数据库表结构和数据
-    使用init_db.py中的init_all_databases函数
-    """
-    import sys
-    import subprocess
     
+    Args:
+        rebuild: 是否重建数据库（删除所有表后重新创建）
+                 - False: 仅创建不存在的表，保留现有数据
+                 - True: 删除所有表并重新创建，清空所有数据
+    
+    Returns:
+        bool: 初始化成功返回True，否则返回False
+    """
     try:
-        # 调用init_db.py脚本初始化所有数据库
-        log.info('开始初始化所有数据库表结构和数据')
-        result = subprocess.run([sys.executable, 'init_db.py'], 
-                             capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__)))
+        # 先关闭localdb的会话，避免事务冲突
+        from app.database import localdb
+        localdb.close()
         
-        # 输出执行结果
-        if result.stdout:
-            log.info(f'数据库初始化输出: {result.stdout}')
-        if result.stderr:
-            log.error(f'数据库初始化错误: {result.stderr}')
-        
-        if result.returncode == 0:
-            log.info('Database created successfully')
-            return True
+        if rebuild:
+            # 使用 init_db.py 进行完整重建
+            log.info('开始完全重建数据库（将删除所有表并重新创建）')
+            import init_db as init_db_module
+            result = init_db_module.init_all_databases()
+            
+            if result:
+                log.info('数据库完全重建完成（包括表结构、联赛数据）')
+                return True
+            else:
+                log.error('数据库重建失败')
+                return False
         else:
-            log.error('Database initialization failed')
-            return False
+            # 使用 init_restructured_db.py 进行增量更新（只创建不存在的表）
+            log.info('开始初始化/更新数据库表结构（保留现有数据）')
+            import init_restructured_db
+            result = init_restructured_db.init_restructured_database()
+            
+            if result:
+                log.info('数据库表结构初始化/更新完成')
+                return True
+            else:
+                log.error('数据库初始化失败')
+                return False
+                
     except Exception as e:
         log.error(f'数据库初始化异常: {str(e)}')
+        import traceback
+        log.error(traceback.format_exc())
         return False
 
 
 def up_db():
     """
     更新数据库表结构
-    使用init_db.py中的功能更新所有表结构
+    使用 SQLAlchemy 的 create_all 自动创建不存在的表，不会删除现有表
     """
-    import sys
-    import subprocess
-    
     try:
-        # 由于init_db.py没有单独的更新函数，我们使用初始化函数但不删除现有表
-        # 实际上，SQLAlchemy的create_all会自动创建不存在的表，不会删除现有表
         log.info('开始更新数据库表结构')
         
-        # 我们可以通过调用每个模块的create_all来实现更新
+        # 导入配置和引擎
         from config import config
         from sqlalchemy import create_engine
+        
+        # 导入各个模块的模型和 Base 类
         from app.database.digital_lottery_models import Base as DigitalBase
         from app.database.tcbk_models import Base as TcbkBase
+        from app.database.base_models import Base as FbBase
         from app.database.tczq_models import Base as TczqBase
         from app.database.bjdc_models import Base as BjdcBase
         
         db_config = config['local']
-        engine = create_engine(f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}")
+        engine = create_engine(
+            f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
+        )
         
         # 创建所有表（如果不存在）
         DigitalBase.metadata.create_all(engine)
         TcbkBase.metadata.create_all(engine)
+        FbBase.metadata.create_all(engine)
         TczqBase.metadata.create_all(engine)
         BjdcBase.metadata.create_all(engine)
         
@@ -114,31 +145,51 @@ def up_db():
         return True
     except Exception as e:
         log.error(f'数据库更新异常: {str(e)}')
+        import traceback
+        log.error(traceback.format_exc())
         return False
 
 def chuck_data():
-    from app.database import localdb
-    from app.database.tczq_models import TczqMatch
-
+    """
+    检查数据库中是否已有数据
+    Returns:
+        bool: 如果有数据返回True，否则返回False
+    """
+    from app.database import localdb, League
     localdb_done = False
     try:
-        football = localdb.query(TczqMatch).first()
+        football = localdb.query(League).first()
         if football is not None:
             localdb_done = True
         return localdb_done
     except Exception as e:
-        log.error(e)
+        log.error(f'检查数据库异常: {str(e)}')
         return localdb_done
 
 if __name__ == '__main__':
+    import sys
+    
+    # 检查是否需要重建数据库
+    rebuild_db = '--rebuild' in sys.argv or '-r' in sys.argv
+    
+    if rebuild_db:
+        log.info('检测到重建参数，将完全重建数据库')
+        print('\n⚠️  警告：即将完全重建数据库，所有现有数据将被删除！')
+        print('如果确认继续，请输入 "yes"：')
+        confirm = input('> ').strip().lower()
+        if confirm != 'yes':
+            print('操作已取消')
+            sys.exit(0)
+    
     localdone = chuck_data()
-    if not localdone:
-        init_db()
+    if not localdone or rebuild_db:
+        init_db(rebuild=rebuild_db)
 
     log.info('开始任务')
-    while True:
-        job()
-        delay = random.randint(10, 20)
-        log.info(f'第{count}次任务执行完成,下一次在{delay}分钟后执行')
-        delay = delay * 60
-        time.sleep(delay)
+    job()
+    # while True:
+    #     job()
+    #     delay = random.randint(10, 20)
+    #     log.info(f'第{count}次任务执行完成,下一次在{delay}分钟后执行')
+    #     delay = delay * 60
+    #     time.sleep(delay)

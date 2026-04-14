@@ -3,7 +3,7 @@ import random
 import string
 import time
 import traceback
-from .logger import log
+from app.log.logger import log
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
@@ -97,28 +97,306 @@ def generate_random_cookies(key):
     return cookies
 
 def check_zq_win_pl(match, homegoal, awaygoal):
+    '''
+    检查足球比赛胜平负、总进球、比分赔率
+    :param match: 比赛对象 (可以是 FootballMatch 或带 pl 属性的对象)
+    :param homegoal: 主队进球数
+    :param awaygoal: 客队进球数
+    :return: (spf, zjq, bifen) 赔率元组
+    '''
     homegoal = int(homegoal)
     awaygoal = int(awaygoal)
-    if homegoal > awaygoal:
-        spf = match.pl.winpl
-    elif homegoal == awaygoal:
-        spf = match.pl.drawpl
+    
+    # 尝试获取赔率信息
+    if hasattr(match, 'pl') and match.pl is not None:
+        # 有赔率信息，使用原有逻辑
+        if homegoal > awaygoal:
+            spf = match.pl.win_pl
+        elif homegoal == awaygoal:
+            spf = match.pl.draw_pl
+        else:
+            spf = match.pl.lose_pl
+        
+        allgoal = homegoal + awaygoal
+        if allgoal > 6:
+            zjq = match.pl.goal_about
+        else:
+            zjq = getattr(match.pl, f'goal_{allgoal}')
+        
+        if homegoal > awaygoal and (homegoal > 4 or awaygoal > 2):
+            bifen = match.pl.score_win_about
+        elif awaygoal > homegoal and (awaygoal > 4 or homegoal > 2):
+            bifen = match.pl.score_lose_about
+        elif homegoal == awaygoal and homegoal > 3:
+            bifen = match.pl.score_draw_about
+        else:
+            bifen = getattr(match.pl, f'score_{homegoal}_{awaygoal}')
     else:
-        spf = match.pl.losepl
-    allgoal = homegoal + awaygoal
-    if allgoal > 6:
-        zjq = match.pl.goal_about
-    else:
-        zjq = getattr(match.pl, f'goal_{allgoal}')
-    if homegoal > awaygoal and (homegoal > 4 or awaygoal > 2):
-        bifen = match.pl.score_win_about
-    elif awaygoal > homegoal and (awaygoal > 4 or homegoal > 2):
-        bifen = match.pl.score_lose_about
-    elif homegoal == awaygoal and homegoal > 3:
-        bifen = match.pl.score_draw_about
-    else:
-        bifen = getattr(match.pl, f'score_{homegoal}_{awaygoal}')
+        # 没有赔率信息，返回默认值
+        home_name = match.home_team.team_short_name if match.home_team else 'Unknown'
+        away_name = match.away_team.team_short_name if match.away_team else 'Unknown'
+        log.debug(f'比赛 {home_name} vs {away_name} 无赔率信息，使用默认值')
+        if homegoal > awaygoal:
+            spf = 1.0  # 主胜默认赔率
+        elif homegoal == awaygoal:
+            spf = 2.0  # 平局默认赔率
+        else:
+            spf = 3.0  # 客胜默认赔率
+        
+        # 总进球默认赔率
+        zjq = 1.5
+        # 比分默认赔率
+        bifen = 5.0
+    
     return spf, zjq, bifen
+
+def handle_league_name(league_name):
+    """
+    根据联赛名称检索联赛信息，如果不存在则新增
+    :param league_name: 联赛名称 (全称或简称)
+    :return: 联赛信息对象
+    """
+    from app.database import localdb, League
+    import traceback
+    
+    try:
+        # 1. 先尝试通过联赛全称查找
+        league = localdb.query(League).filter_by(league_name=league_name).first()
+        
+        if not league:
+            # 2. 尝试通过联赛简称查找
+            league = localdb.query(League).filter_by(league_name_abbr=league_name).first()
+            
+        if not league:
+            # 3. 如果都不存在，检查是否是包含关系 (如“澳大利亚超级联赛”包含“澳超”)
+            # 查询所有联赛，查找是否有简称匹配的
+            # 注意：只有当传入名称长度>3 时才进行模糊匹配，避免“巴西乙”被匹配到“西乙”
+            if len(league_name) > 3:
+                all_leagues = localdb.query(League).all()
+                for lg in all_leagues:
+                    # 检查传入的名称是否包含某个联赛的简称
+                    if league_name != lg.league_name and (lg.league_name_abbr in league_name or league_name in lg.league_name):
+                        league = lg
+                        log.debug(f"找到相似联赛：{league_name} -> {lg.league_name} (ID: {lg.league_id})")
+                        break
+        
+        if not league:
+            # 4. 如果都不存在，则新增联赛
+            import random
+            # 生成随机的 league_id
+            league_id = random.randint(1000, 9999)
+            # 确保 league_id 唯一
+            while localdb.query(League).filter_by(league_id=league_id).first():
+                league_id = random.randint(1000, 9999)
+                    
+            league = League()
+            league.league_id = league_id
+            league.league_name = league_name
+            league.league_name_abbr = league_name  # 默认简称与全称相同
+            league.region = ""  # 默认空字符串
+            league.country = ""  # 默认空字符串
+            league.href = f"/league/{league_id}/"  # 生成默认链接地址
+            localdb.add(league, close=False)  # 不关闭会话，避免对象分离
+            log.debug(f"新增联赛：{league_name} (ID: {league_id})")
+        
+        # 确保对象数据已加载到内存
+        if league:
+            # 访问所有属性以确保它们被加载
+            _ = league.id
+            _ = league.league_id
+            _ = league.league_name
+            _ = league.league_name_abbr
+        
+        return league
+    except Exception as e:
+        log.error(f"处理联赛名称时出错：{traceback.format_exc()}")
+        return None
+
+
+def get_or_create_league(league_name, league_name_abbr=None):
+    """
+    通用联赛处理函数：根据名称查询或创建联赛，返回数据库主键 ID
+    
+    Args:
+        league_name: 联赛名称（必填）
+        league_name_abbr: 联赛简称（可选，用于更新）
+    
+    Returns:
+        int: 联赛的数据库主键 ID，失败返回 None
+    
+    Example:
+        league_id = get_or_create_league("英格兰冠军联赛", "英冠")
+        if league_id:
+            match.league_id = league_id
+    """
+    if not league_name:
+        log.warning("联赛名称为空")
+        return None
+    
+    try:
+        league = handle_league_name(league_name)
+        if league:
+            # 如果提供了简称且与现有简称不同，更新简称
+            if league_name_abbr and league.league_name_abbr != league_name_abbr:
+                from app.database import localdb
+                league.league_name_abbr = league_name_abbr
+                localdb.update(league, close=False)
+                log.debug(f"更新联赛简称：{league_name} -> {league_name_abbr}")
+            
+            log.debug(f"联赛处理成功：{league_name} -> DB ID: {league.id}")
+            return league.id
+        else:
+            log.error(f"处理联赛失败：{league_name}")
+            return None
+    except Exception as e:
+        log.error(f"获取或创建联赛失败 (league_name={league_name}): {str(e)}")
+        import traceback
+        log.error(traceback.format_exc())
+        return None
+
+
+def handle_team_name(team_full_name, team_short_name=None, team_code=None, source_type=None):
+    """
+    根据球队名称检索球队信息，如果不存在则新增
+    支持通过别名查询，解决不同数据源球队名称不一致问题
+    
+    :param team_full_name: 球队全称
+    :param team_short_name: 球队简称
+    :param team_code: 球队代码
+    :param source_type: 数据来源类型 ('tczq', 'bjdc', 'okooo'等)
+    :return: 球队信息对象
+    """
+    from app.database import localdb, Team, TeamAlias
+    from datetime import datetime
+    import traceback
+    import random
+    
+    try:
+        # 1. 先尝试通过球队全称查找
+        team = localdb.query(Team).filter_by(team_full_name=team_full_name).first()
+        
+        if not team and source_type:
+            # 2. 如果找不到，尝试通过别名查找
+            alias = localdb.query(TeamAlias).filter_by(
+                alias_name=team_full_name,
+                source_type=source_type
+            ).first()
+            
+            if alias:
+                team = localdb.query(Team).filter_by(id=alias.team_id).first()
+                if team:
+                    log.debug(f"通过别名找到球队：{team_full_name} -> {team.team_full_name} (来源:{source_type})")
+                else:
+                    log.warning(f"通过别名找到 TeamAlias 但未找到对应球队：{team_full_name}, alias.team_id={alias.team_id}")
+        
+        if not team and team_short_name:
+            # 3. 尝试通过球队简称查找
+            team = localdb.query(Team).filter_by(team_short_name=team_short_name).first()
+        
+        if not team:
+            # 4. 如果都不存在，则新增球队
+            # 生成随机的 team_id
+            team_id = random.randint(1000, 99999)
+            # 确保 team_id 唯一
+            while localdb.query(Team).filter_by(team_id=team_id).first():
+                team_id = random.randint(1000, 99999)
+            
+            team = Team(
+                team_id=team_id,
+                team_code=team_code or str(team_id),
+                team_full_name=team_full_name,
+                team_short_name=team_short_name or team_full_name,
+                team_short_en_name="",  # 默认空字符串
+                created_at=datetime.now(),
+                updated_at=datetime.now()
+            )
+            localdb.add(team, close=False)  # 不关闭会话，避免对象分离
+            log.debug(f"新增球队：{team_full_name} (ID: {team_id})")
+            
+            # 5. 如果是新球队且有来源类型，添加别名记录
+            if source_type:
+                alias = TeamAlias(
+                    team_id=team.id,
+                    alias_name=team_full_name,
+                    source_type=source_type,
+                    is_primary=1,  # 第一个名称作为主别名
+                    remark=f"自动创建 - {source_type} 数据源"
+                )
+                localdb.add(alias, close=False)
+                log.debug(f"添加球队别名：{team_full_name} (来源:{source_type})")
+        else:
+            # 6. 如果找到球队且有来源类型，检查是否需要添加别名
+            if source_type:
+                existing_alias = localdb.query(TeamAlias).filter_by(
+                    team_id=team.id,
+                    source_type=source_type,
+                    alias_name=team_full_name
+                ).first()
+                
+                if not existing_alias:
+                    # 添加新的别名记录
+                    alias = TeamAlias(
+                        team_id=team.id,
+                        alias_name=team_full_name,
+                        source_type=source_type,
+                        is_primary=0,
+                        remark=f"自动添加 - {source_type} 数据源"
+                    )
+                    localdb.add(alias, close=False)
+                    log.debug(f"为已有球队添加别名：{team.team_full_name} <- {team_full_name} (来源:{source_type})")
+        
+        # 确保对象数据已加载到内存
+        if team:
+            # 访问所有属性以确保它们被加载
+            _ = team.id
+            _ = team.team_id
+            _ = team.team_full_name
+            _ = team.team_short_name
+        
+        return team
+    except Exception as e:
+        log.error(f"处理球队名称时出错：{traceback.format_exc()}")
+        return None
+
+
+def get_or_create_team(team_full_name, team_short_name=None, team_code=None, source_type=None):
+    """
+    通用球队处理函数：根据名称查询或创建球队，返回数据库主键 ID
+    
+    Args:
+        team_full_name: 球队全称（必填）
+        team_short_name: 球队简称（可选）
+        team_code: 球队代码（可选）
+        source_type: 数据来源类型 ('tczq', 'bjdc', 'okooo'等)（可选）
+    
+    Returns:
+        int: 球队的数据库主键 ID，失败返回 None
+    
+    Example:
+        home_team_id = get_or_create_team("曼联", "曼彻斯特联", source_type='tczq')
+        away_team_id = get_or_create_team("利物浦", source_type='tczq')
+        if home_team_id and away_team_id:
+            match.home_team_id = home_team_id
+            match.away_team_id = away_team_id
+    """
+    if not team_full_name:
+        log.warning("球队全称为空")
+        return None
+    
+    try:
+        team = handle_team_name(team_full_name, team_short_name, team_code, source_type)
+        if team:
+            log.debug(f"球队处理成功：{team_full_name} -> DB ID: {team.id}")
+            return team.id
+        else:
+            log.error(f"处理球队失败：{team_full_name}")
+            return None
+    except Exception as e:
+        log.error(f"获取或创建球队失败 (team_full_name={team_full_name}): {str(e)}")
+        import traceback
+        log.error(traceback.format_exc())
+        return None
+
 
 def req_info(url, qishu=None):
     try:
@@ -155,3 +433,276 @@ def req_info(url, qishu=None):
     except Exception as e:
         log.error(f"Error in get_bdgame_info: {traceback.format_exc()}")
         return None
+
+
+def calculate_current_odds(odds_record_id: int, field_name: str, odds_table: str = None, 
+                          sport_type: str = 'tczq') -> float:
+    """
+    根据赔率记录ID和字段名，计算考虑所有波动后的当前赔率
+    
+    业务逻辑：
+    1. 从数据库中获取该赔率记录的原始值（当前保存的值）
+    2. 查询该记录的所有历史波动日志
+    3. 返回数据库中的最新值（因为每次更新都会同步到数据库）
+    
+    Args:
+        odds_record_id: 赔率记录的主键ID
+        field_name: 需要计算的赔率字段名 (如 'win_pl', 'draw_pl', 'handicap' 等)
+        odds_table: 赔率表名 (可选，用于确定使用哪个变化日志表)
+                   - 'tczq_spf_odds' -> zq_odds_change_log
+                   - 'tcbk_dxf' -> bk_odds_change_log
+                   - 'bjdc_spf' -> bjdc_odds_change_log
+                   如果为None，会自动根据ID推断
+        sport_type: 赛事类型 ('tczq'=足球, 'tcbk'=篮球, 'bjdc'=北京单场)
+                   用于确定从哪个日志表查询数据
+    
+    Returns:
+        float: 计算后的当前赔率值，如果出错返回0.0
+    
+    Examples:
+        # 计算体彩足球胜平负赔率记录ID=5的当前主胜赔率
+        current_win_pl = calculate_current_odds(5, 'win_pl', 'tczq_spf_odds', 'tczq')
+        
+        # 计算竞彩篮球大小分赔率记录ID=10的当前大分赔率
+        current_over = calculate_current_odds(10, 'over', 'tcbk_dxf', 'tcbk')
+    """
+    from app.database import localdb
+    
+    try:
+        # 1. 直接使用传入的 sport_type 参数
+        change_log_class = _get_change_log_class(sport_type)
+        
+        if change_log_class is None:
+            log.error(f"无法获取变化日志类 (sport_type={sport_type})")
+            return 0.0
+        
+        # 2. 从原始赔率表中获取当前保存的值（基准值）
+        base_value = _get_original_odds_value(odds_record_id, field_name, odds_table)
+        
+        if base_value == 0.0:
+            log.warning(f"无法获取原始赔率值: record_id={odds_record_id}, field={field_name}")
+            return 0.0
+        
+        # 3. 直接从数据库中获取当前值（数据库已保存最新值）
+        current_value = base_value
+        
+        log.debug(f"[{sport_type}] 赔率记录 {odds_record_id}.{field_name}: "
+                 f"当前值={current_value:.3f} (来自数据库)")
+        
+        return float(current_value)
+        
+    except Exception as e:
+        log.error(f"计算赔率失败 (record_id={odds_record_id}, field={field_name}): {str(e)}")
+        import traceback
+        log.error(traceback.format_exc())
+        return 0.0
+
+
+def _get_change_log_class(sport_type: str):
+    """
+    根据赛事类型获取对应的赔率变化日志类
+    
+    Args:
+        sport_type: 赛事类型 ('tczq', 'tcbk', 'bjdc')
+    
+    Returns:
+        对应的OddsChangeLog类，如果不存在返回None
+    """
+    try:
+        if sport_type == 'tczq':
+            from app.database import TczqOddsChangeLog
+            return TczqOddsChangeLog
+        elif sport_type == 'tcbk':
+            from app.database import TcbkOddsChangeLog
+            return TcbkOddsChangeLog
+        elif sport_type == 'bjdc':
+            from app.database import BjdcOddsChangeLog
+            return BjdcOddsChangeLog
+        else:
+            log.error(f"不支持的赛事类型: {sport_type}")
+            return None
+    except ImportError as e:
+        log.error(f"导入变化日志类失败 ({sport_type}): {str(e)}")
+        return None
+
+
+def _get_original_odds_value(odds_record_id: int, field_name: str, odds_table: str) -> float:
+    """
+    从原始赔率表中获取指定字段的当前值
+    
+    Args:
+        odds_record_id: 赔率记录ID
+        field_name: 字段名
+        odds_table: 赔率表名
+    
+    Returns:
+        float: 字段值，如果不存在返回0.0
+    """
+    from app.database import localdb
+    
+    try:
+        # 根据表名动态获取模型类
+        model_class = _get_odds_model_class(odds_table)
+        if model_class is None:
+            return 0.0
+        
+        # 查询记录
+        record = localdb.query(model_class).filter_by(id=odds_record_id).first()
+        if record is None:
+            log.warning(f"未找到赔率记录: {odds_table}.id={odds_record_id}")
+            return 0.0
+        
+        # 获取字段值
+        value = getattr(record, field_name, None)
+        if value is None:
+            log.warning(f"字段不存在: {odds_table}.{field_name}")
+            return 0.0
+        
+        return float(value)
+        
+    except Exception as e:
+        log.error(f"获取原始赔率值失败: {str(e)}")
+        return 0.0
+
+
+def _get_odds_model_class(odds_table: str):
+    """
+    根据表名获取对应的ORM模型类
+    
+    Args:
+        odds_table: 表名 (如 'tczq_spf_odds', 'tcbk_dxf')
+    
+    Returns:
+        对应的模型类，如果不存在返回None
+    """
+    try:
+        # 体彩足球
+        if odds_table == 'tczq_spf_odds':
+            from app.database import TczqSpfOdds
+            return TczqSpfOdds
+        elif odds_table == 'tczq_handicap_spf_odds':
+            from app.database import TczqHandicapSpfOdds
+            return TczqHandicapSpfOdds
+        elif odds_table == 'tczq_total_goal_odds':
+            from app.database import TczqTotalGoalOdds
+            return TczqTotalGoalOdds
+        elif odds_table == 'tczq_ht_ft_odds':
+            from app.database import TczqHalfTimeFullTimeOdds
+            return TczqHalfTimeFullTimeOdds
+        elif odds_table == 'tczq_score_odds':
+            from app.database import TczqScoreOdds
+            return TczqScoreOdds
+        
+        # 竞彩篮球
+        elif odds_table == 'tcbk_dxf':
+            from app.database import TcbkDxf
+            return TcbkDxf
+        elif odds_table == 'tcbk_rfsf':
+            from app.database import TcbkRfsf
+            return TcbkRfsf
+        elif odds_table == 'tcbk_spf':
+            from app.database import TcbkSpf
+            return TcbkSpf
+        elif odds_table == 'tcbk_sfc':
+            from app.database import TcbkSfc
+            return TcbkSfc
+        
+        # 北京单场 (需要根据实际的表名调整)
+        elif odds_table.startswith('bjdc_'):
+            from app.database import BjdcSpf, BjdcHandicapSpf, BjdcTotalGoal, BjdcScore, BjdcHalfTimeFullTime
+            table_map = {
+                'bjdc_spf': BjdcSpf,
+                'bjdc_handicap_spf': BjdcHandicapSpf,
+                'bjdc_total_goal': BjdcTotalGoal,
+                'bjdc_score': BjdcScore,
+                'bjdc_half_time_full_time': BjdcHalfTimeFullTime
+            }
+            return table_map.get(odds_table)
+        
+        else:
+            log.warning(f"未知的赔率表: {odds_table}")
+            return None
+            
+    except ImportError as e:
+        log.error(f"导入模型类失败 ({odds_table}): {str(e)}")
+        return None
+
+
+def should_log_odds_change(odds_record_id: int, field_name: str, new_value: float, 
+                           odds_table: str = None, sport_type: str = 'tczq', 
+                           threshold: float = 0.05) -> tuple:
+    """
+    判断是否应该记录赔率变化
+    
+    业务逻辑：
+    1. 计算当前赔率（考虑所有历史波动）
+    2. 与新赔率比较
+    3. 只有当差值超过阈值时才记录
+    
+    Args:
+        odds_record_id: 赔率记录ID
+        field_name: 赔率字段名
+        new_value: 新获取的赔率值
+        odds_table: 赔率表名
+        sport_type: 赛事类型 ('tczq'=足球, 'tcbk'=篮球, 'bjdc'=北京单场)
+        threshold: 变化阈值，默认0.05
+    
+    Returns:
+        tuple: (should_log: bool, current_value: float, diff: float)
+            - should_log: 是否应该记录
+            - current_value: 当前赔率值
+            - diff: 差值 (new_value - current_value)
+    
+    Examples:
+        # 体彩足球
+        should_log, current, diff = should_log_odds_change(
+            odds_record_id=5,
+            field_name='win_pl',
+            new_value=3.05,
+            odds_table='tczq_spf_odds',
+            sport_type='tczq',
+            threshold=0.05
+        )
+        
+        # 竞彩篮球
+        should_log, current, diff = should_log_odds_change(
+            odds_record_id=10,
+            field_name='over',
+            new_value=1.95,
+            odds_table='tcbk_dxf',
+            sport_type='tcbk',
+            threshold=0.05
+        )
+        
+        if should_log:
+            # 记录变化
+            pass
+    """
+    try:
+        # 计算当前赔率
+        current_value = calculate_current_odds(odds_record_id, field_name, odds_table, sport_type)
+        
+        if current_value == 0.0:
+            # 无法获取当前值，建议记录（可能是首次）
+            log.debug(f"[{sport_type}] 无法获取当前赔率，建议记录: record_id={odds_record_id}, field={field_name}")
+            return True, current_value, new_value
+        
+        # 计算差值
+        diff = abs(new_value - current_value)
+        
+        # 判断是否超过阈值
+        should_log = diff > threshold
+        
+        if should_log:
+            log.debug(f"[{sport_type}] 赔率变化超过阈值: {odds_table}.{field_name} "
+                     f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f} > {threshold})")
+        else:
+            log.debug(f"[{sport_type}] 赔率变化未超阈值: {odds_table}.{field_name} "
+                     f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f} <= {threshold})")
+        
+        return should_log, current_value, diff
+        
+    except Exception as e:
+        log.error(f"判断赔率变化失败: {str(e)}")
+        # 出错时建议记录，避免遗漏重要变化
+        return True, 0.0, new_value

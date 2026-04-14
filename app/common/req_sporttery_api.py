@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
-from app.common.logger import log
+from app.log.logger import log
 
 
 class SportteryAPI:
@@ -28,7 +28,7 @@ class SportteryAPI:
         self.session = requests.Session()
         self.headers = {
             'accept': 'application/json, text/javascript, */*; q=0.01',
-            'accept-encoding': 'gzip, deflate, br, zstd',
+            'accept-encoding': 'gzip, deflate',  # 移除 br，避免Brotli压缩问题
             'accept-language': 'zh-CN,zh;q=0.9',
             'cache-control': 'no-cache',
             'origin': 'https://www.sporttery.cn',
@@ -103,59 +103,6 @@ class SportteryAPI:
             raise Exception(f"网络请求错误: {str(e)}")
         except json.JSONDecodeError as e:
             raise Exception(f"JSON解析错误: {str(e)}")
-    
-    def get_vtools_config(self, config_key: str = "vtools:config:zc_app_loty_betshu") -> Dict[str, Any]:
-        """
-        获取投注配置信息
-        
-        Args:
-            config_key: 配置键名，默认为vtools:config:zc_app_loty_betshu
-            
-        Returns:
-            清洗整理后的配置数据
-        """
-        endpoint = "getVtoolsConfigV1.qry"
-        params = {'configKey': config_key}
-        
-        data = self._request(retype='football', endpoint=endpoint, params=params)
-        result = data.get('value', {})
-        
-        # 清洗整理数据
-        if config_key in result and isinstance(result[config_key], list) and result[config_key]:
-            config_data = result[config_key][0]
-            
-            # 提取玩法可用性信息
-            available_games = {}
-            for key, value in config_data.items():
-                if key not in ['amountInfos'] and value == '1':
-                    available_games[key] = True
-                elif key not in ['amountInfos']:
-                    available_games[key] = False
-            
-            # 提取投注上限信息
-            bet_limits = {}
-            for key, value in config_data.items():
-                if key.endswith('_max') and value.isdigit():
-                    game_type = key.replace('_max', '')
-                    bet_limits[game_type] = int(value)
-            
-            # 提取金额限制信息
-            amount_limits = {}
-            if 'amountInfos' in config_data:
-                for game_type, info in config_data['amountInfos'].items():
-                    amount_limits[game_type] = {
-                        'amount_limit': info.get('amount_limit', ''),
-                        'amount_tips': info.get('amount_tips', '')
-                    }
-            
-            return {
-                'available_games': available_games,
-                'bet_limits': bet_limits,
-                'amount_limits': amount_limits,
-                'raw_data': config_data
-            }
-        
-        return result
     
     def get_football_match_list(self, pool_codes: List[str] = None, channel: str = "c") -> Dict[str, Any]:
         """
@@ -358,7 +305,7 @@ class SportteryAPI:
         data = self._request(retype='basketball', endpoint='list', params=params)
         
         # 处理返回的数据
-        match_list = data.get('value', {}).get('matchList', [])
+        match_list = data.get('value', {}).get('matchInfoList', [])
         if match_list:
             # 转换为DataFrame并进行基本清洗
             df = pd.DataFrame(match_list)
@@ -566,49 +513,20 @@ class SportteryAPI:
         same_data = data.get('value', {})
         return same_data
     
-    def get_support_rate(self, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    def get_support_rate(self, match_id: str = None) -> Dict[str, Any]:
         """
         获取比赛投注支持率信息
         
         Args:
-            params: 请求参数
+            match_id: 比赛ID（可选）
             
         Returns:
             清洗整理后的支持率信息
         """
-        endpoint = "uniform/football/getSupportRateV1.qry"
-        
-        data = self._request(endpoint, params)
-        support_rate_data = data.get('value', {})
-        
-        # 清洗整理支持率数据
-        result = {
-            'match_support_rates': [],
-            'total_records': 0
-        }
-        
-        # 假设数据结构包含matchList
-        if 'matchList' in support_rate_data:
-            for match_item in support_rate_data['matchList']:
-                # 清洗单个比赛的支持率信息
-                cleaned_match = {
-                    'match_id': match_item.get('matchId'),
-                    'league_name': match_item.get('leagueName'),
-                    'home_team': match_item.get('homeTeam'),
-                    'away_team': match_item.get('awayTeam'),
-                    'support_rates': {}
-                }
-                
-                # 提取支持率信息（假设字段名可能为homeRate, drawRate, awayRate等）
-                rate_fields = ['homeRate', 'drawRate', 'awayRate', 'supportRate']
-                for field in rate_fields:
-                    if field in match_item:
-                        cleaned_match['support_rates'][field] = match_item[field]
-                
-                result['match_support_rates'].append(cleaned_match)
-                result['total_records'] += 1
-        
-        return result
+        # 注意：此接口的实际URL需要确认，暂时使用通用请求方式
+        # 如果这个接口不存在或URL不正确，可能需要从网页抓取支持率数据
+        log.warning("get_support_rate 接口可能不可用，建议从网页抓取支持率数据")
+        return {}
     
     def get_digital_lottery_info(self, lottery_type: str, term_flag: int = 0) -> Dict[str, Any]:
         """
@@ -642,13 +560,59 @@ class SportteryAPI:
         data = self._request(retype='digital', endpoint='draw', params=params)
         return data.get('value', {})
     
+    def get_digital_lottery_history(self, lottery_type: str, page_no: int = 1, page_size: int = 30) -> Dict[str, Any]:
+        """
+        获取数字彩票历史开奖数据
+        
+        Args:
+            lottery_type: 彩票类型 (pl3, pl5, dlt, qxc)
+            page_no: 页码，默认第 1 页
+            page_size: 每页条数，默认 30 条
+            
+        Returns:
+            历史开奖数据
+        """
+        # 彩票类型与代码的映射
+        lottery_code_map = {
+            'pl3': '35',
+            'pl5': '350133',
+            'dlt': '85',
+            'qxc': '04'
+        }
+        
+        lottery_code = lottery_code_map.get(lottery_type)
+        if not lottery_code:
+            raise ValueError(f"未知的彩票类型：{lottery_type}")
+        
+        params = {
+            'gameNo': lottery_code,
+            'provinceId': 0,
+            'pageSize': page_size,
+            'isVerify': 1,
+            'pageNo': page_no
+        }
+        
+        try:
+            data = self._request(retype='digital', endpoint='history', params=params)
+            value_data = data.get('value', {})
+            return {
+                'total': value_data.get('total', 0),
+                'pageNo': value_data.get('pageNo', 0),
+                'pageSize': value_data.get('pageSize', 0),
+                'pages': value_data.get('pages', 0),
+                'result': value_data.get('result', [])  # 开奖结果列表
+            }
+        except Exception as e:
+            log.error(f"获取{lottery_type}历史数据失败：{str(e)}")
+            return {'error': str(e), 'result': []}
+    
     def get_multi_lottery_data(self, lottery_types: List[str]) -> Dict[str, Any]:
         """
         批量获取多种彩票的开奖信息
-        
+            
         Args:
             lottery_types: 彩票类型列表
-            
+                
         Returns:
             多种彩票开奖信息的字典
         """
@@ -660,10 +624,18 @@ class SportteryAPI:
             'qxc': '04'
         }
         
+        # API 返回的键名与彩票类型的映射 (API 返回的是 pls 而不是 pl3)
+        api_response_key_map = {
+            'pl3': 'pls',
+            'pl5': 'plw',  # 排列 5 使用 plw 键
+            'dlt': 'dlt',
+            'qxc': 'qxc'
+        }
+            
         result = {}
         valid_lottery_codes = []
         valid_lottery_types = []
-        
+            
         # 验证彩票类型并转换为代码
         for lottery_type in lottery_types:
             lottery_code = lottery_code_map.get(lottery_type)
@@ -671,37 +643,47 @@ class SportteryAPI:
                 valid_lottery_codes.append(f"{lottery_code},0")
                 valid_lottery_types.append(lottery_type)
             else:
-                result[lottery_type] = {'error': f"未知的彩票类型: {lottery_type}"}
-        
+                result[lottery_type] = {'error': f"未知的彩票类型：{lottery_type}"}
+            
         if not valid_lottery_codes:
             return result
-        
+            
         # 构造一次请求的参数字符串，使用分号分隔
         param_str = ";".join(valid_lottery_codes)
-        
+            
         params = {
             'param': param_str,
-            'isVerify': 0
+            'isVerify': 1  # 改为 1，启用验证
         }
-        
+            
         try:
             # 一次请求获取所有彩种的数据
             data = self._request(retype='digital', endpoint='draw', params=params)
             response_data = data.get('value', {})
-            
+                
             # 处理返回的数据
-            # 返回的数据是一个字典，键为彩票代码
+            # API 返回的数据键可能是缩写 (如'pls'代表排列 3/5)
             for lottery_type in valid_lottery_types:
-                lottery_code = lottery_code_map[lottery_type]
-                if lottery_code in response_data:
-                    result[lottery_type] = response_data[lottery_code]
+                # 获取 API 返回数据中对应的键名
+                api_key = api_response_key_map.get(lottery_type, lottery_type)
+                
+                # 尝试两种可能的键名
+                lottery_data = None
+                if api_key in response_data:
+                    lottery_data = response_data[api_key]
+                elif lottery_type in response_data:
+                    lottery_data = response_data[lottery_type]
+                
+                # 检查是否是空数据 (某些彩种可能当天没有开奖)
+                if lottery_data and isinstance(lottery_data, dict) and lottery_data.get('lotteryDrawNum'):
+                    result[lottery_type] = lottery_data
                 else:
-                    result[lottery_type] = {'error': '未找到对应彩种的数据'}
+                    result[lottery_type] = {'error': '未找到对应彩种的数据 (可能当天未开奖)'}
         except Exception as e:
             # 如果整体请求失败，为所有有效彩种设置错误信息
             for lottery_type in valid_lottery_types:
                 result[lottery_type] = {'error': str(e)}
-        
+            
         return result
     
     def close(self):

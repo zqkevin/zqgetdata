@@ -1,0 +1,470 @@
+{
+  "vtoolsConfig": {
+    "offLineSaleStatus": 1,
+    "offLineStopMessage": "抱歉，本彩种已停止销售",
+    "onLineSaleStatus": 1,
+    "onLineStopMessage": "抱歉，本彩种已停止销售"
+  },
+  "matchInfoList": [
+    {
+      "businessDate": "2026-04-13",
+      "subMatchList": [
+        {
+          "awayRank": "[德篮联9]",
+          "awayTeamAbbEnName": "RST",
+          "awayTeamAbbName": "罗斯托克",
+          "awayTeamAllName": "罗斯托克海狼",
+          "awayTeamId": 2068440,
+          "backColor": "FE5415",
+          "baseAwayTeamId": 0,
+          "baseHomeTeamId": 0,
+          "businessDate": "2026-04-13",
+          "hdc": {},
+          "hilo": {
+            "goalLine": "+170.5",
+            "goalLineValue": "+170.50",
+            "h": "1.70",
+            "hf": "0",
+            "l": "1.70",
+            "lf": "0",
+            "updateDate": "2026-04-13",
+            "updateTime": "11:41:22"
+          },
+          "homeRank": "[德篮联13]",
+          "homeTeamAbbEnName": "ODB",
+          "homeTeamAbbName": "奥尔登堡",
+          "homeTeamAllName": "奥尔登堡",
+          "homeTeamId": 324,
+          "isHide": 0,
+          "isHot": 0,
+          "leagueAbbName": "德篮联",
+          "leagueAllName": "德国篮球联赛",
+          "leagueCode": "BBL",
+          "leagueId": 2068447,
+          "matchDate": "2026-04-14",
+          "matchId": 2039100,
+          "matchNum": 1301,
+          "matchNumDate": "260413",
+          "matchNumStr": "周一301",
+          "matchStatus": "Selling",
+          "matchTime": "02:00:00",
+          "matchWeek": "周一",
+          "mnl": {},
+          "oddsList": [
+            {
+              "a": "1.70",
+              "d": "",
+              "goalLine": "+170.5",
+              "goalLineF": "",
+              "goalLineValue": "+170.50",
+              "h": "1.70",
+              "matchId": 0,
+              "matchNum": 0,
+              "odds": "",
+              "poolCode": "HILO",
+              "poolId": 2186359,
+              "updateDate": "2026-04-13",
+              "updateTime": "11:41:22"
+            }
+          ],
+          "poolList": [
+            {
+              "allUp": 1,
+              "bettingAllup": 1,
+              "bettingSingle": 1,
+              "cbtAllUp": 1,
+              "cbtSingle": 1,
+              "cbtValue": 1,
+              "fixedOddsgoalLine": "+170.5",
+              "intAllUp": 0,
+              "intSingle": 0,
+              "intValue": 2,
+              "matchId": 0,
+              "matchNum": 0,
+              "poolCloseDate": "",
+              "poolCloseTime": "",
+              "poolCode": "HILO",
+              "poolId": 2186359,
+              "poolOddsType": "F",
+              "poolStatus": "Selling",
+              "sellInitialDate": "",
+              "sellInitialTime": "",
+              "single": 1,
+              "updateDate": "",
+              "updateTime": "",
+              "vbtAllUp": 0,
+              "vbtSingle": 0,
+              "vbtValue": 0
+            }
+          ],
+          "poolStatus": "Selling",
+          "remark": "",
+          "sellStatus": 1,
+          "taxDateNo": "2604132",
+          "vote": {},
+          "wnm": {}
+        }
+      ],
+      "weekday": "周一",
+      "matchCount": 1,
+      "matchNumDate": "260413"
+    }
+  ],
+  "matchDateList": [
+    {
+      "businessDate": "2026-04-13",
+      "businessDateCn": "周一",
+      "matchDate": "",
+      "matchDateCn": ""
+    }
+  ],
+  "allUpList": {
+    "HILO": [
+      {
+        "fValue": 1,
+        "formula": "2x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "3x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "3x3",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "3x4",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "4x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "4x4",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "4x5",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "4x6",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "4x11",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x5",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x6",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x10",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x16",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x20",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x26",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x6",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x7",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x15",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x20",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x22",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x35",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x42",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x50",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x57",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x7",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x8",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x21",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x35",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x120",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x1",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x8",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x9",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x28",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x56",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x70",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x247",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "Single",
+        "formulaType": 1,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "2x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "3x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "4x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "5x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "6x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "7x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "8x1",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      },
+      {
+        "fValue": 1,
+        "formula": "Single",
+        "formulaType": 2,
+        "maxMatchCount": 0,
+        "poolCode": "HILO"
+      }
+    ]
+  },
+  "leaguesList": [
+    {
+      "leagueId": "2068447",
+      "leagueName": "德国篮球联赛",
+      "leagueNameAbbr": "德篮联"
+    }
+  ],
+  "totalCount": 1,
+  "lastUpdateTime": "2026-04-13 11:41:22"
+}

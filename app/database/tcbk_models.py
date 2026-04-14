@@ -173,6 +173,25 @@ class TcbkSfc(Base):
     created_at = Column(DateTime, default=datetime.now)
     update_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)  # 更新时间，包含日期和时间，自动更新
 
+# 竞彩篮球 - 赔率变化历史记录表
+class TcbkOddsChangeLog(Base):
+    """
+    竞彩篮球赔率波动日志表
+    记录每次赔率变化的详细信息（增量式记录）
+    """
+    __tablename__ = 'bk_odds_change_log'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    match_id = Column(Integer, nullable=False, index=True)  # 比赛 ID
+    odds_table = Column(String(50), nullable=False)  # 赔率表名 (如 tcbk_spf, tcbk_dxf)
+    odds_record_id = Column(Integer, nullable=False, index=True)  # 赔率记录ID (关联到具体赔率表的主键)
+    odds_field = Column(String(50), nullable=False)  # 赔率字段 (如 h, a, over, under)
+    old_value = Column(Float, nullable=False)  # 旧值
+    new_value = Column(Float, nullable=False)  # 新值
+    change_time = Column(DateTime, nullable=False)  # 变化时间
+    
+    # 创建时间
+    created_at = Column(DateTime, default=datetime.now)
+
 # 比赛赛果表
 class TcbkResult(Base):
     __tablename__ = 'tcbk_result'

@@ -1,160 +1,139 @@
 # -*- coding: utf-8 -*-
+"""
+北京单场 (BJDC) 数据模型
+独立于体彩足球的北京单场相关表
+"""
 from sqlalchemy import Column, Integer, String, Float, DateTime, Text, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
+from app.database.base_models import Base, League, Team, MatchTypeEnum
+from app.database.base_models import (
+    BaseSpfOdds,
+    BaseHandicapSpfOdds,
+    BaseTotalGoalOdds,
+    BaseScoreOdds,
+    BaseHalfTimeFullTimeOdds,
+    BaseMatchResult,
+    BaseOddsChangeLog
+)
 
-Base = declarative_base()
-
-# 足球比赛主表
-class Football(Base):
-    __tablename__ = 'football'
+# 北京单场比赛主表
+class BjdcMatch(Base):
+    __tablename__ = 'bjdc_match'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    fid = Column(Integer, unique=True, nullable=False, index=True)  # 比赛ID
-    dcqs = Column(String(20), nullable=False, index=True)  # 期数
-    index = Column(Integer, nullable=False)  # 比赛编号
-    matchtime = Column(DateTime, nullable=False, index=True)  # 比赛时间
-    leaguename = Column(String(100), nullable=False)  # 联赛名称
-    homename = Column(String(100), nullable=False)  # 主队名称
-    awayname = Column(String(100), nullable=False)  # 客队名称
-    result_statu = Column(Integer, default=0, index=True)  # 结果状态 0-未开始 1-已结束等
-    homegoal = Column(Integer, default=-1)  # 主队进球数
-    awaygoal = Column(Integer, default=-1)  # 客队进球数
-    half_homegoal = Column(Integer, default=-1)  # 主队半场进球数
-    half_awaygoal = Column(Integer, default=-1)  # 客队半场进球数
+    match_id = Column(Integer, unique=True, nullable=False, index=True)  # 比赛 ID
+    
+    # 期数相关
+    issue = Column(String(20), nullable=False, index=True)  # 期数
+    match_num = Column(Integer, nullable=False)  # 比赛编号
+    match_num_str = Column(String(20))  # 比赛编号字符串，如"周一 001"
+    match_week = Column(String(10), nullable=False)  # 比赛星期
+    
+    # 时间相关
+    match_time = Column(DateTime, nullable=False, index=True)  # 比赛时间（包含日期和时分秒）
+    
+    # 联赛和球队 (关联到公用的 league 和 team 表)
+    league_id = Column(Integer, ForeignKey('league.id'))  # 联赛 ID
+    home_team_id = Column(Integer, ForeignKey('team.id'))  # 主队 ID
+    away_team_id = Column(Integer, ForeignKey('team.id'))  # 客队 ID
+    
+    # 比赛状态
+    status = Column(Integer, default=0, index=True)  # 状态 0-未开始 1-已结束等
+    
+    # 其他信息
+    remark = Column(Text)  # 备注
     
     # 创建时间和更新时间
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     
     # 关系
-    pl = relationship('FootballPL', backref='football', uselist=False, lazy=True)
-    pl_offset = relationship('FootballPLOffset', backref='football', uselist=False, lazy=True)
+    league = relationship('League', backref='bjdc_matches', uselist=False, lazy=True)
+    home_team = relationship('Team', foreign_keys=[home_team_id], backref='bjdc_home_matches', uselist=False, lazy=True)
+    away_team = relationship('Team', foreign_keys=[away_team_id], backref='bjdc_away_matches', uselist=False, lazy=True)
+    
+    # 赔率表关系 - 使用 primaryjoin 明确指定连接条件
+    spf = relationship(
+        'BjdcSpfOdds',
+        primaryjoin="and_(BjdcMatch.match_id == foreign(BjdcSpfOdds.match_id))",
+        backref='match',
+        uselist=False,
+        lazy=True
+    )  # 胜平负赔率
+    hh_spf = relationship(
+        'BjdcHandicapSpfOdds',
+        primaryjoin="and_(BjdcMatch.match_id == foreign(BjdcHandicapSpfOdds.match_id))",
+        backref='match',
+        uselist=False,
+        lazy=True
+    )  # 让球胜平负赔率
+    score = relationship(
+        'BjdcScoreOdds',
+        primaryjoin="and_(BjdcMatch.match_id == foreign(BjdcScoreOdds.match_id))",
+        backref='match',
+        uselist=False,
+        lazy=True
+    )  # 比分赔率
+    total_goal = relationship(
+        'BjdcTotalGoalOdds',
+        primaryjoin="and_(BjdcMatch.match_id == foreign(BjdcTotalGoalOdds.match_id))",
+        backref='match',
+        uselist=False,
+        lazy=True
+    )  # 总进球赔率
+    ht_ft = relationship(
+        'BjdcHalfTimeFullTimeOdds',
+        primaryjoin="and_(BjdcMatch.match_id == foreign(BjdcHalfTimeFullTimeOdds.match_id))",
+        backref='match',
+        uselist=False,
+        lazy=True
+    )  # 半全场胜平负赔率
+    up_down = relationship(
+        'BjdcUpDownOdds',
+        primaryjoin="and_(BjdcMatch.match_id == foreign(BjdcUpDownOdds.match_id))",
+        backref='match',
+        uselist=False,
+        lazy=True
+    )  # 上下单双赔率
 
-# 足球赔率表
-class FootballPL(Base):
-    __tablename__ = 'football_pl'
+# 北京单场 - 胜平负赔率表 (继承通用基类)
+class BjdcSpfOdds(Base, BaseSpfOdds):
+    __tablename__ = 'bjdc_spf_odds'
+
+# 北京单场 - 让球胜平负赔率表 (继承通用基类)
+class BjdcHandicapSpfOdds(Base, BaseHandicapSpfOdds):
+    __tablename__ = 'bjdc_handicap_spf_odds'
+
+# 北京单场 - 总进球赔率表 (继承通用基类)
+class BjdcTotalGoalOdds(Base, BaseTotalGoalOdds):
+    __tablename__ = 'bjdc_total_goal_odds'
+
+# 北京单场 - 比分赔率表 (继承通用基类)
+class BjdcScoreOdds(Base, BaseScoreOdds):
+    __tablename__ = 'bjdc_score_odds'
+
+# 北京单场 - 半全场胜平负赔率表 (继承通用基类)
+class BjdcHalfTimeFullTimeOdds(Base, BaseHalfTimeFullTimeOdds):
+    __tablename__ = 'bjdc_ht_ft_odds'
+
+# 北京单场 - 上下单双赔率表
+class BjdcUpDownOdds(Base):
+    __tablename__ = 'bjdc_up_down_odds'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    football_id = Column(Integer, ForeignKey('football.id'), unique=True, nullable=False)
+    match_id = Column(Integer, unique=True, nullable=False, index=True)  # 比赛 ID
     
-    # 胜平负赔率
-    win_pl = Column(Float, default=0)  # 主队胜赔率
-    draw_pl = Column(Float, default=0)  # 平局赔率
-    lose_pl = Column(Float, default=0)  # 客队胜赔率
-    rangqiu = Column(Float, default=0)  # 让球数
-    winpl_eu = Column(Float, default=0)  # 欧洲平均胜赔率
-    drawpl_eu = Column(Float, default=0)  # 欧洲平均平赔率
-    losepl_eu = Column(Float, default=0)  # 欧洲平均负赔率
+    up_single = Column(Float, default=0)  # 上 + 单
+    up_double = Column(Float, default=0)  # 上 + 双
+    down_single = Column(Float, default=0)  # 下 + 单
+    down_double = Column(Float, default=0)  # 下 + 双
     
-    # 总进球赔率
-    goal_0 = Column(Float, default=0)  # 总进球0
-    goal_1 = Column(Float, default=0)  # 总进球1
-    goal_2 = Column(Float, default=0)  # 总进球2
-    goal_3 = Column(Float, default=0)  # 总进球3
-    goal_4 = Column(Float, default=0)  # 总进球4
-    goal_5 = Column(Float, default=0)  # 总进球5
-    goal_6 = Column(Float, default=0)  # 总进球6
-    goal_about = Column(Float, default=0)  # 总进球7+
-    
-    # 比分赔率
-    score_0_0 = Column(Float, default=0)  # 比分0:0
-    score_0_1 = Column(Float, default=0)  # 比分0:1
-    score_0_2 = Column(Float, default=0)  # 比分0:2
-    score_0_3 = Column(Float, default=0)  # 比分0:3
-    score_0_4 = Column(Float, default=0)  # 比分0:4
-    score_0_5 = Column(Float, default=0)  # 比分0:5
-    score_1_0 = Column(Float, default=0)  # 比分1:0
-    score_1_1 = Column(Float, default=0)  # 比分1:1
-    score_1_2 = Column(Float, default=0)  # 比分1:2
-    score_1_3 = Column(Float, default=0)  # 比分1:3
-    score_1_4 = Column(Float, default=0)  # 比分1:4
-    score_1_5 = Column(Float, default=0)  # 比分1:5
-    score_2_0 = Column(Float, default=0)  # 比分2:0
-    score_2_1 = Column(Float, default=0)  # 比分2:1
-    score_2_2 = Column(Float, default=0)  # 比分2:2
-    score_2_3 = Column(Float, default=0)  # 比分2:3
-    score_2_4 = Column(Float, default=0)  # 比分2:4
-    score_2_5 = Column(Float, default=0)  # 比分2:5
-    score_3_0 = Column(Float, default=0)  # 比分3:0
-    score_3_1 = Column(Float, default=0)  # 比分3:1
-    score_3_2 = Column(Float, default=0)  # 比分3:2
-    score_3_3 = Column(Float, default=0)  # 比分3:3
-    score_3_4 = Column(Float, default=0)  # 比分3:4
-    score_3_5 = Column(Float, default=0)  # 比分3:5
-    score_4_0 = Column(Float, default=0)  # 比分4:0
-    score_4_1 = Column(Float, default=0)  # 比分4:1
-    score_4_2 = Column(Float, default=0)  # 比分4:2
-    score_4_3 = Column(Float, default=0)  # 比分4:3
-    score_4_4 = Column(Float, default=0)  # 比分4:4
-    score_4_5 = Column(Float, default=0)  # 比分4:5
-    score_win_about = Column(Float, default=0)  # 胜其他
-    score_lose_about = Column(Float, default=0)  # 负其他
-    score_draw_about = Column(Float, default=0)  # 平其他
-    
-    # 创建时间和更新时间
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-# 足球赔率历史偏移表
-class FootballPLOffset(Base):
-    __tablename__ = 'football_pl_offset'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    football_id = Column(Integer, ForeignKey('football.id'), unique=True, nullable=False)
-    
-    # 胜平负赔率历史
-    win_pl = Column(Text, default='{}')  # 主队胜赔率历史
-    draw_pl = Column(Text, default='{}')  # 平局赔率历史
-    lose_pl = Column(Text, default='{}')  # 客队胜赔率历史
-    rangqiu = Column(Text, default='{}')  # 让球数历史
-    winpl_eu = Column(Text, default='{}')  # 欧洲平均胜赔率历史
-    drawpl_eu = Column(Text, default='{}')  # 欧洲平均平赔率历史
-    losepl_eu = Column(Text, default='{}')  # 欧洲平均负赔率历史
-    
-    # 总进球赔率历史
-    goal_0 = Column(Text, default='{}')  # 总进球0赔率历史
-    goal_1 = Column(Text, default='{}')  # 总进球1赔率历史
-    goal_2 = Column(Text, default='{}')  # 总进球2赔率历史
-    goal_3 = Column(Text, default='{}')  # 总进球3赔率历史
-    goal_4 = Column(Text, default='{}')  # 总进球4赔率历史
-    goal_5 = Column(Text, default='{}')  # 总进球5赔率历史
-    goal_6 = Column(Text, default='{}')  # 总进球6赔率历史
-    goal_about = Column(Text, default='{}')  # 总进球7+赔率历史
-    
-    # 比分赔率历史
-    score_0_0 = Column(Text, default='{}')  # 比分0:0赔率历史
-    score_0_1 = Column(Text, default='{}')  # 比分0:1赔率历史
-    score_0_2 = Column(Text, default='{}')  # 比分0:2赔率历史
-    score_0_3 = Column(Text, default='{}')  # 比分0:3赔率历史
-    score_0_4 = Column(Text, default='{}')  # 比分0:4赔率历史
-    score_0_5 = Column(Text, default='{}')  # 比分0:5赔率历史
-    score_1_0 = Column(Text, default='{}')  # 比分1:0赔率历史
-    score_1_1 = Column(Text, default='{}')  # 比分1:1赔率历史
-    score_1_2 = Column(Text, default='{}')  # 比分1:2赔率历史
-    score_1_3 = Column(Text, default='{}')  # 比分1:3赔率历史
-    score_1_4 = Column(Text, default='{}')  # 比分1:4赔率历史
-    score_1_5 = Column(Text, default='{}')  # 比分1:5赔率历史
-    score_2_0 = Column(Text, default='{}')  # 比分2:0赔率历史
-    score_2_1 = Column(Text, default='{}')  # 比分2:1赔率历史
-    score_2_2 = Column(Text, default='{}')  # 比分2:2赔率历史
-    score_2_3 = Column(Text, default='{}')  # 比分2:3赔率历史
-    score_2_4 = Column(Text, default='{}')  # 比分2:4赔率历史
-    score_2_5 = Column(Text, default='{}')  # 比分2:5赔率历史
-    score_3_0 = Column(Text, default='{}')  # 比分3:0赔率历史
-    score_3_1 = Column(Text, default='{}')  # 比分3:1赔率历史
-    score_3_2 = Column(Text, default='{}')  # 比分3:2赔率历史
-    score_3_3 = Column(Text, default='{}')  # 比分3:3赔率历史
-    score_3_4 = Column(Text, default='{}')  # 比分3:4赔率历史
-    score_3_5 = Column(Text, default='{}')  # 比分3:5赔率历史
-    score_4_0 = Column(Text, default='{}')  # 比分4:0赔率历史
-    score_4_1 = Column(Text, default='{}')  # 比分4:1赔率历史
-    score_4_2 = Column(Text, default='{}')  # 比分4:2赔率历史
-    score_4_3 = Column(Text, default='{}')  # 比分4:3赔率历史
-    score_4_4 = Column(Text, default='{}')  # 比分4:4赔率历史
-    score_4_5 = Column(Text, default='{}')  # 比分4:5赔率历史
-    score_win_about = Column(Text, default='{}')  # 胜其他赔率历史
-    score_lose_about = Column(Text, default='{}')  # 负其他赔率历史
-    score_draw_about = Column(Text, default='{}')  # 平其他赔率历史
-    
-    # 创建时间和更新时间
-    created_at = Column(DateTime, default=datetime.now)
-    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+# 北京单场 - 赛果记录表 (继承通用基类)
+class BjdcMatchResult(Base, BaseMatchResult):
+    __tablename__ = 'bjdc_match_result'
+
+# 北京单场 - 赔率变化历史记录表 (继承通用基类)
+class BjdcOddsChangeLog(Base, BaseOddsChangeLog):
+    __tablename__ = 'bjdc_odds_change_log'

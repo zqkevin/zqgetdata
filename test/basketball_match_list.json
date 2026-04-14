@@ -1,0 +1,77 @@
+[
+  {
+    "businessDate": "2026-04-13",
+    "matchCount": 1,
+    "matchNumDate": "260413",
+    "subMatchList": [
+      {
+        "awayTeamAbbName": "罗斯托克",
+        "awayTeamAllName": "罗斯托克海狼",
+        "awayTeamId": 2068440,
+        "backColor": "FE5415",
+        "businessDate": "2026-04-13",
+        "homeTeamAbbName": "奥尔登堡",
+        "homeTeamAllName": "奥尔登堡",
+        "homeTeamId": 324,
+        "leagueAbbName": "德篮联",
+        "leagueAllName": "德国篮球联赛",
+        "leagueId": "2068447",
+        "matchDate": "2026-04-14",
+        "matchId": 2039100,
+        "matchNumDate": "260413",
+        "matchNumStr": "周一301",
+        "matchTime": "02:00",
+        "poolList": [
+          {
+            "cbtAllUp": 1,
+            "cbtSingle": 1,
+            "cbtValue": 1,
+            "intAllUp": 0,
+            "intSingle": 0,
+            "intValue": 2,
+            "poolCode": "HDC",
+            "poolPrimaryId": 0,
+            "poolStatus": "Selling"
+          },
+          {
+            "cbtAllUp": 1,
+            "cbtSingle": 1,
+            "cbtValue": 1,
+            "intAllUp": 0,
+            "intSingle": 0,
+            "intValue": 2,
+            "poolCode": "HILO",
+            "poolPrimaryId": 0,
+            "poolStatus": "Selling"
+          },
+          {
+            "cbtAllUp": 1,
+            "cbtSingle": 1,
+            "cbtValue": 1,
+            "intAllUp": 0,
+            "intSingle": 0,
+            "intValue": 2,
+            "poolCode": "MNL",
+            "poolPrimaryId": 0,
+            "poolStatus": "Selling"
+          },
+          {
+            "cbtAllUp": 1,
+            "cbtSingle": 1,
+            "cbtValue": 1,
+            "intAllUp": 0,
+            "intSingle": 0,
+            "intValue": 2,
+            "poolCode": "WNM",
+            "poolPrimaryId": 0,
+            "poolStatus": "Selling"
+          }
+        ],
+        "remark": "",
+        "sellStatus": "1",
+        "weekday": "周一"
+      }
+    ],
+    "weekday": "周一"
+  }
+]
