@@ -30,3 +30,65 @@
 2026-04-14 13:58:33 - lottery_data - INFO - 开始获取七星彩数据...
 2026-04-14 13:58:33 - lottery_data - ERROR - 获取qxc数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
 2026-04-14 13:58:33 - lottery_data - INFO - 彩票数据更新完成，成功保存 0 条记录
+2026-04-14 17:19:31 - lottery_data - INFO - 开始更新最新彩票数据...
+2026-04-14 17:19:31 - lottery_data - INFO - 超级大乐透 数据库中无记录，需要获取
+2026-04-14 17:19:31 - lottery_data - INFO - 排列 3 数据库中无记录，需要获取
+2026-04-14 17:19:31 - lottery_data - INFO - 排列 5 数据库中无记录，需要获取
+2026-04-14 17:19:31 - lottery_data - INFO - 七星彩 数据库中无记录，需要获取
+2026-04-14 17:19:31 - lottery_data - INFO - 开始获取 4 个彩种数据
+2026-04-14 17:19:31 - lottery_data - INFO - 开始获取超级大乐透数据...
+2026-04-14 17:19:31 - lottery_data - ERROR - 获取dlt数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 17:19:31 - lottery_data - INFO - 开始获取排列 3数据...
+2026-04-14 17:19:31 - lottery_data - ERROR - 获取pl3数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 17:19:31 - lottery_data - INFO - 开始获取排列 5数据...
+2026-04-14 17:19:31 - lottery_data - ERROR - 获取pl5数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 17:19:31 - lottery_data - INFO - 开始获取七星彩数据...
+2026-04-14 17:19:31 - lottery_data - ERROR - 获取qxc数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 17:19:31 - lottery_data - INFO - 彩票数据更新完成，成功保存 0 条记录
+2026-04-14 21:20:32 - lottery_data - INFO - 开始更新最新彩票数据...
+2026-04-14 21:20:32 - lottery_data - INFO - 超级大乐透 数据库中无记录，需要获取
+2026-04-14 21:20:32 - lottery_data - INFO - 排列 3 数据库中无记录，需要获取
+2026-04-14 21:20:32 - lottery_data - INFO - 排列 5 数据库中无记录，需要获取
+2026-04-14 21:20:32 - lottery_data - INFO - 七星彩 数据库中无记录，需要获取
+2026-04-14 21:20:32 - lottery_data - INFO - 开始获取 4 个彩种数据
+2026-04-14 21:20:32 - lottery_data - INFO - 开始获取超级大乐透数据...
+2026-04-14 21:20:32 - lottery_data - ERROR - 获取dlt数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 21:20:32 - lottery_data - INFO - 开始获取排列 3数据...
+2026-04-14 21:20:32 - lottery_data - ERROR - 获取pl3数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 21:20:32 - lottery_data - INFO - 开始获取排列 5数据...
+2026-04-14 21:20:32 - lottery_data - ERROR - 获取pl5数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 21:20:32 - lottery_data - INFO - 开始获取七星彩数据...
+2026-04-14 21:20:32 - lottery_data - ERROR - 获取qxc数据异常：'SportteryAPI' object has no attribute 'get_lottery_draw'
+2026-04-14 21:20:32 - lottery_data - INFO - 彩票数据更新完成，成功保存 0 条记录
+2026-04-14 21:21:40 - lottery_data - INFO - 开始更新最新彩票数据...
+2026-04-14 21:21:40 - lottery_data - INFO - 超级大乐透 数据库中无记录，需要获取
+2026-04-14 21:21:40 - lottery_data - INFO - 排列 3 数据库中无记录，需要获取
+2026-04-14 21:21:40 - lottery_data - INFO - 排列 5 数据库中无记录，需要获取
+2026-04-14 21:21:40 - lottery_data - INFO - 七星彩 数据库中无记录，需要获取
+2026-04-14 21:21:40 - lottery_data - INFO - 开始获取 4 个彩种数据
+2026-04-14 21:21:40 - lottery_data - INFO - 开始获取 4 个彩种数据...
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存9条奖级信息
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存超级大乐透第26039期数据
+2026-04-14 21:21:41 - lottery_data - INFO - 超级大乐透数据保存成功
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存3条奖级信息
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存排列 3第26093期数据
+2026-04-14 21:21:41 - lottery_data - INFO - 排列 3数据保存成功
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存1条奖级信息
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存排列 5第26093期数据
+2026-04-14 21:21:41 - lottery_data - INFO - 排列 5数据保存成功
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存6条奖级信息
+2026-04-14 21:21:41 - lottery_data - INFO - 成功保存七星彩第26040期数据
+2026-04-14 21:21:41 - lottery_data - INFO - 七星彩数据保存成功
+2026-04-14 21:21:41 - lottery_data - INFO - 彩票数据更新完成，成功保存 4 条记录
+2026-04-14 21:22:35 - lottery_data - INFO - 开始更新最新彩票数据...
+2026-04-14 21:22:35 - lottery_data - INFO - 超级大乐透 今日数据不存在，需要获取
+2026-04-14 21:22:35 - lottery_data - INFO - 排列 3 今日数据不存在，需要获取
+2026-04-14 21:22:35 - lottery_data - INFO - 排列 5 今日数据不存在，需要获取
+2026-04-14 21:22:35 - lottery_data - INFO - 七星彩 今日数据不存在，需要获取
+2026-04-14 21:22:35 - lottery_data - INFO - 开始获取 4 个彩种数据
+2026-04-14 21:22:35 - lottery_data - INFO - 开始获取 4 个彩种数据...
+2026-04-14 21:22:35 - lottery_data - INFO - 超级大乐透第26039期已存在，跳过
+2026-04-14 21:22:35 - lottery_data - INFO - 排列 3第26093期已存在，跳过
+2026-04-14 21:22:35 - lottery_data - INFO - 排列 5第26093期已存在，跳过
+2026-04-14 21:22:35 - lottery_data - INFO - 七星彩第26040期已存在，跳过
+2026-04-14 21:22:35 - lottery_data - INFO - 彩票数据更新完成，成功保存 0 条记录

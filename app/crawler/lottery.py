@@ -166,18 +166,22 @@ class LotteryDataCollector:
         
         saved_count = 0
         
-        for lottery_type in lottery_types:
-            try:
-                log.info(f'开始获取{self.lottery_mapping[lottery_type]["lottery_name"]}数据...')
-                
-                # 从 API 获取数据
-                data = self.api_client.get_lottery_draw([lottery_type])
-                
-                if not data or lottery_type not in data:
-                    log.warning(f'获取{lottery_type}数据失败')
+        try:
+            # 使用 get_multi_lottery_data 批量获取所有彩种数据
+            log.info(f'开始获取 {len(lottery_types)} 个彩种数据...')
+            data = self.api_client.get_multi_lottery_data(lottery_types)
+            
+            if not data:
+                log.warning('API返回数据为空')
+                return 0
+            
+            # 遍历每个彩种的数据
+            for lottery_type in lottery_types:
+                if lottery_type not in data or not data[lottery_type]:
+                    log.warning(f'获取{lottery_type}数据失败或为空')
                     continue
                 
-                lottery_data = data[lottery_type].get(lottery_type, {})
+                lottery_data = data[lottery_type]
                 
                 # 保存数据
                 if self._save_lottery_data(lottery_type, lottery_data):
@@ -186,9 +190,10 @@ class LotteryDataCollector:
                 else:
                     log.debug(f'{self.lottery_mapping[lottery_type]["lottery_name"]}数据已存在，跳过')
                     
-            except Exception as e:
-                log.error(f'获取{lottery_type}数据异常：{e}')
-                continue
+        except Exception as e:
+            log.error(f'获取彩票数据异常：{e}')
+            import traceback
+            log.error(traceback.format_exc())
         
         return saved_count
     

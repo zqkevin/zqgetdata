@@ -12124,3 +12124,220 @@ AttributeError: 'mydb' object has no attribute 'commit'
 2026-04-14 17:02:32 - tczq_data - WARNING - 无法获取原始赔率值: record_id=12, field=half_lose_full_lose
 2026-04-14 17:02:32 - tczq_data - INFO - ✓ 记录赔率变化: tczq_ht_ft_odds.half_lose_full_lose 0.000 -> 0.000 (diff=0.000)
 2026-04-14 17:02:32 - tczq_data - INFO - 赔率数据处理完成
+2026-04-14 17:18:11 - tczq_data - INFO - 检测到重建参数，将完全重建数据库
+2026-04-14 17:18:18 - tczq_data - INFO - 开始完全重建数据库（将删除所有表并重新创建）
+2026-04-14 17:19:12 - tczq_data - INFO - 数据库完全重建完成（包括表结构、联赛数据）
+2026-04-14 17:19:12 - tczq_data - INFO - 开始任务
+2026-04-14 17:19:12 - tczq_data - INFO - 开始第1次任务执行
+2026-04-14 17:19:12 - tczq_data - INFO - 开始更新北京单场足球比赛信息
+2026-04-14 17:19:22 - tczq_data - INFO - 开始更新北京单场足球比赛结果
+2026-04-14 17:19:23 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-14 17:19:27 - tczq_data - INFO - 开始更新竞彩足球比赛数据
+2026-04-14 17:19:27 - tczq_data - INFO - 开始获取当前比赛数据（带赔率）...
+2026-04-14 17:19:27 - tczq_data - INFO - 共获取 12 场比赛
+2026-04-14 17:19:27 - tczq_data - INFO - 开始处理 5 个联赛信息
+2026-04-14 17:19:28 - tczq_data - INFO - 联赛信息处理完成，共处理 5 个联赛
+2026-04-14 17:19:28 - tczq_data - INFO - 联赛数据处理完成，共 5 个联赛
+2026-04-14 17:19:29 - tczq_data - INFO - 成功保存 12 条比赛记录
+2026-04-14 17:19:29 - tczq_data - INFO - 开始处理 12 条赔率数据
+2026-04-14 17:19:30 - tczq_data - INFO - 赔率数据处理完成
+2026-04-14 17:19:30 - tczq_data - INFO - 开始更新竞彩足球比赛结果
+2026-04-14 17:19:30 - tczq_data - INFO - 开始获取并保存体彩足球比赛结果...
+2026-04-14 17:19:30 - tczq_data - INFO - 开始获取体彩足球比赛结果...
+2026-04-14 17:19:30 - tczq_data - ERROR - 获取比赛结果失败：'SportteryAPI' object has no attribute 'get_football_match_results'
+2026-04-14 17:19:30 - tczq_data - WARNING - 没有获取到比赛结果
+2026-04-14 17:19:30 - tczq_data - INFO - 开始更新篮球比赛数据
+2026-04-14 17:19:31 - tczq_data - INFO - 开始更新篮球比赛结果
+2026-04-14 17:19:31 - tczq_data - INFO - 开始更新数字彩数据
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h1
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h2
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h3
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h4
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h5
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h6
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a1
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a2
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a3
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a4
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a5
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a6
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h1
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h2
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h3
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h4
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h5
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h6
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a1
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a2
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a3
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a4
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a5
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a6
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h1
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h2
+2026-04-14 17:19:47 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h3
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h4
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h5
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h6
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a1
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a2
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a3
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a4
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a5
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a6
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h1
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h2
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h3
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h4
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h5
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h6
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a1
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a2
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a3
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a4
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a5
+2026-04-14 17:19:48 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a6
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h1
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h2
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h3
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h4
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h5
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h6
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a1
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a2
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a3
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a4
+2026-04-14 17:21:39 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a6
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h1
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h2
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h3
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h4
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h6
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a1
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a2
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a3
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a4
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a6
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h1
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h2
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h3
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h4
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h6
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a1
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a2
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a3
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a4
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a6
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h1
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h2
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h3
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h4
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h6
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a1
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a2
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a3
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a4
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a5
+2026-04-14 17:21:40 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h4
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h5
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a4
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a5
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h4
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h5
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a4
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a5
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h4
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h5
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a4
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a5
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a6
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h1
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h2
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h3
+2026-04-14 17:22:56 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h4
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h5
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h6
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a1
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a2
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a3
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a4
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a5
+2026-04-14 17:22:57 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a6
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h1
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h2
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h3
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h4
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h5
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=h6
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a1
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a2
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a3
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a4
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a5
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=1, field=a6
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h1
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h2
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h3
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h4
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h5
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=h6
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a1
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a2
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a3
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a4
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a5
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=2, field=a6
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h1
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h2
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h3
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h4
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h5
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=h6
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a1
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a2
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a3
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a4
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a5
+2026-04-14 17:23:41 - tczq_data - WARNING - 无法获取原始赔率值: record_id=3, field=a6
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h1
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h2
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h3
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h4
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h5
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=h6
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a1
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a2
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a3
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a4
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a5
+2026-04-14 17:23:42 - tczq_data - WARNING - 无法获取原始赔率值: record_id=4, field=a6
