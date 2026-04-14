@@ -23,6 +23,24 @@ class JcbkResultCollector:
     def __init__(self):
         self.api = SportteryAPI()
     
+    def _convert_api_field_to_db(self, api_field: str) -> str:
+        """
+        将 API 返回的字段名转换为数据库模型字段名
+        
+        Args:
+            api_field: API 字段名 (如 matchId)
+            
+        Returns:
+            str: 数据库字段名 (如 match_id)
+        """
+        # 简单的驼峰转下划线转换
+        result = ''
+        for i, char in enumerate(api_field):
+            if char.isupper() and i > 0:
+                result += '_'
+            result += char.lower()
+        return result
+    
     def fetch_match_results(self) -> list:
         """
         获取比赛结果数据
@@ -33,18 +51,28 @@ class JcbkResultCollector:
         try:
             logger.info('开始获取竞彩篮球比赛结果...')
             
-            # 从 API 获取比赛结果
-            results = self.api.get_basketball_match_results()
+            # 从 API 获取比赛结果（获取最近 7 天的比赛）
+            from datetime import timedelta
+            from datetime import datetime
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=7)
             
-            if results is None or results.empty:
+            results = self.api.get_basketball_match_results(
+                match_begin_date=start_date.strftime('%Y-%m-%d'),
+                match_end_date=end_date.strftime('%Y-%m-%d')
+            )
+            
+            if not results:
                 logger.info('获取到的比赛结果为空')
                 return []
             
             logger.info(f'成功获取 {len(results)} 条比赛结果')
-            return results.to_dict('records')
+            return results
             
         except Exception as e:
             logger.error(f'获取比赛结果失败：{e}')
+            import traceback
+            logger.error(traceback.format_exc())
             return []
     
     def save_results_to_db(self, results: list) -> int:
@@ -72,21 +100,33 @@ class JcbkResultCollector:
                 # 检查是否已存在赛果记录
                 existing_result = localdb.query(TcbkResult).filter_by(match_id=match_id).first()
                 
+                # 转换 API 字段名为数据库字段名
+                db_result_data = {}
+                for key, value in result_data.items():
+                    db_key = self._convert_api_field_to_db(key)
+                    
+                    if hasattr(TcbkResult, db_key):
+                        db_result_data[db_key] = value
+                
                 if existing_result:
                     # 更新现有记录
-                    for key, value in result_data.items():
-                        if hasattr(existing_result, key):
-                            setattr(existing_result, key, value)
+                    for key, value in db_result_data.items():
+                        setattr(existing_result, key, value)
                     localdb.update(existing_result, close=False)
+                    logger.debug(f"更新赛果：match_id={match_id}")
                 else:
                     # 创建新记录
-                    new_result = TcbkResult(**result_data)
-                    localdb.add(new_result, close=False)
+                    if db_result_data:
+                        new_result = TcbkResult(**db_result_data)
+                        localdb.add(new_result, close=False)
+                        logger.debug(f"新增赛果：match_id={match_id}")
                 
                 saved_count += 1
                 
             except Exception as e:
                 logger.error(f"保存赛果失败 (match_id={match_id}): {str(e)}")
+                import traceback
+                logger.error(traceback.format_exc())
                 continue
         
         return saved_count

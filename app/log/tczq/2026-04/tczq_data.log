@@ -12483,3 +12483,5 @@ AttributeError: 'mydb' object has no attribute 'commit'
 2026-04-14 22:19:27 - tczq_data - INFO - 成功保存 113 条赛果记录
 2026-04-14 22:21:22 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
 2026-04-14 22:21:54 - tczq_data - INFO - 获取足球比赛赛果信息，共113条，4页
+2026-04-15 05:14:04 - tczq_data - INFO - 获取篮球比赛赛果信息，共82条，3页
+2026-04-15 05:14:42 - tczq_data - INFO - 获取篮球比赛赛果信息，共82条，3页

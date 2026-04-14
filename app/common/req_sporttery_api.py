@@ -445,7 +445,7 @@ class SportteryAPI:
     
     def get_basketball_match_result(self, match_date: str, channel: str = "c") -> Dict[str, Any]:
         """
-        获取篮球比赛赛果信息
+        获取篮球比赛赛果信息（单日期查询，已废弃）
         
         Args:
             match_date: 比赛日期，格式为YYYY-MM-DD
@@ -467,6 +467,117 @@ class SportteryAPI:
         
         data = self._request(retype='basketball', endpoint='result', params=params)
         return data.get('value', {})
+    
+    def get_basketball_match_results(self, match_begin_date: str = None, match_end_date: str = None) -> list:
+        """
+        获取篮球比赛赛果信息（支持日期范围查询）
+        
+        Args:
+            match_begin_date: 比赛开始日期，格式为YYYY-MM-DD
+            match_end_date: 比赛结束日期，格式为YYYY-MM-DD
+            
+        Returns:
+            篮球比赛赛果列表
+        """
+        params = {
+            'pageSize': 30,
+            'pageNo': 1,
+            'isFix': 0,
+            'leagueId': ''
+        }
+        
+        # 添加比赛日期参数（如果提供）
+        if match_begin_date is not None:
+            formatted_begin = self._format_date(match_begin_date)
+            if formatted_begin:
+                params['matchBeginDate'] = formatted_begin
+        if match_end_date is not None:
+            formatted_end = self._format_date(match_end_date)
+            if formatted_end:
+                params['matchEndDate'] = formatted_end
+        
+        # 使用新的 API 端点
+        url = f"{self.Basketball_BASE_URL}getUniformMatchResultV2.qry"
+        
+        try:
+            response = self.session.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+            
+            # 检查响应是否成功
+            if data.get('errorCode') != '0' or not data.get('success'):
+                raise Exception(f"API请求失败: {data.get('errorMessage', '未知错误')}")
+            
+            value = data.get('value', {})
+            total = value.get('total', 0)
+            pages = value.get('pages', 0)
+            log.info(f"获取篮球比赛赛果信息，共{total}条，{pages}页")
+            
+            # 获取第一页数据
+            pageNo = params.get('pageNo', 1)
+            results = value.get('matchResult', [])
+            
+            # 如果有多个页面，继续获取
+            while pageNo < pages:
+                pageNo += 1
+                params['pageNo'] = pageNo
+                response = self.session.get(url, params=params, timeout=30)
+                response.raise_for_status()
+                data = response.json()
+                value = data.get('value', {})
+                match_results = value.get('matchResult', [])
+                results.extend(match_results)
+            
+            # 标准化返回数据
+            standardized_results = []
+            for result in results:
+                # 解析比分
+                final_score = result.get('finalScore', '')
+                if final_score and '-' in final_score:
+                    try:
+                        home_score, away_score = final_score.split('-')
+                        home_score = int(home_score.strip())
+                        away_score = int(away_score.strip())
+                    except (ValueError, AttributeError):
+                        home_score, away_score = 0, 0
+                else:
+                    home_score, away_score = 0, 0
+                
+                standardized = {
+                    'matchId': result.get('matchId'),
+                    'matchNum': result.get('matchNum'),
+                    'matchNumStr': result.get('matchNumStr'),
+                    'matchDate': result.get('matchDate'),
+                    'matchTime': result.get('matchTime'),
+                    'homeTeam': result.get('homeTeam'),
+                    'allHomeTeam': result.get('allHomeTeam'),
+                    'awayTeam': result.get('awayTeam'),
+                    'allAwayTeam': result.get('allAwayTeam'),
+                    'homeTeamId': result.get('homeTeamId'),
+                    'awayTeamId': result.get('awayTeamId'),
+                    'homeScore': home_score,
+                    'awayScore': away_score,
+                    'leagueName': result.get('leagueName'),
+                    'leagueNameAbbr': result.get('leagueNameAbbr'),
+                    'leagueId': result.get('leagueId'),
+                    'status': result.get('status'),
+                    'poolStatus': result.get('poolStatus')
+                }
+                standardized_results.append(standardized)
+            
+            return standardized_results
+            
+        except requests.exceptions.RequestException as e:
+            log.error(f"网络请求错误: {str(e)}")
+            return []
+        except json.JSONDecodeError as e:
+            log.error(f"JSON解析错误: {str(e)}")
+            return []
+        except Exception as e:
+            log.error(f"获取篮球赛果失败: {str(e)}")
+            import traceback
+            log.error(traceback.format_exc())
+            return []
     
     def search_football_some_odds(self, match_id: str = None, h: str = None, a: str = None, d: str = None, league_id: str = None, homeTeamId: str = None, awayTeamId: str = None) -> Dict[str, Any]:
         """

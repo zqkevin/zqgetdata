@@ -581,3 +581,13 @@ AttributeError: 'mydb' object has no attribute 'commit'
 2026-04-14 17:50:51 - jcbk_data - INFO - ✓ 记录篮球赔率变化: tcbk_rfsf.a 1.810 -> 1.750 (diff=0.060)
 2026-04-14 17:50:51 - jcbk_data - INFO - ✓ 记录篮球赔率变化: tcbk_spf.a 2.250 -> 2.340 (diff=0.090)
 2026-04-14 17:50:51 - jcbk_data - INFO - 赔率数据处理完成
+2026-04-15 05:14:04 - jcbk_data - INFO - 开始获取并保存竞彩篮球比赛结果...
+2026-04-15 05:14:04 - jcbk_data - INFO - 开始获取竞彩篮球比赛结果...
+2026-04-15 05:14:05 - jcbk_data - INFO - 成功获取 82 条比赛结果
+2026-04-15 05:14:05 - jcbk_data - INFO - 成功获取 82 条比赛结果
+2026-04-15 05:14:07 - jcbk_data - INFO - 成功保存 82 条赛果记录
+2026-04-15 05:14:42 - jcbk_data - INFO - 开始获取并保存竞彩篮球比赛结果...
+2026-04-15 05:14:42 - jcbk_data - INFO - 开始获取竞彩篮球比赛结果...
+2026-04-15 05:14:42 - jcbk_data - INFO - 成功获取 82 条比赛结果
+2026-04-15 05:14:42 - jcbk_data - INFO - 成功获取 82 条比赛结果
+2026-04-15 05:14:44 - jcbk_data - INFO - 成功保存 82 条赛果记录
