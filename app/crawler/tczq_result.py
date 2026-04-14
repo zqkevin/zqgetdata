@@ -60,18 +60,77 @@ class TczqResultCollector:
         try:
             logger.info('开始获取体彩足球比赛结果...')
             
-            # 从 API 获取比赛结果（获取最近 7 天的比赛）
-            from datetime import timedelta
-            end_date = datetime.now()
-            start_date = end_date - timedelta(days=7)
+            # 1. 查询数据库中需要获取赛果的比赛
+            from datetime import timedelta, datetime
+            from sqlalchemy import func
             
+            cutoff_time = datetime.now() - timedelta(hours=4)
+            abnormal_cutoff_time = datetime.now() - timedelta(days=4)
+            
+            pending_matches = localdb.query(TczqMatch).filter(
+                TczqMatch.status == 0,  # 未结束
+                TczqMatch.match_time < cutoff_time  # 比赛已结束4小时以上
+            ).all()
+            
+            if not pending_matches:
+                logger.info('没有需要获取赛果的比赛')
+                return []
+            
+            logger.info(f'找到 {len(pending_matches)} 场需要获取赛果的比赛')
+            
+            # 2. 检查并标记异常比赛（开赛超过4天且无延期标识）
+            abnormal_count = 0
+            valid_matches = []
+            
+            for match in pending_matches:
+                # 检查是否开赛超过4天
+                if match.match_time and match.match_time < abnormal_cutoff_time:
+                    # 检查是否有延期标识（remark中包含延期相关关键词）
+                    has_postpone_flag = False
+                    if match.remark:
+                        postpone_keywords = ['延期', '推迟', '改期', 'postpone', 'delayed']
+                        has_postpone_flag = any(keyword in str(match.remark).lower() for keyword in postpone_keywords)
+                    
+                    if not has_postpone_flag:
+                        # 标记为异常状态 (status=2)
+                        match.status = 2
+                        localdb.update(match, close=False)
+                        abnormal_count += 1
+                        home_name = match.home_team.team_full_name if match.home_team else '未知'
+                        away_name = match.away_team.team_full_name if match.away_team else '未知'
+                        logger.warning(f"⚠️ 比赛异常: {home_name} vs {away_name}, 开赛时间: {match.match_time}, 已超过4天")
+                        continue
+                
+                valid_matches.append(match)
+            
+            if abnormal_count > 0:
+                logger.info(f'已标记 {abnormal_count} 场异常比赛')
+            
+            if not valid_matches:
+                logger.info('没有有效的比赛需要获取赛果')
+                return []
+            
+            logger.info(f'有效比赛数: {len(valid_matches)}')
+            
+            # 3. 统计时间范围
+            match_dates = [m.match_time.date() for m in valid_matches if m.match_time]
+            if not match_dates:
+                logger.warning('无法提取比赛日期')
+                return []
+            
+            min_date = min(match_dates)
+            max_date = max(match_dates)
+            
+            logger.info(f'赛果时间范围: {min_date} 到 {max_date}')
+            
+            # 4. 使用时间范围向 API 请求赛果
             results = self.api.get_football_match_result(
-                match_begin_date=start_date.strftime('%Y-%m-%d'),
-                match_end_date=end_date.strftime('%Y-%m-%d')
+                match_begin_date=min_date.strftime('%Y-%m-%d'),
+                match_end_date=max_date.strftime('%Y-%m-%d')
             )
             
             if not results:
-                logger.info('获取到的比赛结果为空')
+                logger.info('API 返回的赛果为空')
                 return []
             
             logger.info(f'成功获取 {len(results)} 条比赛结果')
@@ -79,7 +138,75 @@ class TczqResultCollector:
             
         except Exception as e:
             logger.error(f'获取比赛结果失败：{e}')
+            import traceback
+            logger.error(traceback.format_exc())
             return []
+    
+    def _match_game_by_name_and_time(self, result_data: Dict) -> TczqMatch:
+        """
+        通过队名和开赛时间匹配数据库中的比赛
+        
+        Args:
+            result_data: API 返回的赛果数据
+            
+        Returns:
+            TczqMatch: 匹配到的比赛记录，未找到返回 None
+        """
+        from datetime import datetime
+        
+        # 获取 API 返回的信息
+        home_team_name = result_data.get('allHomeTeam') or result_data.get('homeTeam')
+        away_team_name = result_data.get('allAwayTeam') or result_data.get('awayTeam')
+        match_date_str = result_data.get('matchDate')
+        
+        if not all([home_team_name, away_team_name, match_date_str]):
+            logger.warning(f"赛果数据缺少必要字段: {result_data}")
+            return None
+        
+        try:
+            # 解析比赛日期
+            match_date = datetime.strptime(match_date_str, '%Y-%m-%d').date()
+        except ValueError:
+            logger.warning(f"无法解析比赛日期: {match_date_str}")
+            return None
+        
+        # 查询数据库中该日期的所有未结束比赛
+        from sqlalchemy import func
+        matches = localdb.query(TczqMatch).filter(
+            func.date(TczqMatch.match_time) == match_date,
+            TczqMatch.status == 0  # 只查询未结束的比赛
+        ).all()
+        
+        if not matches:
+            logger.debug(f"未在数据库中找到 {match_date_str} 的未结束比赛")
+            return None
+        
+        # 遍历匹配队名
+        for match in matches:
+            db_home_team = match.home_team
+            db_away_team = match.away_team
+            
+            if not db_home_team or not db_away_team:
+                continue
+            
+            # 匹配主队名称（支持全称和简称）
+            home_match = (
+                db_home_team.team_full_name == home_team_name or
+                db_home_team.team_short_name == home_team_name
+            )
+            
+            # 匹配客队名称（支持全称和简称）
+            away_match = (
+                db_away_team.team_full_name == away_team_name or
+                db_away_team.team_short_name == away_team_name
+            )
+            
+            if home_match and away_match:
+                logger.debug(f"成功匹配比赛: {home_team_name} vs {away_team_name}, match_id={match.match_id}")
+                return match
+        
+        logger.debug(f"未找到匹配的比赛: {home_team_name} vs {away_team_name}, 日期: {match_date_str}")
+        return None
     
     def save_results_to_db(self, results: List[Dict]) -> int:
         """
@@ -95,16 +222,43 @@ class TczqResultCollector:
             return 0
         
         saved_count = 0
+        matched_count = 0
+        unmatched_count = 0
         
         for result_data in results:
             try:
-                match_id = result_data.get('matchId')
-                if not match_id:
-                    logger.warning(f"比赛 ID 为空，跳过：{result_data}")
+                # 通过队名和开赛时间匹配数据库中的比赛
+                match = self._match_game_by_name_and_time(result_data)
+                
+                if not match:
+                    unmatched_count += 1
+                    logger.debug(f"赛果无法匹配到数据库中的比赛，跳过")
                     continue
                 
-                # 检查是否已存在赛果记录
-                existing_result = localdb.query(TczqMatchResult).filter_by(match_id=match_id).first()
+                matched_count += 1
+                match_id = match.match_id
+                
+                # 检查 API 返回的比赛状态
+                match_result_status = result_data.get('matchResultStatus', '')
+                result_status = result_data.get('resultStatus', '')
+                
+                # 判断是否为异常状态（延期、腰斩、取消等）
+                is_abnormal = False
+                abnormal_reason = ''
+                
+                # 检查比分是否为异常值
+                home_score = result_data.get('homeScore')
+                away_score = result_data.get('awayScore')
+                
+                if home_score == '取消' or away_score == '取消' or home_score == 'N/A':
+                    is_abnormal = True
+                    abnormal_reason = '比赛取消'
+                elif result_status == '取消' or result_status == '延期' or result_status == '腰斩':
+                    is_abnormal = True
+                    abnormal_reason = f'比赛{result_status}'
+                elif match_result_status == '3':  # 假设3表示异常状态
+                    is_abnormal = True
+                    abnormal_reason = '比赛异常'
                 
                 # 转换 API 字段名为数据库字段名
                 db_result_data = {}
@@ -123,6 +277,19 @@ class TczqResultCollector:
                     if hasattr(TczqMatchResult, db_key):
                         db_result_data[db_key] = value
                 
+                if is_abnormal:
+                    # 异常比赛：标记状态为2，但仍保存赛果记录
+                    match.status = 2
+                    localdb.update(match, close=False)
+                    logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
+                else:
+                    # 正常比赛：标记状态为1
+                    match.status = 1
+                    localdb.update(match, close=False)
+                
+                # 保存或更新赛果记录
+                existing_result = localdb.query(TczqMatchResult).filter_by(match_id=match_id).first()
+                
                 if existing_result:
                     # 更新现有记录
                     for key, value in db_result_data.items():
@@ -136,14 +303,17 @@ class TczqResultCollector:
                         localdb.add(new_result, close=False)
                         logger.debug(f"新增赛果：match_id={match_id}")
                 
+                logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {result_data.get('homeScore')}-{result_data.get('awayScore')}")
+                
                 saved_count += 1
                 
             except Exception as e:
-                logger.error(f"保存赛果失败 (match_id={result_data.get('match_id')}): {str(e)}")
+                logger.error(f"保存赛果失败: {str(e)}")
                 import traceback
                 logger.error(traceback.format_exc())
                 continue
         
+        logger.info(f"赛果统计 - 总数: {len(results)}, 匹配: {matched_count}, 未匹配: {unmatched_count}, 保存: {saved_count}")
         return saved_count
     
     def get_and_save_results(self) -> bool:
