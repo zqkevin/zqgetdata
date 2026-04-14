@@ -73,8 +73,6 @@ class SportteryAPI:
                 raise ValueError(f"未知的足球接口: {endpoint}")
         elif retype == 'basketball':
             if endpoint == 'result':
-                url = f"{self.Basketball_BASE_URL}getMatchResultV1.qry"
-            elif endpoint == 'resultV2':
                 url = f"{self.Basketball_BASE_URL}getUniformMatchResultV2.qry"
             elif endpoint == 'info':
                 url = f"{self.Basketball_BASE_URL}getMatchCalculatorV1.qry"
@@ -499,7 +497,7 @@ class SportteryAPI:
                 params['matchEndDate'] = formatted_end
         
         # 使用 _request 方法获取第一页数据
-        data = self._request(retype='basketball', endpoint='resultV2', params=params)
+        data = self._request(retype='basketball', endpoint='result', params=params)
         value = data.get('value', {})
         total = value.get('total', 0)
         pages = value.get('pages', 0)
@@ -513,7 +511,7 @@ class SportteryAPI:
         while pageNo < pages:
             pageNo += 1
             params['pageNo'] = pageNo
-            data = self._request(retype='basketball', endpoint='resultV2', params=params)
+            data = self._request(retype='basketball', endpoint='result', params=params)
             value = data.get('value', {})
             match_results = value.get('matchResult', [])
             results.extend(match_results)
