@@ -86,10 +86,14 @@ class JcbkDataCollector:
                 if not league_id:
                     continue
                 
+                # 使用正确的字段名：leagueAllName 和 leagueAbbName
+                league_name = match.get('leagueAllName', '')
+                league_name_abbr = match.get('leagueAbbName', '')
+                
                 league_db_id = self._process_league_info(
                     league_id,
-                    match.get('leagueName'),
-                    match.get('leagueNameAbbr', '')
+                    league_name,
+                    league_name_abbr
                 )
                 
                 if not league_db_id:
@@ -433,18 +437,18 @@ class JcbkDataCollector:
             if 'wnm' in odds_data and odds_data['wnm']:
                 api_data = odds_data['wnm']
                 db_data = {
-                    'h1': float(api_data.get('h1', 0)),
-                    'h2': float(api_data.get('h2', 0)),
-                    'h3': float(api_data.get('h3', 0)),
-                    'h4': float(api_data.get('h4', 0)),
-                    'h5': float(api_data.get('h5', 0)),
-                    'h6': float(api_data.get('h6', 0)),
-                    'a1': float(api_data.get('a1', 0)),
-                    'a2': float(api_data.get('a2', 0)),
-                    'a3': float(api_data.get('a3', 0)),
-                    'a4': float(api_data.get('a4', 0)),
-                    'a5': float(api_data.get('a5', 0)),
-                    'a6': float(api_data.get('a6', 0))
+                    'h1': float(api_data.get('w1', 0)),  # API使用w1-w6表示主队胜分差
+                    'h2': float(api_data.get('w2', 0)),
+                    'h3': float(api_data.get('w3', 0)),
+                    'h4': float(api_data.get('w4', 0)),
+                    'h5': float(api_data.get('w5', 0)),
+                    'h6': float(api_data.get('w6', 0)),
+                    'a1': float(api_data.get('l1', 0)),  # API使用l1-l6表示客队胜分差
+                    'a2': float(api_data.get('l2', 0)),
+                    'a3': float(api_data.get('l3', 0)),
+                    'a4': float(api_data.get('l4', 0)),
+                    'a5': float(api_data.get('l5', 0)),
+                    'a6': float(api_data.get('l6', 0))
                 }
                 
                 existing = localdb.query(TcbkSfc).filter_by(match_id=match_id).first()
