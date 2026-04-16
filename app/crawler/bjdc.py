@@ -685,6 +685,19 @@ class BjdcDataCollector:
                 )
                 
                 if should_log:
+                    # 获取比赛信息用于日志输出
+                    match_info = ""
+                    try:
+                        from app.database import BjdcMatch
+                        match = localdb.query(BjdcMatch).filter_by(match_id=match_id).first()
+                        if match:
+                            home_name = match.home_team.team_full_name if match.home_team else '未知'
+                            away_name = match.away_team.team_full_name if match.away_team else '未知'
+                            match_num = match.match_num or ''
+                            match_info = f"[{match_num} {home_name} vs {away_name}] "
+                    except Exception:
+                        pass
+                    
                     change_log = BjdcOddsChangeLog(
                         match_id=match_id,
                         odds_table=odds_table,
@@ -695,11 +708,10 @@ class BjdcDataCollector:
                         change_time=datetime.now()
                     )
                     localdb.add(change_log, close=False)
-                    logger.info(f"✓ 记录北单赔率变化: {odds_table}.{field} "
-                              f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+                    logger.info(f"✓ {match_info}北单{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
                 else:
-                    logger.debug(f"⊘ 忽略北单小幅波动: {odds_table}.{field} "
-                               f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+                    logger.debug(f"⊘ 忽略小幅波动: {odds_table}.{field} "
+                               f"{current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
         except Exception as e:
             logger.error(f"记录北单赔率变化失败: {str(e)}")
             import traceback

@@ -189,17 +189,17 @@ class BaseMatchResult(object):
     match_id = Column(Integer, unique=True, nullable=False, index=True)
     
     # 全场赛果
-    home_team_goals = Column(Integer, default=0)  # 主队全场得分
-    away_team_goals = Column(Integer, default=0)  # 客队全场得分
+    home_team_goals = Column(Integer, nullable=True, default=0)  # 主队全场得分
+    away_team_goals = Column(Integer, nullable=True, default=0)  # 客队全场得分
     
     # 半场赛果
-    half_time_home_goals = Column(Integer, default=0)  # 主队半场得分
-    half_time_away_goals = Column(Integer, default=0)  # 客队半场得分
+    half_time_home_goals = Column(Integer, nullable=True, default=0)  # 主队半场得分
+    half_time_away_goals = Column(Integer, nullable=True, default=0)  # 客队半场得分
     
     # 赛果类型
     result_type = Column(String(10))  # 赛果类型 (胜/平/负)
     handicap_result = Column(String(10))  # 让球赛果
-    total_goals = Column(Integer, default=0)  # 总进球数
+    total_goals = Column(Integer, nullable=True, default=0)  # 总进球数
     
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)

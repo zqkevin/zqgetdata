@@ -160,6 +160,14 @@ def handle_league_name(league_name):
     import traceback
     
     try:
+        # 0. 关键修复：确保事务有效（防止 PendingRollbackError）
+        try:
+            if localdb.session and not localdb.session.is_active:
+                log.warning("检测到无效事务，执行回滚")
+                localdb.rollback()
+        except Exception:
+            pass
+        
         # 1. 先尝试通过联赛全称查找
         league = localdb.query(League).filter_by(league_name=league_name).first()
         
@@ -197,7 +205,7 @@ def handle_league_name(league_name):
             league.country = ""  # 默认空字符串
             league.href = f"/league/{league_id}/"  # 生成默认链接地址
             localdb.add(league, close=False)  # 不关闭会话，避免对象分离
-            log.debug(f"新增联赛：{league_name} (ID: {league_id})")
+            log.info(f"✅ 新增联赛：{league_name} (ID: {league_id})")
         
         # 确保对象数据已加载到内存
         if league:
@@ -210,6 +218,12 @@ def handle_league_name(league_name):
         return league
     except Exception as e:
         log.error(f"处理联赛名称时出错：{traceback.format_exc()}")
+        # 关键修复：异常时回滚事务
+        try:
+            localdb.rollback()
+            log.debug("已回滚事务（handle_league_name 异常）")
+        except Exception as rollback_error:
+            log.error(f"回滚事务失败：{str(rollback_error)}")
         return None
 
 
@@ -247,11 +261,25 @@ def get_or_create_league(league_name, league_name_abbr=None):
             return league.id
         else:
             log.error(f"处理联赛失败：{league_name}")
+            # 关键修复：handle_league_name 返回 None 时可能已有错误，回滚事务
+            try:
+                from app.database import localdb
+                localdb.rollback()
+                log.debug(f"已回滚事务（联赛处理失败：{league_name}）")
+            except Exception as rollback_error:
+                log.error(f"回滚事务失败：{str(rollback_error)}")
             return None
     except Exception as e:
         log.error(f"获取或创建联赛失败 (league_name={league_name}): {str(e)}")
         import traceback
         log.error(traceback.format_exc())
+        # 关键修复：异常时回滚事务
+        try:
+            from app.database import localdb
+            localdb.rollback()
+            log.debug(f"已回滚事务（异常：{league_name}）")
+        except Exception as rollback_error:
+            log.error(f"回滚事务失败：{str(rollback_error)}")
         return None
 
 
@@ -272,6 +300,14 @@ def handle_team_name(team_full_name, team_short_name=None, team_code=None, sourc
     import random
     
     try:
+        # 0. 关键修复：确保事务有效（防止 PendingRollbackError）
+        try:
+            if localdb.session and not localdb.session.is_active:
+                log.warning("检测到无效事务，执行回滚")
+                localdb.rollback()
+        except Exception:
+            pass
+        
         # 1. 先尝试通过球队全称查找
         team = localdb.query(Team).filter_by(team_full_name=team_full_name).first()
         
@@ -356,6 +392,12 @@ def handle_team_name(team_full_name, team_short_name=None, team_code=None, sourc
         return team
     except Exception as e:
         log.error(f"处理球队名称时出错：{traceback.format_exc()}")
+        # 关键修复：异常时回滚事务
+        try:
+            localdb.rollback()
+            log.debug("已回滚事务（handle_team_name 异常）")
+        except Exception as rollback_error:
+            log.error(f"回滚事务失败：{str(rollback_error)}")
         return None
 
 
@@ -390,11 +432,93 @@ def get_or_create_team(team_full_name, team_short_name=None, team_code=None, sou
             return team.id
         else:
             log.error(f"处理球队失败：{team_full_name}")
+            # 关键修复：handle_team_name 返回 None 时可能已有错误，回滚事务
+            try:
+                from app.database import localdb
+                localdb.rollback()
+                log.debug(f"已回滚事务（球队处理失败：{team_full_name}）")
+            except Exception as rollback_error:
+                log.error(f"回滚事务失败：{str(rollback_error)}")
             return None
     except Exception as e:
         log.error(f"获取或创建球队失败 (team_full_name={team_full_name}): {str(e)}")
         import traceback
         log.error(traceback.format_exc())
+        # 关键修复：异常时回滚事务
+        try:
+            from app.database import localdb
+            localdb.rollback()
+            log.debug(f"已回滚事务（异常：{team_full_name}）")
+        except Exception as rollback_error:
+            log.error(f"回滚事务失败：{str(rollback_error)}")
+        return None
+
+
+def get_or_create_tcbk_league(league_id: int, league_name: str, league_name_abbr: str = ''):
+    """
+    竞彩篮球专用联赛处理函数：根据联赛ID查询或创建联赛，返回数据库主键 ID
+    
+    Args:
+        league_id: 联赛 ID（API 提供）
+        league_name: 联赛名称
+        league_name_abbr: 联赛简称
+    
+    Returns:
+        int: 联赛的数据库主键 ID，失败返回 None
+    
+    Example:
+        league_db_id = get_or_create_tcbk_league(100, "NBA", "美职篮")
+        if league_db_id:
+            match.league_id = league_id  # 注意：这里存的是 API 的 league_id
+    """
+    if not league_id or not league_name:
+        log.warning(f"联赛信息不完整 (league_id={league_id}, league_name={league_name})")
+        return None
+    
+    try:
+        from app.database import localdb, TcbkLeague
+        
+        # 0. 关键修复：确保事务有效（防止 PendingRollbackError）
+        try:
+            if localdb.session and not localdb.session.is_active:
+                log.warning("检测到无效事务，执行回滚")
+                localdb.rollback()
+        except Exception:
+            pass
+        
+        # 1. 先尝试通过 league_id 查找
+        league = localdb.query(TcbkLeague).filter_by(league_id=league_id).first()
+        
+        if not league:
+            # 2. 不存在则创建
+            league = TcbkLeague(
+                league_id=league_id,
+                league_name=league_name,
+                league_name_abbr=league_name_abbr or ''
+            )
+            localdb.add(league, close=False)
+            log.info(f"新增篮球联赛：{league_name} (API ID: {league_id})")
+        else:
+            # 3. 存在则更新简称（如果有变化）
+            if league_name_abbr and league.league_name_abbr != league_name_abbr:
+                league.league_name_abbr = league_name_abbr
+                localdb.update(league, close=False)
+                log.debug(f"更新篮球联赛简称：{league_name} -> {league_name_abbr}")
+        
+        log.debug(f"篮球联赛处理成功：{league_name} -> DB ID: {league.id}")
+        return league.id
+        
+    except Exception as e:
+        log.error(f"获取或创建篮球联赛失败 (league_id={league_id}, league_name={league_name}): {str(e)}")
+        import traceback
+        log.error(traceback.format_exc())
+        # 关键修复：异常时回滚事务
+        try:
+            from app.database import localdb
+            localdb.rollback()
+            log.debug(f"已回滚事务（篮球联赛处理失败：{league_name}）")
+        except Exception as rollback_error:
+            log.error(f"回滚事务失败：{str(rollback_error)}")
         return None
 
 
@@ -480,7 +604,7 @@ def calculate_current_odds(odds_record_id: int, field_name: str, odds_table: str
         base_value = _get_original_odds_value(odds_record_id, field_name, odds_table)
         
         if base_value == 0.0:
-            log.warning(f"无法获取原始赔率值: record_id={odds_record_id}, field={field_name}")
+            log.debug(f"[{sport_type}] 赔率记录 {odds_record_id}.{field_name} 的当前值为 0.0 (可能未初始化)")
             return 0.0
         
         # 3. 直接从数据库中获取当前值（数据库已保存最新值）
@@ -607,15 +731,21 @@ def _get_odds_model_class(odds_table: str):
             from app.database import TcbkSfc
             return TcbkSfc
         
-        # 北京单场 (需要根据实际的表名调整)
+        # 北京单场
         elif odds_table.startswith('bjdc_'):
-            from app.database import BjdcSpf, BjdcHandicapSpf, BjdcTotalGoal, BjdcScore, BjdcHalfTimeFullTime
+            from app.database import (
+                BjdcSpfOdds, 
+                BjdcHandicapSpfOdds, 
+                BjdcTotalGoalOdds, 
+                BjdcScoreOdds, 
+                BjdcHalfTimeFullTimeOdds
+            )
             table_map = {
-                'bjdc_spf': BjdcSpf,
-                'bjdc_handicap_spf': BjdcHandicapSpf,
-                'bjdc_total_goal': BjdcTotalGoal,
-                'bjdc_score': BjdcScore,
-                'bjdc_half_time_full_time': BjdcHalfTimeFullTime
+                'bjdc_spf_odds': BjdcSpfOdds,
+                'bjdc_handicap_spf_odds': BjdcHandicapSpfOdds,
+                'bjdc_total_goal_odds': BjdcTotalGoalOdds,
+                'bjdc_score_odds': BjdcScoreOdds,
+                'bjdc_ht_ft_odds': BjdcHalfTimeFullTimeOdds
             }
             return table_map.get(odds_table)
         

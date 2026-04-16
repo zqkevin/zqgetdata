@@ -87,8 +87,12 @@ def setup_logger(
     
     # 可选：输出到控制台
     if console_output:
-        console_handler = logging.StreamHandler()
+        import sys
+        console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(level)
+        # 设置控制台编码为 UTF-8（解决 Windows 中文乱码问题）
+        if hasattr(console_handler.stream, 'reconfigure'):
+            console_handler.stream.reconfigure(encoding='utf-8')
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
     

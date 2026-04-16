@@ -41,7 +41,7 @@ class JcbkResultCollector:
             result += char.lower()
         return result
     
-    def fetch_match_results(self) -> list:
+    def fetch_match_results(self) -> tuple:
         """
         获取比赛结果数据
         
@@ -54,7 +54,7 @@ class JcbkResultCollector:
             # 1. 查询数据库中需要获取赛果的比赛
             from datetime import timedelta, datetime
             
-            # TcbkMatch没有status字段，也没有match_time字段，使用match_date字符串
+            # TcbkMatch没有status字段，使用match_date和match_time字段
             # 查询最近7天的比赛（因为无法判断是否已结束）
             seven_days_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
             abnormal_cutoff_date = (datetime.now() - timedelta(days=4)).strftime('%Y-%m-%d')
@@ -65,16 +65,38 @@ class JcbkResultCollector:
             
             if not pending_matches:
                 logger.info('没有需要获取赛果的比赛')
-                return []
+                return [], []
             
-            logger.info(f'找到 {len(pending_matches)} 场需要获取赛果的比赛')
-            
-            # 2. 检查并标记异常比赛（开赛超过4天且无延期标识）
+            # 2. 过滤未开场比赛并检查异常比赛
             abnormal_count = 0
+            not_started_count = 0
             valid_matches = []
+            now = datetime.now()
             
             for match in pending_matches:
-                # 检查是否开赛超过4天（通过match_date字符串比较）
+                # 检查比赛是否已经开始（开赛时间距离现在不超过4小时的不获取赛果）
+                if match.match_date and match.match_time:
+                    try:
+                        # 组合日期和时间字符串
+                        match_datetime_str = f"{match.match_date} {match.match_time}"
+                        # 尝试解析为datetime对象
+                        match_datetime = datetime.strptime(match_datetime_str, '%Y-%m-%d %H:%M')
+                        
+                        # 计算距离开赛的时间差（小时）
+                        hours_until_match = (match_datetime - now).total_seconds() / 3600
+                        
+                        # 如果距离开赛还有超过-4小时（即还没开赛或开赛不到4小时），跳过
+                        if hours_until_match > -4:
+                            not_started_count += 1
+                            home_name = match.home_team_all_name or match.home_team_abb_name or '未知'
+                            away_name = match.away_team_all_name or match.away_team_abb_name or '未知'
+                            logger.debug(f"⏰ 比赛未结束: {home_name} vs {away_name}, 开赛时间: {match_datetime_str}, 距离开赛还有 {hours_until_match:.1f} 小时")
+                            continue
+                    except ValueError as e:
+                        logger.warning(f"无法解析比赛时间: {match.match_date} {match.match_time}, 错误: {e}")
+                        # 如果无法解析时间，继续处理（可能是旧数据）
+                
+                # 检查是否开赛超过4天且无延期标识（异常比赛）
                 if match.match_date and match.match_date < abnormal_cutoff_date:
                     # 检查是否有延期标识（remark或match_status中包含延期相关关键词）
                     has_postpone_flag = False
@@ -104,17 +126,21 @@ class JcbkResultCollector:
             if abnormal_count > 0:
                 logger.info(f'已标记 {abnormal_count} 场异常比赛')
             
+            if not_started_count > 0:
+                logger.debug(f'跳过 {not_started_count} 场未结束的比赛')
+            
+            # 输出最终需要获取赛果的比赛数
+            logger.info(f'需要获取赛果的比赛: {len(valid_matches)} 场')
+            
             if not valid_matches:
                 logger.info('没有有效的比赛需要获取赛果')
-                return []
-            
-            logger.info(f'有效比赛数: {len(valid_matches)}')
+                return [], []
             
             # 3. 统计时间范围
             match_dates = [m.match_date for m in valid_matches if m.match_date]
             if not match_dates:
                 logger.warning('无法提取比赛日期')
-                return []
+                return [], []
             
             min_date = min(match_dates)
             max_date = max(match_dates)
@@ -129,16 +155,16 @@ class JcbkResultCollector:
             
             if not results:
                 logger.info('API 返回的赛果为空')
-                return []
+                return [], valid_matches
             
             logger.info(f'成功获取 {len(results)} 条比赛结果')
-            return results
+            return results, valid_matches
             
         except Exception as e:
             logger.error(f'获取比赛结果失败：{e}')
             import traceback
             logger.error(traceback.format_exc())
-            return []
+            return [], []
     
     def _match_game_by_name_and_time(self, result_data: dict) -> TcbkMatch:
         """
@@ -204,12 +230,13 @@ class JcbkResultCollector:
         logger.debug(f"未找到匹配的比赛: {home_team_name} vs {away_team_name}, 日期: {match_date_str}")
         return None
     
-    def save_results_to_db(self, results: list) -> int:
+    def save_results_to_db(self, results: list, pending_matches: list = None) -> int:
         """
         保存比赛结果到数据库
         
         Args:
-            results: 比赛结果列表
+            results: API 返回的比赛结果列表
+            pending_matches: 需要获取赛果的比赛列表（从 fetch_match_results 传入）
             
         Returns:
             int: 成功保存的记录数
@@ -217,13 +244,121 @@ class JcbkResultCollector:
         if not results:
             return 0
         
+        # 如果没有传入 pending_matches，则使用原来的逻辑（向后兼容）
+        if pending_matches is None:
+            logger.warning("未传入待匹配比赛列表，使用旧逻辑")
+            return self._save_results_old_logic(results)
+        
+        saved_count = 0
+        matched_count = 0
+        unmatched_api_count = 0
+        
+        # 构建 API 赛果的快速查找字典
+        api_results_map = {}
+        for result_data in results:
+            home_team = result_data.get('allHomeTeam') or result_data.get('homeTeam', '')
+            away_team = result_data.get('allAwayTeam') or result_data.get('awayTeam', '')
+            match_date = result_data.get('matchDate', '')
+            
+            if home_team and away_team and match_date:
+                key = (match_date, home_team, away_team)
+                api_results_map[key] = result_data
+        
+        logger.info(f"API 返回 {len(results)} 条赛果，构建索引 {len(api_results_map)} 条")
+        
+        # 遍历需要获取赛果的比赛，去 API 结果中查找匹配
+        for match in pending_matches:
+            try:
+                home_name = match.home_team_all_name or match.home_team_abb_name or ''
+                away_name = match.away_team_all_name or match.away_team_abb_name or ''
+                match_date_str = match.match_date or ''
+                
+                if not all([home_name, away_name, match_date_str]):
+                    logger.debug(f"比赛信息不完整，跳过: match_id={match.match_id}")
+                    continue
+                
+                # 在 API 结果中查找匹配
+                api_result = api_results_map.get((match_date_str, home_name, away_name))
+                
+                if not api_result:
+                    api_result = api_results_map.get((match_date_str, away_name, home_name))
+                    if api_result:
+                        logger.debug(f"主客场互换匹配: {home_name} vs {away_name}")
+                
+                if not api_result:
+                    unmatched_api_count += 1
+                    logger.debug(f"未找到赛果: {home_name} vs {away_name} ({match_date_str})")
+                    continue
+                
+                matched_count += 1
+                match_id = match.match_id
+                result_data = api_result
+                
+                # 检查异常状态
+                match_result_status = result_data.get('matchResultStatus', '')
+                result_status = result_data.get('resultStatus', '')
+                pool_status = result_data.get('poolStatus', '')
+                
+                is_abnormal = False
+                abnormal_reason = ''
+                
+                home_score = result_data.get('homeScore')
+                away_score = result_data.get('awayScore')
+                
+                if home_score == '取消' or away_score == '取消' or home_score == 'N/A' or home_score == 0:
+                    is_abnormal = True
+                    abnormal_reason = '比赛取消'
+                elif result_status in ['取消', '延期', '腰斩']:
+                    is_abnormal = True
+                    abnormal_reason = f'比赛{result_status}'
+                elif pool_status in ['Cancelled', 'Postponed']:
+                    is_abnormal = True
+                    abnormal_reason = f'比赛{pool_status}'
+                
+                # 转换字段
+                db_result_data = {}
+                for key, value in result_data.items():
+                    db_key = self._convert_api_field_to_db(key)
+                    if hasattr(TcbkResult, db_key):
+                        db_result_data[db_key] = value
+                
+                # 保存或更新赛果记录
+                existing_result = localdb.query(TcbkResult).filter_by(match_id=match_id).first()
+                
+                if existing_result:
+                    for key, value in db_result_data.items():
+                        setattr(existing_result, key, value)
+                    localdb.update(existing_result, close=False)
+                else:
+                    if db_result_data:
+                        new_result = TcbkResult(**db_result_data)
+                        localdb.add(new_result, close=False)
+                
+                if is_abnormal:
+                    match.match_status = 'Abnormal'
+                    localdb.update(match, close=False)
+                    logger.warning(f"⚠️ {abnormal_reason}: {home_name} vs {away_name}, match_id={match_id}")
+                
+                logger.info(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")
+                saved_count += 1
+                
+            except Exception as e:
+                logger.error(f"保存赛果失败 (match_id={match.match_id}): {str(e)}")
+                import traceback
+                logger.error(traceback.format_exc())
+                continue
+        
+        logger.info(f"赛果统计 - 待匹配: {len(pending_matches)}, API返回: {len(results)}, 匹配成功: {matched_count}, 未匹配: {unmatched_api_count}, 保存: {saved_count}")
+        return saved_count
+    
+    def _save_results_old_logic(self, results: list) -> int:
+        """旧的保存逻辑（向后兼容）"""
         saved_count = 0
         matched_count = 0
         unmatched_count = 0
         
         for result_data in results:
             try:
-                # 通过队名和开赛时间匹配数据库中的比赛
                 match = self._match_game_by_name_and_time(result_data)
                 
                 if not match:
@@ -234,61 +369,49 @@ class JcbkResultCollector:
                 matched_count += 1
                 match_id = match.match_id
                 
-                # 检查 API 返回的比赛状态
                 match_result_status = result_data.get('matchResultStatus', '')
                 result_status = result_data.get('resultStatus', '')
                 pool_status = result_data.get('poolStatus', '')
                 
-                # 判断是否为异常状态（延期、腰斩、取消等）
                 is_abnormal = False
                 abnormal_reason = ''
                 
-                # 检查比分是否为异常值
                 home_score = result_data.get('homeScore')
                 away_score = result_data.get('awayScore')
                 
                 if home_score == '取消' or away_score == '取消' or home_score == 'N/A' or home_score == 0:
                     is_abnormal = True
                     abnormal_reason = '比赛取消'
-                elif result_status == '取消' or result_status == '延期' or result_status == '腰斩':
+                elif result_status in ['取消', '延期', '腰斩']:
                     is_abnormal = True
                     abnormal_reason = f'比赛{result_status}'
-                elif pool_status == 'Cancelled' or pool_status == 'Postponed':
+                elif pool_status in ['Cancelled', 'Postponed']:
                     is_abnormal = True
                     abnormal_reason = f'比赛{pool_status}'
                 
-                # 转换 API 字段名为数据库字段名
                 db_result_data = {}
                 for key, value in result_data.items():
                     db_key = self._convert_api_field_to_db(key)
-                    
                     if hasattr(TcbkResult, db_key):
                         db_result_data[db_key] = value
                 
-                # 保存或更新赛果记录
                 existing_result = localdb.query(TcbkResult).filter_by(match_id=match_id).first()
                 
                 if existing_result:
-                    # 更新现有记录
                     for key, value in db_result_data.items():
                         setattr(existing_result, key, value)
                     localdb.update(existing_result, close=False)
-                    logger.debug(f"更新赛果：match_id={match_id}")
                 else:
-                    # 创建新记录
                     if db_result_data:
                         new_result = TcbkResult(**db_result_data)
                         localdb.add(new_result, close=False)
-                        logger.debug(f"新增赛果：match_id={match_id}")
                 
                 if is_abnormal:
-                    # 异常比赛：标记match_status为Abnormal
                     match.match_status = 'Abnormal'
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
                 
-                logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {result_data.get('homeScore')}-{result_data.get('awayScore')}")
-                
+                logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")
                 saved_count += 1
                 
             except Exception as e:
@@ -310,21 +433,27 @@ class JcbkResultCollector:
         try:
             logger.info('开始获取并保存竞彩篮球比赛结果...')
                 
-            # 获取比赛结果
-            results = self.fetch_match_results()
+            # 获取比赛结果和待匹配列表
+            results, pending_matches = self.fetch_match_results()
+                
+            if not pending_matches:
+                logger.warning('没有需要获取赛果的比赛')
+                return False
                 
             if not results:
-                logger.warning('没有获取到比赛结果')
+                logger.warning('API 未返回赛果数据')
                 return False
                 
             logger.info(f'成功获取 {len(results)} 条比赛结果')
                 
-            # 保存到数据库
-            saved_count = self.save_results_to_db(results)
+            # 保存到数据库（传入待匹配列表）
+            saved_count = self.save_results_to_db(results, pending_matches)
                 
             logger.info(f'成功保存 {saved_count} 条赛果记录')
             return saved_count > 0
                 
         except Exception as e:
-            logger.error(f'获取并保存赛果异常：traceback.format_exc()')
+            logger.error(f'获取并保存赛果异常：{e}')
+            import traceback
+            logger.error(traceback.format_exc())
             return False

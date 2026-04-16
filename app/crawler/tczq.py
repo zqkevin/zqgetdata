@@ -46,8 +46,12 @@ class TczqDataCollector:
         Args:
             league_list: 联赛信息列表，每个元素包含 leagueId, leagueName, leagueNameAbbr
         """
+        from app.common._utils import get_or_create_league
+        
         logger.info(f'开始处理 {len(league_list)} 个联赛信息')
         processed_leagues = set()  # 缓存已处理的联赛名称，避免重复处理
+        failed_count = 0
+        
         for league_info in league_list:
             logger.debug(f"联赛信息：{json.dumps(league_info, ensure_ascii=False)}")
             
@@ -63,25 +67,24 @@ class TczqDataCollector:
                 continue
                     
             try:
-                # 使用公共函数处理联赛名称（根据名称查询或创建）
-                league = handle_league_name(league_name)
-                if league:
-                    # 如果有联赛简称信息且与当前简称不同，更新简称
-                    if league_name_abbr and league.league_name_abbr != league_name_abbr:
-                        league.league_name_abbr = league_name_abbr
-                        localdb.update(league, close=False)
-                        logger.debug(f"更新联赛简称：{league_name} -> {league_name_abbr}")
-                    else:
-                        logger.debug(f"联赛已存在：{league_name} (DB ID: {league.id})")
+                # 使用统一的 get_or_create_league 函数
+                league_db_id = get_or_create_league(league_name, league_name_abbr)
+                if league_db_id:
+                    logger.debug(f"联赛处理成功：{league_name} (DB ID: {league_db_id})")
                     processed_leagues.add(league_name)
                 else:
                     logger.error(f"处理联赛失败：{league_name}")
+                    failed_count += 1
             except Exception as e:
                 logger.error(f"处理联赛失败 (league_name={league_name}): {str(e)}")
                 import traceback
-                traceback.print_exc()
+                logger.error(traceback.format_exc())
+                failed_count += 1
         
-        logger.info(f'联赛信息处理完成，共处理 {len(processed_leagues)} 个联赛')
+        if failed_count > 0:
+            logger.warning(f'联赛信息处理完成，成功 {len(processed_leagues)} 个，失败 {failed_count} 个')
+        else:
+            logger.info(f'联赛信息处理完成，共处理 {len(processed_leagues)} 个联赛')
     
     def _process_match_info(self, match_list: List[Dict[str, str]], league_map: Dict[int, str] = None) -> List[Dict[str, str]]:
         """
@@ -539,14 +542,14 @@ class TczqDataCollector:
             if 'ttg' in odds_data and odds_data['ttg']:
                 api_data = odds_data['ttg']
                 db_data = {
-                    'goal_0': float(api_data.get('g0', 0)),
-                    'goal_1': float(api_data.get('g1', 0)),
-                    'goal_2': float(api_data.get('g2', 0)),
-                    'goal_3': float(api_data.get('g3', 0)),
-                    'goal_4': float(api_data.get('g4', 0)),
-                    'goal_5': float(api_data.get('g5', 0)),
-                    'goal_6': float(api_data.get('g6', 0)),
-                    'goal_about': float(api_data.get('g7', 0))
+                    'goal_0': float(api_data.get('s0', 0)),
+                    'goal_1': float(api_data.get('s1', 0)),
+                    'goal_2': float(api_data.get('s2', 0)),
+                    'goal_3': float(api_data.get('s3', 0)),
+                    'goal_4': float(api_data.get('s4', 0)),
+                    'goal_5': float(api_data.get('s5', 0)),
+                    'goal_6': float(api_data.get('s6', 0)),
+                    'goal_about': float(api_data.get('s7', 0))
                 }
                 
                 existing = localdb.query(TczqTotalGoalOdds).filter_by(match_id=match_id).first()
@@ -566,15 +569,15 @@ class TczqDataCollector:
             if 'hafu' in odds_data and odds_data['hafu']:
                 api_data = odds_data['hafu']
                 db_data = {
-                    'half_win_full_win': float(api_data.get('ww', 0)),
-                    'half_win_full_draw': float(api_data.get('wd', 0)),
-                    'half_win_full_lose': float(api_data.get('wl', 0)),
-                    'half_draw_full_win': float(api_data.get('dw', 0)),
-                    'half_draw_full_draw': float(api_data.get('dd', 0)),
-                    'half_draw_full_lose': float(api_data.get('dl', 0)),
-                    'half_lose_full_win': float(api_data.get('lw', 0)),
-                    'half_lose_full_draw': float(api_data.get('ld', 0)),
-                    'half_lose_full_lose': float(api_data.get('ll', 0))
+                    'half_win_full_win': float(api_data.get('hh', 0)),      # 半胜全胜
+                    'half_win_full_draw': float(api_data.get('hd', 0)),     # 半胜全平
+                    'half_win_full_lose': float(api_data.get('ha', 0)),     # 半胜全负
+                    'half_draw_full_win': float(api_data.get('dh', 0)),     # 半平全胜
+                    'half_draw_full_draw': float(api_data.get('dd', 0)),    # 半平全平
+                    'half_draw_full_lose': float(api_data.get('da', 0)),    # 半平全负
+                    'half_lose_full_win': float(api_data.get('ah', 0)),     # 半负全胜
+                    'half_lose_full_draw': float(api_data.get('ad', 0)),    # 半负全平
+                    'half_lose_full_lose': float(api_data.get('aa', 0))     # 半负全负
                 }
                 
                 existing = localdb.query(TczqHalfTimeFullTimeOdds).filter_by(match_id=match_id).first()
@@ -655,6 +658,19 @@ class TczqDataCollector:
                 )
                 
                 if should_log:
+                    # 获取比赛信息用于日志输出
+                    match_info = ""
+                    try:
+                        from app.database import TczqMatch
+                        match = localdb.query(TczqMatch).filter_by(match_id=match_id).first()
+                        if match:
+                            home_name = match.home_team.team_full_name if match.home_team else '未知'
+                            away_name = match.away_team.team_full_name if match.away_team else '未知'
+                            match_num = match.match_num or ''
+                            match_info = f"[{match_num} {home_name} vs {away_name}] "
+                    except Exception:
+                        pass
+                    
                     change_log = TczqOddsChangeLog(
                         match_id=match_id,
                         odds_table=odds_table,
@@ -665,8 +681,7 @@ class TczqDataCollector:
                         change_time=datetime.now()
                     )
                     localdb.add(change_log, close=False)
-                    logger.info(f"✓ 记录赔率变化: {odds_table}.{field} "
-                              f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+                    logger.info(f"✓ {match_info}{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
                 else:
                     logger.debug(f"⊘ 忽略小幅波动: {odds_table}.{field} "
                                f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")

@@ -1,0 +1,278 @@
+# -*- coding: utf-8 -*-
+"""
+详细诊断北京单场赛果匹配问题
+打印所有待匹配比赛和 API 返回的赛果
+"""
+import sys
+import os
+from datetime import datetime, timedelta
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__))))
+
+from app.database import localdb, BjdcMatch, Team, TeamAlias
+from app.common.req_sporttery_api import SportteryAPI
+
+def diagnose_bjdc_result_match():
+    """详细诊断 BJDC 赛果匹配问题"""
+    
+    print("=" * 120)
+    print("北京单场赛果匹配详细诊断")
+    print("=" * 120)
+    
+    # 1. 获取待匹配的比赛
+    cutoff_time = datetime.now() - timedelta(hours=4)
+    pending_matches = localdb.query(BjdcMatch).filter(
+        BjdcMatch.status == 0,
+        BjdcMatch.match_time < cutoff_time
+    ).all()
+    
+    print(f"\n[INFO] 待匹配比赛数: {len(pending_matches)}")
+    print(f"[INFO] 当前时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"[INFO] 截止时间: {cutoff_time.strftime('%Y-%m-%d %H:%M:%S')} (开赛后4小时)")
+    
+    if not pending_matches:
+        print("\n[OK] 没有待匹配的比赛")
+        return
+    
+    # 显示所有待匹配比赛
+    print("\n" + "=" * 120)
+    print("[LIST] 待匹配比赛列表（全部）")
+    print("=" * 120)
+    
+    match_list = []
+    for i, match in enumerate(pending_matches, 1):
+        home_team = match.home_team
+        away_team = match.away_team
+        
+        home_name = home_team.team_full_name if home_team else '未知'
+        away_name = away_team.team_full_name if away_team else '未知'
+        home_short = home_team.team_short_name if home_team else ''
+        away_short = away_team.team_short_name if away_team else ''
+        
+        match_date = match.match_time.strftime('%Y-%m-%d') if match.match_time else '未知'
+        match_time = match.match_time.strftime('%H:%M') if match.match_time else '未知'
+        
+        # 查询该球队的别名
+        home_aliases = []
+        away_aliases = []
+        
+        if home_team:
+            aliases = localdb.query(TeamAlias).filter_by(team_id=home_team.id).all()
+            home_aliases = [a.alias_name for a in aliases]
+        
+        if away_team:
+            aliases = localdb.query(TeamAlias).filter_by(team_id=away_team.id).all()
+            away_aliases = [a.alias_name for a in aliases]
+        
+        match_info = {
+            'index': i,
+            'match_id': match.match_id,
+            'date': match_date,
+            'time': match_time,
+            'home_name': home_name,
+            'away_name': away_name,
+            'home_short': home_short,
+            'away_short': away_short,
+            'home_aliases': home_aliases,
+            'away_aliases': away_aliases,
+            'home_team_id': home_team.id if home_team else None,
+            'away_team_id': away_team.id if away_team else None,
+        }
+        match_list.append(match_info)
+        
+        print(f"\n{i}. [{match_date} {match_time}] ID:{match.match_id}")
+        print(f"   主队: {home_name}")
+        if home_short and home_short != home_name:
+            print(f"         简称: {home_short}")
+        if home_aliases:
+            alias_str = ', '.join(home_aliases[:5])
+            if len(home_aliases) > 5:
+                alias_str += '...'
+            print(f"         别名: {alias_str}")
+        print(f"   客队: {away_name}")
+        if away_short and away_short != away_name:
+            print(f"         简称: {away_short}")
+        if away_aliases:
+            alias_str = ', '.join(away_aliases[:5])
+            if len(away_aliases) > 5:
+                alias_str += '...'
+            print(f"         别名: {alias_str}")
+    
+    # 2. 获取 API 返回的赛果
+    api = SportteryAPI()
+    
+    # 统计时间范围
+    match_dates = [m.match_time.date() for m in pending_matches if m.match_time]
+    if not match_dates:
+        print("\n[ERROR] 无法提取比赛日期")
+        return
+    
+    min_date = min(match_dates)
+    max_date = max(match_dates)
+    
+    print(f"\n[INFO] 赛果时间范围: {min_date} 到 {max_date}")
+    
+    results = api.get_football_match_result(
+        match_begin_date=min_date.strftime('%Y-%m-%d'),
+        match_end_date=max_date.strftime('%Y-%m-%d')
+    )
+    
+    print(f"\n[INFO] API 返回赛果数: {len(results)}")
+    
+    if not results:
+        print("\n[ERROR] API 未返回任何赛果")
+        return
+    
+    # 显示所有 API 赛果
+    print("\n" + "=" * 120)
+    print("[LIST] API 返回的赛果列表（全部）")
+    print("=" * 120)
+    
+    api_results_list = []
+    for i, result in enumerate(results, 1):
+        home_team = result.get('allHomeTeam') or result.get('homeTeam', '未知')
+        away_team = result.get('allAwayTeam') or result.get('awayTeam', '未知')
+        match_date = result.get('matchDate', '未知')
+        home_score = result.get('homeScore', 'N/A')
+        away_score = result.get('awayScore', 'N/A')
+        match_id = result.get('matchId', '未知')
+        league = result.get('leagueName', '')
+        
+        api_result_info = {
+            'index': i,
+            'match_id': match_id,
+            'date': match_date,
+            'home_name': home_team,
+            'away_name': away_team,
+            'home_score': home_score,
+            'away_score': away_score,
+            'league': league,
+        }
+        api_results_list.append(api_result_info)
+        
+        print(f"\n{i}. [{match_date}] ID:{match_id} ({league})")
+        print(f"   {home_team} {home_score}-{away_score} {away_team}")
+    
+    # 3. 尝试匹配并显示结果
+    print("\n" + "=" * 120)
+    print("[ANALYSIS] 匹配分析")
+    print("=" * 120)
+    
+    matched_count = 0
+    unmatched_details = []
+    
+    for match_info in match_list:
+        db_home = match_info['home_name']
+        db_away = match_info['away_name']
+        db_date = match_info['date']
+        db_home_id = match_info['home_team_id']
+        db_away_id = match_info['away_team_id']
+        
+        # 查找同一日期的 API 赛果
+        same_date_api = [r for r in api_results_list if r['date'] == db_date]
+        
+        found = False
+        match_method = ''
+        
+        for api_result in same_date_api:
+            api_home = api_result['home_name']
+            api_away = api_result['away_name']
+            
+            # 精确匹配
+            if db_home == api_home and db_away == api_away:
+                found = True
+                match_method = '精确匹配'
+                break
+            
+            # 主客场互换
+            if db_home == api_away and db_away == api_home:
+                found = True
+                match_method = '主客场互换'
+                break
+        
+        if found:
+            matched_count += 1
+            print(f"\n[MATCH] [{db_date}] {db_home} vs {db_away}")
+            print(f"   匹配方式: {match_method}")
+        else:
+            unmatched_details.append(match_info)
+            print(f"\n[UNMATCHED] [{db_date}] {db_home} vs {db_away}")
+            print(f"   数据库主队ID: {db_home_id}, 客队ID: {db_away_id}")
+            if same_date_api:
+                print(f"   API 同日期赛果 ({len(same_date_api)} 场):")
+                for api_r in same_date_api[:3]:
+                    print(f"     - {api_r['home_name']} vs {api_r['away_name']}")
+                    # 检查是否有别名关系
+                    if db_home_id:
+                        alias_check = localdb.query(TeamAlias).filter(
+                            TeamAlias.team_id == db_home_id,
+                            TeamAlias.alias_name == api_r['home_name']
+                        ).first()
+                        if alias_check:
+                            print(f"       [ALIAS] 找到别名关系: {api_r['home_name']} -> 数据库球队ID {db_home_id}")
+                    
+                    if db_away_id:
+                        alias_check = localdb.query(TeamAlias).filter(
+                            TeamAlias.team_id == db_away_id,
+                            TeamAlias.alias_name == api_r['away_name']
+                        ).first()
+                        if alias_check:
+                            print(f"       [ALIAS] 找到别名关系: {api_r['away_name']} -> 数据库球队ID {db_away_id}")
+            else:
+                print(f"   [ERROR] API 中没有该日期的赛果")
+    
+    # 4. 总结
+    print("\n" + "=" * 120)
+    print("[SUMMARY] 匹配统计")
+    print("=" * 120)
+    print(f"待匹配比赛: {len(match_list)}")
+    print(f"API 返回赛果: {len(api_results_list)}")
+    print(f"匹配成功: {matched_count}")
+    print(f"未匹配: {len(unmatched_details)}")
+    if match_list:
+        print(f"匹配率: {matched_count/len(match_list)*100:.1f}%")
+    else:
+        print("匹配率: N/A")
+    
+    # 5. 建议
+    print("\n" + "=" * 120)
+    print("[SUGGESTION] 分析建议")
+    print("=" * 120)
+    
+    if matched_count == 0:
+        print("\n[WARNING] 完全没有匹配成功，可能原因:")
+        print("   1. API 返回的是 TCZQ 系统的比赛，与 BJDC 完全不同")
+        print("   2. 队名差异太大，需要建立别名映射")
+        print("   3. 比赛日期不匹配")
+        
+        # 检查是否有相同的联赛
+        bjdc_leagues = set()
+        for m in pending_matches:
+            if m.league:
+                bjdc_leagues.add(m.league.league_name)
+        
+        api_leagues = set()
+        for r in results:
+            league = r.get('leagueName', '')
+            if league:
+                api_leagues.add(league)
+        
+        common_leagues = bjdc_leagues & api_leagues
+        if common_leagues:
+            print(f"\n   [OK] 共同联赛: {', '.join(list(common_leagues)[:5])}")
+        else:
+            print(f"\n   [ERROR] 没有共同联赛")
+            bjdc_list = list(bjdc_leagues)[:5]
+            api_list = list(api_leagues)[:5]
+            print(f"      BJDC 联赛: {', '.join(bjdc_list)}...")
+            print(f"      API 联赛: {', '.join(api_list)}...")
+    
+    print("\n" + "=" * 120)
+
+if __name__ == '__main__':
+    try:
+        diagnose_bjdc_result_match()
+    except Exception as e:
+        print(f"\n[ERROR] 诊断失败: {e}")
+        import traceback
+        traceback.print_exc()

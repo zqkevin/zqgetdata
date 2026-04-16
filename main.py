@@ -7,7 +7,10 @@ from app.crawler import (
     BjdcDataCollector, BjdcResultCollector,
     LotteryDataCollector
 )
-from app.log.logger import log
+from app.log.logger import tczq_log, bjdc_log, jcbk_log, lottery_log
+
+# 默认使用体彩足球日志（向后兼容）
+log = tczq_log
 
 count = 0
 def job():
@@ -17,48 +20,48 @@ def job():
     
     try:
         # 更新北京单场足球比赛信息和赛果
-        log.info('开始更新北京单场足球比赛信息')
+        bjdc_log.info('开始更新北京单场足球比赛信息')
         bjdc_collector = BjdcDataCollector()
         bjdc_collector.collect_matches()
         
-        log.info('开始更新北京单场足球比赛结果')
+        bjdc_log.info('开始更新北京单场足球比赛结果')
         bjdc_result = BjdcResultCollector()
         bjdc_result.get_and_save_results()
     
     except Exception as e:
-        log.error(f'北京单场数据爬取失败：{str(e)}')
+        bjdc_log.error(f'北京单场数据爬取失败：{str(e)}')
         
     try:
         # 更新竞彩足球比赛信息和赛果
-        log.info('开始更新竞彩足球比赛数据')
+        tczq_log.info('开始更新竞彩足球比赛数据')
         tczq_collector = TczqDataCollector()
         tczq_collector.get_current_matches()
         
-        log.info('开始更新竞彩足球比赛结果')
+        tczq_log.info('开始更新竞彩足球比赛结果')
         tczq_result = TczqResultCollector()
         tczq_result.get_and_save_results()
     except Exception as e:
-        log.error(f'足球数据爬取失败：{str(e)}')
+        tczq_log.error(f'足球数据爬取失败：{str(e)}')
         
     try:
         # 更新竞彩篮球比赛信息和赛果
-        log.info('开始更新篮球比赛数据')
+        jcbk_log.info('开始更新篮球比赛数据')
         jcbk_collector = JcbkDataCollector()
         jcbk_collector.get_matches_with_odds()
         
-        log.info('开始更新篮球比赛结果')
+        jcbk_log.info('开始更新篮球比赛结果')
         jcbk_result = JcbkResultCollector()
         jcbk_result.get_and_save_results()
     except Exception as e:
-        log.error(f'篮球数据爬取失败：{str(e)}')
+        jcbk_log.error(f'篮球数据爬取失败：{str(e)}')
     
     try:
         # 更新数字彩数据
-        log.info('开始更新数字彩数据')
+        lottery_log.info('开始更新数字彩数据')
         lottery_collector = LotteryDataCollector()
         lottery_collector.update_latest_lottery_data()
     except Exception as e:
-        log.error(f'数字彩数据爬取失败：{str(e)}')
+        lottery_log.error(f'数字彩数据爬取失败：{str(e)}')
 
 def init_db(rebuild=False):
     """
@@ -78,10 +81,10 @@ def init_db(rebuild=False):
         localdb.close()
         
         if rebuild:
-            # 使用 init_db.py 进行完整重建
+            # 使用 app/common/init_db.py 进行完整重建
             log.info('开始完全重建数据库（将删除所有表并重新创建）')
-            import init_db as init_db_module
-            result = init_db_module.init_all_databases()
+            from app.common.init_db import init_all_databases
+            result = init_all_databases()
             
             if result:
                 log.info('数据库完全重建完成（包括表结构、联赛数据）')
@@ -90,10 +93,10 @@ def init_db(rebuild=False):
                 log.error('数据库重建失败')
                 return False
         else:
-            # 使用 init_restructured_db.py 进行增量更新（只创建不存在的表）
+            # 使用 app/common/init_restructured_db.py 进行增量更新（只创建不存在的表）
             log.info('开始初始化/更新数据库表结构（保留现有数据）')
-            import init_restructured_db
-            result = init_restructured_db.init_restructured_database()
+            from app.common.init_restructured_db import init_restructured_database
+            result = init_restructured_database()
             
             if result:
                 log.info('数据库表结构初始化/更新完成')
@@ -168,6 +171,34 @@ def chuck_data():
 
 if __name__ == '__main__':
     import sys
+    import logging
+    
+    # 设置标准输出编码为 UTF-8（解决 Windows 中文乱码问题）
+    if sys.platform == 'win32':
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+    
+    # 配置根日志记录器，启用控制台输出
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    
+    # 清除已有的 handler
+    root_logger.handlers.clear()
+    
+    # 添加控制台 handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setLevel(logging.INFO)
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    console_handler.setFormatter(formatter)
+    root_logger.addHandler(console_handler)
+    
+    print('\n' + '='*60)
+    print('体育彩票数据采集系统启动')
+    print('='*60 + '\n')
     
     # 检查是否需要重建数据库
     rebuild_db = '--rebuild' in sys.argv or '-r' in sys.argv
@@ -185,11 +216,13 @@ if __name__ == '__main__':
     if not localdone or rebuild_db:
         init_db(rebuild=rebuild_db)
 
+
     log.info('开始任务')
-    job()
-    # while True:
-    #     job()
-    #     delay = random.randint(10, 20)
-    #     log.info(f'第{count}次任务执行完成,下一次在{delay}分钟后执行')
-    #     delay = delay * 60
-    #     time.sleep(delay)
+    
+    # 使用 while True 循环，先执行任务再等待
+    while True:
+        job()
+        delay = random.randint(10, 20)
+        log.info(f'第{count}次任务执行完成,下一次在{delay}分钟后执行')
+        delay = delay * 60
+        time.sleep(delay)

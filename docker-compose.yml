@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # 体育彩票数据采集服务
+  zqgetdata:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zqgetdata_collector
+    restart: unless-stopped
+    
+    # 依赖检查（确保 MySQL 容器存在）
+    depends_on:
+      local_mysql:
+        condition: service_started
+    
+    # 挂载项目代码目录（开发模式）
+    volumes:
+      # Linux 服务器路径：将项目目录挂载到容器内的 /app
+      - /root/pyvenv/getzqdata:/app
+      # 持久化日志目录（可选，如果需要日志持久化）
+      - /root/pyvenv/getzqdata/app/log:/app/app/log
+    
+    # 环境变量配置
+    environment:
+      # 时区设置
+      - TZ=Asia/Shanghai
+      # 数据库配置（使用容器名访问）
+      - DB_HOST=local_mysql  # 使用 MySQL 容器名
+      - DB_PORT=3306
+      - DB_USER=soccer_data
+      - DB_PASSWORD=pety93033
+      - DB_NAME=soccer_data
+    
+    # 网络配置（使用 1panel 的网络）
+    networks:
+      - 1panel-network
+    
+    # 端口映射（如果需要访问 API）
+    ports:
+      - "8000:8000"
+    
+    # 资源限制
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    
+    # 日志配置
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+# 使用 1panel 的外部网络
+# local_mysql 容器已经在这个网络中
+networks:
+  1panel-network:
+    external: true
+    name: 1panel-network  # 使用 1panel 创建的网络

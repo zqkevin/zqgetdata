@@ -39,33 +39,10 @@ class JcbkDataCollector:
         Returns:
             int: 联赛在数据库中的 ID
         """
-        try:
-            league = localdb.query(TcbkLeague).filter_by(league_id=league_id).first()
-            
-            if not league:
-                # 确保联赛名称不为 None
-                if league_name is None:
-                    league_name = f'未知联赛_{league_id}'
-                    logger.debug(f'联赛 ID {league_id} 无名称，使用默认名：{league_name}')
-                
-                league = TcbkLeague(
-                    league_id=league_id,
-                    league_name=league_name,
-                    league_name_abbr=league_name_abbr or ''
-                )
-                localdb.add(league, close=False)
-                logger.info(f'新增联赛：{league_name}')
-            else:
-                # 更新联赛简称
-                if league_name_abbr and league.league_name_abbr != league_name_abbr:
-                    league.league_name_abbr = league_name_abbr
-                    localdb.update(league, close=False)
-            
-            return league.id
-            
-        except Exception as e:
-            logger.error(f'处理联赛失败 (league_id={league_id}): {str(e)}')
-            return None
+        from app.common._utils import get_or_create_tcbk_league
+        
+        # 使用统一的篮球联赛处理函数
+        return get_or_create_tcbk_league(league_id, league_name, league_name_abbr)
     
     def _process_match_data(self, match_list) -> int:
         """
@@ -505,6 +482,19 @@ class JcbkDataCollector:
                 )
                 
                 if should_log:
+                    # 获取比赛信息用于日志输出
+                    match_info = ""
+                    try:
+                        from app.database import TcbkMatch
+                        match = localdb.query(TcbkMatch).filter_by(match_id=match_id).first()
+                        if match:
+                            home_name = match.home_team_all_name or match.home_team_abb_name or '未知'
+                            away_name = match.away_team_all_name or match.away_team_abb_name or '未知'
+                            match_num = match.match_num or ''
+                            match_info = f"[{match_num} {home_name} vs {away_name}] "
+                    except Exception:
+                        pass
+                    
                     change_log = TcbkOddsChangeLog(
                         match_id=match_id,
                         odds_table=odds_table,
@@ -515,11 +505,10 @@ class JcbkDataCollector:
                         change_time=datetime.now()
                     )
                     localdb.add(change_log, close=False)
-                    logger.info(f"✓ 记录篮球赔率变化: {odds_table}.{field} "
-                              f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+                    logger.info(f"✓ {match_info}{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
                 else:
-                    logger.debug(f"⊘ 忽略篮球小幅波动: {odds_table}.{field} "
-                               f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")
+                    logger.debug(f"⊘ 忽略小幅波动: {odds_table}.{field} "
+                               f"{current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
         except Exception as e:
             logger.error(f"记录篮球赔率变化失败: {str(e)}")
             import traceback

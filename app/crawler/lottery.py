@@ -222,7 +222,7 @@ class LotteryDataCollector:
             today = datetime.now().date()
             if latest_draw.draw_time and latest_draw.draw_time.date() != today:
                 lottery_types_to_fetch.append(lottery_type)
-                log.info(f"{info['lottery_name']} 今日数据不存在，需要获取")
+                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），今日暂无新数据，尝试获取")
         
         if not lottery_types_to_fetch:
             log.info('所有彩种今日数据已存在，无需获取')

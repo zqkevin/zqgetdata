@@ -265,6 +265,22 @@ class mydb():
                 except:
                     pass
             raise e
+    
+    def rollback(self):
+        """
+        回滚当前事务
+        """
+        try:
+            if self.session and self.session.is_active:
+                self.session.rollback()
+        except Exception as e:
+            # 如果回滚失败，关闭会话并重建
+            if self.session:
+                try:
+                    self.session.close()
+                except:
+                    pass
+                self.session = None
 
 
 # 不再创建全局数据库实例，用户需要在使用时动态创建
