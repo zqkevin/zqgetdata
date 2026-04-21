@@ -68,7 +68,7 @@ class TczqResultCollector:
             abnormal_cutoff_time = datetime.now() - timedelta(days=4)
             
             pending_matches = localdb.query(TczqMatch).filter(
-                TczqMatch.status == 0,  # 未结束
+                TczqMatch.status == 0,  # 只查询待开赛的比賽 (status=0)
                 TczqMatch.match_time < cutoff_time  # 比赛已结束4小时以上
             ).all()
             
@@ -173,7 +173,7 @@ class TczqResultCollector:
         from sqlalchemy import func
         matches = localdb.query(TczqMatch).filter(
             func.date(TczqMatch.match_time) == match_date,
-            TczqMatch.status == 0  # 只查询未结束的比赛
+            TczqMatch.status == 0  # 只查询待开赛的比賽 (status=0)
         ).all()
         
         if not matches:
@@ -275,7 +275,10 @@ class TczqResultCollector:
                 
                 # 检查 API 返回的比赛状态
                 match_result_status = result_data.get('matchResultStatus', '')
-                result_status = result_data.get('resultStatus', '')
+                
+                # 使用统一的状态映射函数转换为内部状态码
+                from app.common.match_status import map_to_internal_status, get_status_desc
+                internal_status = map_to_internal_status('tczq', match_result_status)
                 
                 # 判断是否为异常状态（延期、腰斩、取消等）
                 is_abnormal = False
@@ -288,12 +291,9 @@ class TczqResultCollector:
                 if home_score == '取消' or away_score == '取消' or home_score == 'N/A':
                     is_abnormal = True
                     abnormal_reason = '比赛取消'
-                elif result_status == '取消' or result_status == '延期' or result_status == '腰斩':
+                elif internal_status not in [2, 8]:  # 如果不是已完成或已获取赛果，可能是异常状态
                     is_abnormal = True
-                    abnormal_reason = f'比赛{result_status}'
-                elif match_result_status == '3':  # 假设3表示异常状态
-                    is_abnormal = True
-                    abnormal_reason = '比赛异常'
+                    abnormal_reason = f'比赛状态异常 (matchResultStatus={match_result_status}, {get_status_desc(internal_status)})'
                 
                 # 转换 API 字段名为数据库字段名
                 db_result_data = {}
@@ -324,13 +324,13 @@ class TczqResultCollector:
                         db_result_data[db_key] = value
                 
                 if is_abnormal:
-                    # 异常比赛：标记状态为2，但仍保存赛果记录
-                    match.status = 2
+                    # 异常比赛：使用映射后的状态码
+                    match.status = internal_status
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {home_name} vs {away_name}, match_id={match_id}")
                 else:
-                    # 正常比赛：标记状态为1
-                    match.status = 1
+                    # 正常比赛：标记状态为8（已完成，已获取赛果）
+                    match.status = 8
                     localdb.update(match, close=False)
                 
                 # 保存或更新赛果记录
@@ -386,7 +386,10 @@ class TczqResultCollector:
                 
                 # 检查 API 返回的比赛状态
                 match_result_status = result_data.get('matchResultStatus', '')
-                result_status = result_data.get('resultStatus', '')
+                
+                # 使用统一的状态映射函数转换为内部状态码
+                from app.common.match_status import map_to_internal_status, get_status_desc
+                internal_status = map_to_internal_status('tczq', match_result_status)
                 
                 # 判断是否为异常状态（延期、腰斩、取消等）
                 is_abnormal = False
@@ -399,12 +402,9 @@ class TczqResultCollector:
                 if home_score == '取消' or away_score == '取消' or home_score == 'N/A':
                     is_abnormal = True
                     abnormal_reason = '比赛取消'
-                elif result_status == '取消' or result_status == '延期' or result_status == '腰斩':
+                elif internal_status not in [2, 8]:  # 如果不是已完成或已获取赛果，可能是异常状态
                     is_abnormal = True
-                    abnormal_reason = f'比赛{result_status}'
-                elif match_result_status == '3':  # 假设3表示异常状态
-                    is_abnormal = True
-                    abnormal_reason = '比赛异常'
+                    abnormal_reason = f'比赛状态异常 (matchResultStatus={match_result_status}, {get_status_desc(internal_status)})'
                 
                 # 转换 API 字段名为数据库字段名
                 db_result_data = {}
@@ -424,13 +424,13 @@ class TczqResultCollector:
                         db_result_data[db_key] = value
                 
                 if is_abnormal:
-                    # 异常比赛：标记状态为2，但仍保存赛果记录
-                    match.status = 2
+                    # 异常比赛：使用映射后的状态码
+                    match.status = internal_status
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
                 else:
-                    # 正常比赛：标记状态为1
-                    match.status = 1
+                    # 正常比赛：标记状态为8（已完成，已获取赛果）
+                    match.status = 8
                     localdb.update(match, close=False)
                 
                 # 保存或更新赛果记录

@@ -19,19 +19,6 @@ def job():
     log.info(f'开始第{count}次任务执行')
     
     try:
-        # 更新北京单场足球比赛信息和赛果
-        bjdc_log.info('开始更新北京单场足球比赛信息')
-        bjdc_collector = BjdcDataCollector()
-        bjdc_collector.collect_matches()
-        
-        bjdc_log.info('开始更新北京单场足球比赛结果')
-        bjdc_result = BjdcResultCollector()
-        bjdc_result.get_and_save_results()
-    
-    except Exception as e:
-        bjdc_log.error(f'北京单场数据爬取失败：{str(e)}')
-        
-    try:
         # 更新竞彩足球比赛信息和赛果
         tczq_log.info('开始更新竞彩足球比赛数据')
         tczq_collector = TczqDataCollector()
@@ -62,6 +49,18 @@ def job():
         lottery_collector.update_latest_lottery_data()
     except Exception as e:
         lottery_log.error(f'数字彩数据爬取失败：{str(e)}')
+        
+    try:
+        # 更新北京单场足球比赛信息和赛果
+        bjdc_log.info('开始更新北京单场足球比赛信息')
+        bjdc_collector = BjdcDataCollector()
+        bjdc_collector.collect_matches()
+        
+        bjdc_log.info('开始更新北京单场足球比赛结果')
+        bjdc_result = BjdcResultCollector()
+        bjdc_result.get_and_save_results()
+    except Exception as e:
+        bjdc_log.error(f'北京单场数据爬取失败：{str(e)}')
 
 def init_db(rebuild=False):
     """

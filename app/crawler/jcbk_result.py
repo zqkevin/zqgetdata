@@ -60,7 +60,8 @@ class JcbkResultCollector:
             abnormal_cutoff_date = (datetime.now() - timedelta(days=4)).strftime('%Y-%m-%d')
             
             pending_matches = localdb.query(TcbkMatch).filter(
-                TcbkMatch.match_date >= seven_days_ago
+                TcbkMatch.match_date >= seven_days_ago,
+                (TcbkMatch.match_status == 0) | (TcbkMatch.match_status == None)  # 只查询待开赛的比賽
             ).all()
             
             if not pending_matches:
@@ -112,8 +113,8 @@ class JcbkResultCollector:
                         has_postpone_flag = any(keyword in str(match.match_status).lower() for keyword in status_keywords)
                     
                     if not has_postpone_flag:
-                        # 标记为异常状态（使用match_status字段）
-                        match.match_status = 'Abnormal'
+                        # 标记为异常状态 (status=2)
+                        match.match_status = 2
                         localdb.update(match, close=False)
                         abnormal_count += 1
                         home_name = match.home_team_all_name or match.home_team_abb_name or '未知'
@@ -298,6 +299,11 @@ class JcbkResultCollector:
                 match_result_status = result_data.get('matchResultStatus', '')
                 result_status = result_data.get('resultStatus', '')
                 pool_status = result_data.get('poolStatus', '')
+                api_status = result_data.get('status')  # 篮球API的status字段 (1=进行中, 2=已完成)
+                
+                # 使用统一的状态映射函数转换为内部状态码
+                from app.common.match_status import map_to_internal_status, get_status_desc
+                internal_status = map_to_internal_status('jcbk', api_status) if api_status is not None else 8  # 默认已完成
                 
                 is_abnormal = False
                 abnormal_reason = ''
@@ -335,9 +341,14 @@ class JcbkResultCollector:
                         localdb.add(new_result, close=False)
                 
                 if is_abnormal:
-                    match.match_status = 'Abnormal'
+                    # 异常比赛：使用映射后的状态码
+                    match.match_status = internal_status
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {home_name} vs {away_name}, match_id={match_id}")
+                else:
+                    # 正常比赛：标记状态为2（已完成，已获取赛果）
+                    match.match_status = 2
+                    localdb.update(match, close=False)
                 
                 logger.info(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")
                 saved_count += 1
@@ -407,9 +418,14 @@ class JcbkResultCollector:
                         localdb.add(new_result, close=False)
                 
                 if is_abnormal:
-                    match.match_status = 'Abnormal'
+                    # 异常比赛：标记状态为2（延期/取消等）
+                    match.match_status = 2
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
+                else:
+                    # 正常比赛：标记状态为8（已完成，已获取赛果）
+                    match.match_status = 8
+                    localdb.update(match, close=False)
                 
                 logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")
                 saved_count += 1

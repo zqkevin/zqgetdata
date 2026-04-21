@@ -51,7 +51,7 @@ class TcbkMatch(Base):
     match_name = Column(String(50))  # 比赛名称
     group_name = Column(String(50))  # 分组名称
     
-    match_status = Column(String(20))  # 比赛状态，如"Selling"
+    match_status = Column(Integer, default=0)  # 比赛状态 (0=待开赛, 1=进行中, 2=延期, 3=取消, 8=已完成)
     sell_status = Column(Integer)  # 销售状态
     is_hot = Column(Integer)  # 是否热门
     is_hide = Column(Integer)  # 是否隐藏

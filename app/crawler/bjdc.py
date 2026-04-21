@@ -701,7 +701,7 @@ class BjdcDataCollector:
                     new_value=float(new_value),
                     odds_table=odds_table,
                     sport_type='bjdc',  # 北京单场
-                    threshold=0.05  # 波动阈值 ±0.05
+                    threshold=0.1  # 波动阈值 ±0.1
                 )
                 
                 if should_log:

@@ -38,6 +38,9 @@ class TczqMatch(Base):
     home_team_id = Column(Integer, ForeignKey('team.id'))  # 主队 ID
     away_team_id = Column(Integer, ForeignKey('team.id'))  # 客队 ID
     
+    # 跨系统关联
+    bjdc_match_id = Column(Integer, nullable=True, index=True)  # 匹配到的BJDC比赛ID（避免重复匹配）
+    
     # 比赛状态
     status = Column(Integer, default=0, index=True)  # 状态 0-未开始 1-已结束等
     

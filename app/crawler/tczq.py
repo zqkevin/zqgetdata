@@ -322,42 +322,56 @@ class TczqDataCollector:
             
             # 处理球队信息
             try:
-                # 关键优化：先尝试通过联赛+比赛时间匹配BJDC中已存在的比赛
-                # 从 league_map 中获取TCZQ的联赛全称
-                tczq_league_full_name = None
-                if league_map and api_league_id in league_map:
-                    tczq_league_full_name, _ = league_map[api_league_id]
+                # 关键优化：先检查是否已经匹配过BJDC比赛
+                existing_match_check = localdb.query(TczqMatch).filter_by(match_id=match_id).first()
                 
-                matched_match = self._find_match_by_league_and_time(
-                    league_db_id, match_date_str, match_time,
-                    home_team_full_name, away_team_full_name, 
-                    league_full_name=tczq_league_full_name, source_type='tczq'
-                )
-                
-                if matched_match:
-                    logger.info(f"✓ 通过联赛+时间匹配到BJDC比赛: match_id={matched_match.match_id}")
-                    # 使用BJDC比赛的球队ID，并将TCZQ队名添加为别名
-                    home_team_id = matched_match.home_team_id
-                    away_team_id = matched_match.away_team_id
-                    
-                    # 将TCZQ的队名添加为别名（如果不同）
-                    from app.database import Team
-                    bjdc_home_team = localdb.query(Team).filter_by(id=home_team_id).first()
-                    bjdc_away_team = localdb.query(Team).filter_by(id=away_team_id).first()
-                    
-                    if bjdc_home_team and bjdc_home_team.team_full_name != home_team_full_name:
-                        self._add_team_alias_if_not_exists(home_team_id, home_team_full_name, 'tczq')
-                    
-                    if bjdc_away_team and bjdc_away_team.team_full_name != away_team_full_name:
-                        self._add_team_alias_if_not_exists(away_team_id, away_team_full_name, 'tczq')
+                if existing_match_check and existing_match_check.bjdc_match_id:
+                    # 已经有匹配的BJDC比赛ID，直接使用之前的球队ID
+                    logger.debug(f"使用已记录的BJDC匹配: bjdc_match_id={existing_match_check.bjdc_match_id}")
+                    home_team_id = existing_match_check.home_team_id
+                    away_team_id = existing_match_check.away_team_id
+                    bjdc_match_id_value = existing_match_check.bjdc_match_id
                 else:
-                    # 没有匹配到BJDC比赛，正常创建/查找球队
-                    home_team_id = get_or_create_team(home_team_full_name, home_team_short_name, home_team_code, source_type='tczq')
-                    away_team_id = get_or_create_team(away_team_full_name, away_team_short_name, away_team_code, source_type='tczq')
+                    # 没有匹配记录，尝试通过联赛+时间匹配BJDC中已存在的比赛
+                    # 从 league_map 中获取TCZQ的联赛全称
+                    tczq_league_full_name = None
+                    if league_map and api_league_id in league_map:
+                        tczq_league_full_name, _ = league_map[api_league_id]
                     
-                    if not home_team_id or not away_team_id:
-                        logger.error(f"处理球队信息失败，跳过比赛 (match_id={match_id})")
-                        continue
+                    matched_match = self._find_match_by_league_and_time(
+                        league_db_id, match_date_str, match_time,
+                        home_team_full_name, away_team_full_name, 
+                        league_full_name=tczq_league_full_name, source_type='tczq'
+                    )
+                    
+                    if matched_match:
+                        logger.info(f"✓ 通过联赛+时间匹配到BJDC比赛: match_id={matched_match.match_id}")
+                        # 使用BJDC比赛的球队ID，并将TCZQ队名添加为别名
+                        home_team_id = matched_match.home_team_id
+                        away_team_id = matched_match.away_team_id
+                        bjdc_match_id_value = matched_match.match_id
+                        
+                        # 将TCZQ的队名添加为别名（如果不同）
+                        from app.database import Team
+                        bjdc_home_team = localdb.query(Team).filter_by(id=home_team_id).first()
+                        bjdc_away_team = localdb.query(Team).filter_by(id=away_team_id).first()
+                        
+                        if bjdc_home_team and bjdc_home_team.team_full_name != home_team_full_name:
+                            self._add_team_alias_if_not_exists(home_team_id, home_team_full_name, 'tczq')
+                        
+                        if bjdc_away_team and bjdc_away_team.team_full_name != away_team_full_name:
+                            self._add_team_alias_if_not_exists(away_team_id, away_team_full_name, 'tczq')
+                    else:
+                        # 没有匹配到BJDC比赛，正常创建/查找球队
+                        home_team_id = get_or_create_team(home_team_full_name, home_team_short_name, home_team_code, source_type='tczq')
+                        away_team_id = get_or_create_team(away_team_full_name, away_team_short_name, away_team_code, source_type='tczq')
+                        
+                        if not home_team_id or not away_team_id:
+                            logger.error(f"处理球队信息失败，跳过比赛 (match_id={match_id})")
+                            continue
+                        
+                        # 未匹配到BJDC比赛
+                        bjdc_match_id_value = None
                 
                 logger.debug(f"处理球队结果：home_team_id={home_team_id}, away_team_id={away_team_id}")
             except Exception as e:
@@ -406,11 +420,12 @@ class TczqDataCollector:
                     'line_num': line_num,
                     'betting_single': betting_single,
                     'betting_all_up': betting_all_up,
-                    'period': period
+                    'period': period,
+                    'bjdc_match_id': bjdc_match_id_value  # 记录匹配到的BJDC比赛ID
                 }
                 
                 matches.append(match_info_dict)
-                
+
             except Exception as e:
                 logger.error(f"处理比赛信息失败 (match_id={match_id}): {str(e)}")
                 import traceback
@@ -487,14 +502,21 @@ class TczqDataCollector:
                         
                     if existing_match:
                         # 更新现有记录
+                        logger.debug(f"更新比赛: match_id={match_data['match_id']}, bjdc_match_id={match_data.get('bjdc_match_id')}")
                         for key, value in match_data.items():
                             if hasattr(existing_match, key):
+                                old_value = getattr(existing_match, key)
                                 setattr(existing_match, key, value)
+                                if key == 'bjdc_match_id':
+                                    logger.info(f"✓ 更新 bjdc_match_id: {old_value} -> {value} (match_id={match_data['match_id']})")
                         localdb.update(existing_match, close=False)
+                        logger.debug(f"已调用localdb.update，准备提交")
                     else:
                         # 创建新记录
                         new_match = TczqMatch(**match_data)
                         localdb.add(new_match, close=False)
+                        if match_data.get('bjdc_match_id'):
+                            logger.info(f"✓ 新建比赛并设置 bjdc_match_id={match_data['bjdc_match_id']} (match_id={match_data['match_id']})")
                         
                     saved_count += 1
                         
@@ -581,7 +603,8 @@ class TczqDataCollector:
                             'league_id': match_data.get('league_id'),
                             'home_team_id': match_data.get('home_team_id'),
                             'away_team_id': match_data.get('away_team_id'),
-                            'status': 0  # 默认未开始
+                            'status': 0,  # 默认未开始
+                            'bjdc_match_id': match_data.get('bjdc_match_id')  # 添加bjdc_match_id字段
                         }
                         
                         if existing_match:
@@ -817,7 +840,7 @@ class TczqDataCollector:
                     new_value=float(new_value),
                     odds_table=odds_table,
                     sport_type='tczq',  # 体彩足球
-                    threshold=0.05  # 波动阈值 ±0.05
+                    threshold=0.1  # 波动阈值 ±0.1
                 )
                 
                 if should_log:

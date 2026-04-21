@@ -3,11 +3,14 @@ import random
 import string
 import time
 import traceback
-from app.log.logger import log
+from app.log.logger import log, get_logger
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3 import Retry
+
+# 通用数据库操作日志（用于 _utils 中的公共函数）
+db_log = get_logger('common', 'db_utils')
 
 
 def generate_random_cookies(key):
@@ -242,12 +245,12 @@ def handle_league_name(league_name, source_type=None):
                 # BJDC提供的是简称，存到 league_name_abbr，league_name 留空等待 TCZQ 补充
                 league.league_name = ''  # 全称留空
                 league.league_name_abbr = league_name  # 简称
-                log.info(f"✅ 新增联赛（BJDC简称）：{league_name} (ID: {league_id}, 全称待补充)")
+                db_log.debug(f"✅ 新增联赛（BJDC简称）：{league_name} (ID: {league_id}, 全称待补充)")
             else:
                 # 其他来源（如TCZQ），同时存储全称和简称
                 league.league_name = league_name
                 league.league_name_abbr = league_name  # 默认简称与全称相同
-                log.info(f"✅ 新增联赛：{league_name} (ID: {league_id})")
+                db_log.debug(f"✅ 新增联赛：{league_name} (ID: {league_id})")
             
             league.region = ""  # 默认空字符串
             league.country = ""  # 默认空字符串
@@ -255,16 +258,23 @@ def handle_league_name(league_name, source_type=None):
             localdb.add(league, close=False)  # 不关闭会话，避免对象分离
         else:
             # 5. 如果找到已有记录，更新缺失的信息
-            # 关键逻辑：如果当前记录只有简称（league_name为空），而新传入的是全称，则补充全称
-            if not league.league_name and league_name:
-                # 这种情况通常是：BJDC先创建了简称记录，现在TCZQ传入了全称
-                old_abbr = league.league_name_abbr or '(空)'
-                league.league_name = league_name
-                # 如果简称也为空，则用全称填充
-                if not league.league_name_abbr:
-                    league.league_name_abbr = league_name
-                localdb.update(league, close=False)
-                log.info(f"📝 补充联赛全称：{old_abbr} -> {league_name} (ID: {league.id})")
+            # 关键逻辑：只有TCZQ才需要补充全称（BJDC只提供简称）
+            if source_type == 'tczq' and not league.league_name and league_name:
+                # 检查全称是否与简称不同
+                existing_abbr = league.league_name_abbr or ''
+                
+                # 只有当全称与简称不同时，才补充全称
+                if league_name != existing_abbr:
+                    old_abbr = existing_abbr or '(空)'
+                    league.league_name = league_name
+                    # 如果简称也为空，则用全称填充
+                    if not league.league_name_abbr:
+                        league.league_name_abbr = league_name
+                    localdb.update(league, close=False)
+                    db_log.debug(f"📝 补充联赛全称：{old_abbr} -> {league_name} (ID: {league.id})")
+                else:
+                    # 全称与简称相同，说明API本身就没有提供真正的全称，不更新
+                    db_log.debug(f"联赛全称与简称相同，跳过更新：{league_name} (ID: {league.id})")
             # 如果当前记录有全称但无简称，补充简称
             elif league.league_name and not league.league_name_abbr:
                 league.league_name_abbr = league.league_name
@@ -657,9 +667,9 @@ def calculate_current_odds(odds_record_id: int, field_name: str, odds_table: str
     根据赔率记录ID和字段名，计算考虑所有波动后的当前赔率
     
     业务逻辑：
-    1. 从数据库中获取该赔率记录的原始值（当前保存的值）
+    1. 从数据库中获取该赔率记录的原始值（初始值）
     2. 查询该记录的所有历史波动日志
-    3. 返回数据库中的最新值（因为每次更新都会同步到数据库）
+    3. 累加所有波动值：当前赔率 = 初始值 + 所有波动的diff之和
     
     Args:
         odds_record_id: 赔率记录的主键ID
@@ -692,18 +702,34 @@ def calculate_current_odds(odds_record_id: int, field_name: str, odds_table: str
             log.error(f"无法获取变化日志类 (sport_type={sport_type})")
             return 0.0
         
-        # 2. 从原始赔率表中获取当前保存的值（基准值）
+        # 2. 从原始赔率表中获取初始值（基准值）
         base_value = _get_original_odds_value(odds_record_id, field_name, odds_table)
         
         if base_value == 0.0:
             log.debug(f"[{sport_type}] 赔率记录 {odds_record_id}.{field_name} 的当前值为 0.0 (可能未初始化)")
             return 0.0
         
-        # 3. 直接从数据库中获取当前值（数据库已保存最新值）
-        current_value = base_value
+        # 3. 查询该记录的所有历史波动日志，累加波动值
+        logs = localdb.query(change_log_class).filter_by(
+            odds_record_id=odds_record_id,
+            odds_field=field_name
+        ).order_by(change_log_class.change_time.asc()).all()
         
-        log.debug(f"[{sport_type}] 赔率记录 {odds_record_id}.{field_name}: "
-                 f"当前值={current_value:.3f} (来自数据库)")
+        # 4. 计算累计波动：当前值 = 初始值 + 所有波动的(new_value - old_value)之和
+        total_diff = 0.0
+        for log_entry in logs:
+            diff = log_entry.new_value - log_entry.old_value
+            total_diff += diff
+        
+        current_value = base_value + total_diff
+        
+        if logs:
+            log.debug(f"[{sport_type}] 赔率记录 {odds_record_id}.{field_name}: "
+                     f"初始值={base_value:.3f}, 累计波动={total_diff:.3f} ({len(logs)}次), "
+                     f"当前值={current_value:.3f}")
+        else:
+            log.debug(f"[{sport_type}] 赔率记录 {odds_record_id}.{field_name}: "
+                     f"当前值={current_value:.3f} (无波动记录)")
         
         return float(current_value)
         
@@ -908,12 +934,11 @@ def should_log_odds_change(odds_record_id: int, field_name: str, new_value: floa
             # 无法获取当前值，建议记录（可能是首次）
             log.debug(f"[{sport_type}] 无法获取当前赔率，建议记录: record_id={odds_record_id}, field={field_name}")
             return True, current_value, new_value
+                # 计算差值（带符号，用于日志显示）
+        diff = new_value - current_value
         
-        # 计算差值
-        diff = abs(new_value - current_value)
-        
-        # 判断是否超过阈值
-        should_log = diff > threshold
+        # 判断是否超过阈值（使用绝对值）
+        should_log = abs(diff) > threshold
         
         if should_log:
             log.debug(f"[{sport_type}] 赔率变化超过阈值: {odds_table}.{field_name} "

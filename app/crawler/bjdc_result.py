@@ -184,7 +184,7 @@ class BjdcResultCollector:
             abnormal_cutoff_time = self.nowtime - timedelta(days=4)
             
             pending_matches = localdb.query(BjdcMatch).filter(
-                BjdcMatch.status == 0,  # 未结束
+                BjdcMatch.status == 0,  # 只查询待开赛的比賽 (status=0)
                 BjdcMatch.match_time < cutoff_time  # 比赛已结束4小时以上
             ).all()
             
@@ -635,12 +635,15 @@ class BjdcResultCollector:
                 # 检查比赛状态（网页爬取的 status 字段）
                 result_status = result_data.get('status', '')  # '完' 表示结束
                 
-                # 判断是否为异常状态（延期、腰斩、取消等）
-                is_abnormal = False
+                # 使用统一的状态映射函数转换为内部状态码
+                from app.common.match_status import map_to_internal_status, get_status_desc
+                internal_status = map_to_internal_status('bjdc', result_status)
+                
+                # 判断是否为异常状态
+                is_abnormal = internal_status in [3, 4, 5]  # 延期/取消/腰斩/中断
                 abnormal_reason = ''
                 
-                if result_status in ['取消', '延期', '腰斩', '中断']:
-                    is_abnormal = True
+                if is_abnormal:
                     abnormal_reason = f'比赛{result_status}'
                 
                 # 构建数据库字段数据（直接使用爬虫解析后的数据）
@@ -655,15 +658,12 @@ class BjdcResultCollector:
                 # 过滤掉 None 值的字段（只添加有值的字段）
                 db_result_data = {k: v for k, v in db_result_data.items() if v is not None}
                 
+                # 更新比赛状态为映射后的内部状态码
+                match.status = internal_status
+                localdb.update(match, close=False)
+                
                 if is_abnormal:
-                    # 异常比赛：标记状态为2，但仍保存赛果记录
-                    match.status = 2
-                    localdb.update(match, close=False)
-                    logger.warning(f"⚠️ {abnormal_reason}: {match_info['home_name']} vs {match_info['away_name']}, match_id={matched_match_id}")
-                else:
-                    # 正常比赛：标记状态为1
-                    match.status = 1
-                    localdb.update(match, close=False)
+                    logger.warning(f"⚠️ {abnormal_reason} ({get_status_desc(internal_status)}): {match_info['home_name']} vs {match_info['away_name']}, match_id={matched_match_id}")
                 
                 # 保存或更新赛果记录
                 existing_result = localdb.query(BjdcMatchResult).filter_by(match_id=matched_match_id).first()
@@ -733,12 +733,15 @@ class BjdcResultCollector:
                 # 检查比赛状态（网页爬取的 status 字段）
                 result_status = result_data.get('status', '')  # '完' 表示结束
                 
+                # 使用 BJDC 网页状态映射转换为内部状态码
+                from app.common.match_status import BJDC_WEB_STATUS_MAP
+                internal_status = BJDC_WEB_STATUS_MAP.get(result_status, 2)  # 默认已完成
+                
                 # 判断是否为异常状态（延期、腰斩、取消等）
-                is_abnormal = False
+                is_abnormal = internal_status in [3, 4, 5]  # 延期/取消/腰斩/中断
                 abnormal_reason = ''
                 
-                if result_status in ['取消', '延期', '腰斩', '中断']:
-                    is_abnormal = True
+                if is_abnormal:
                     abnormal_reason = f'比赛{result_status}'
                 
                 # 构建数据库字段数据（直接使用爬虫解析后的数据）
@@ -754,13 +757,13 @@ class BjdcResultCollector:
                 db_result_data = {k: v for k, v in db_result_data.items() if v is not None}
                 
                 if is_abnormal:
-                    # 异常比赛：标记状态为2，但仍保存赛果记录
-                    match.status = 2
+                    # 异常比赛：使用映射后的状态码（3=延期/取消, 4=腰斩, 5=中断）
+                    match.status = internal_status
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
                 else:
-                    # 正常比赛：标记状态为1
-                    match.status = 1
+                    # 正常比赛：标记状态为2（已完成，已获取赛果）
+                    match.status = 2
                     localdb.update(match, close=False)
                 
                 # 保存或更新赛果记录
