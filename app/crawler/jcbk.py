@@ -358,9 +358,20 @@ class JcbkDataCollector:
                     localdb.update(existing, close=False)
                     logger.debug(f"更新大小分赔率：match_id={match_id}")
                 else:
-                    new_odds = TcbkDxf(match_id=match_id, **db_data)
-                    localdb.add(new_odds, close=False)
-                    logger.debug(f"新增大小分赔率：match_id={match_id}")
+                    try:
+                        new_odds = TcbkDxf(match_id=match_id, **db_data)
+                        localdb.add(new_odds, close=False)
+                        logger.debug(f"新增大小分赔率：match_id={match_id}")
+                    except Exception as insert_error:
+                        if 'Duplicate entry' in str(insert_error):
+                            logger.warning(f"检测到重复插入，转为更新：match_id={match_id}")
+                            existing = localdb.query(TcbkDxf).filter_by(match_id=match_id).first()
+                            if existing:
+                                for k, v in db_data.items():
+                                    setattr(existing, k, v)
+                                localdb.update(existing, close=False)
+                        else:
+                            raise
             
             # 保存让分胜负赔率 (hdc -> rfsf)
             if 'hdc' in odds_data and odds_data['hdc']:
@@ -383,9 +394,20 @@ class JcbkDataCollector:
                     localdb.update(existing, close=False)
                     logger.debug(f"更新让分胜负赔率：match_id={match_id}")
                 else:
-                    new_odds = TcbkRfsf(match_id=match_id, **db_data)
-                    localdb.add(new_odds, close=False)
-                    logger.debug(f"新增让分胜负赔率：match_id={match_id}")
+                    try:
+                        new_odds = TcbkRfsf(match_id=match_id, **db_data)
+                        localdb.add(new_odds, close=False)
+                        logger.debug(f"新增让分胜负赔率：match_id={match_id}")
+                    except Exception as insert_error:
+                        if 'Duplicate entry' in str(insert_error):
+                            logger.warning(f"检测到重复插入，转为更新：match_id={match_id}")
+                            existing = localdb.query(TcbkRfsf).filter_by(match_id=match_id).first()
+                            if existing:
+                                for k, v in db_data.items():
+                                    setattr(existing, k, v)
+                                localdb.update(existing, close=False)
+                        else:
+                            raise
             
             # 保存胜负赔率 (mnl -> spf)
             if 'mnl' in odds_data and odds_data['mnl']:
@@ -406,9 +428,20 @@ class JcbkDataCollector:
                     localdb.update(existing, close=False)
                     logger.debug(f"更新胜负赔率：match_id={match_id}")
                 else:
-                    new_odds = TcbkSpf(match_id=match_id, **db_data)
-                    localdb.add(new_odds, close=False)
-                    logger.debug(f"新增胜负赔率：match_id={match_id}")
+                    try:
+                        new_odds = TcbkSpf(match_id=match_id, **db_data)
+                        localdb.add(new_odds, close=False)
+                        logger.debug(f"新增胜负赔率：match_id={match_id}")
+                    except Exception as insert_error:
+                        if 'Duplicate entry' in str(insert_error):
+                            logger.warning(f"检测到重复插入，转为更新：match_id={match_id}")
+                            existing = localdb.query(TcbkSpf).filter_by(match_id=match_id).first()
+                            if existing:
+                                for k, v in db_data.items():
+                                    setattr(existing, k, v)
+                                localdb.update(existing, close=False)
+                        else:
+                            raise
             
             # 保存胜分差赔率 (wnm -> sfc)
             if 'wnm' in odds_data and odds_data['wnm']:
@@ -439,9 +472,21 @@ class JcbkDataCollector:
                     localdb.update(existing, close=False)
                     logger.debug(f"更新胜分差赔率：match_id={match_id}")
                 else:
-                    new_odds = TcbkSfc(match_id=match_id, **db_data)
-                    localdb.add(new_odds, close=False)
-                    logger.debug(f"新增胜分差赔率：match_id={match_id}")
+                    try:
+                        new_odds = TcbkSfc(match_id=match_id, **db_data)
+                        localdb.add(new_odds, close=False)
+                        logger.debug(f"新增胜分差赔率：match_id={match_id}")
+                    except Exception as insert_error:
+                        # 如果插入失败（可能是并发导致的重复键），再次查询并更新
+                        if 'Duplicate entry' in str(insert_error):
+                            logger.warning(f"检测到重复插入，转为更新：match_id={match_id}")
+                            existing = localdb.query(TcbkSfc).filter_by(match_id=match_id).first()
+                            if existing:
+                                for k, v in db_data.items():
+                                    setattr(existing, k, v)
+                                localdb.update(existing, close=False)
+                        else:
+                            raise
                     
         except Exception as e:
             logger.error(f"保存赔率数据失败 (match_id={match_id}): {str(e)}")

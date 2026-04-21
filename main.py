@@ -154,20 +154,31 @@ def up_db():
 
 def chuck_data():
     """
-    检查数据库中是否已有数据
+    检查数据库中表是否已存在
     Returns:
-        bool: 如果有数据返回True，否则返回False
+        bool: 如果表已存在返回True，否则返回False
     """
-    from app.database import localdb, League
-    localdb_done = False
+    from app.database import localdb
+    from sqlalchemy import inspect
+    
     try:
-        football = localdb.query(League).first()
-        if football is not None:
-            localdb_done = True
-        return localdb_done
+        # 检查关键表是否存在（league, team, tczq_match, bjdc_match）
+        inspector = inspect(localdb.engine)
+        existing_tables = inspector.get_table_names()
+        
+        required_tables = ['league', 'team', 'tczq_match', 'bjdc_match']
+        all_exist = all(table in existing_tables for table in required_tables)
+        
+        if all_exist:
+            log.info(f'数据库表已存在，共 {len(existing_tables)} 个表')
+            return True
+        else:
+            missing = [t for t in required_tables if t not in existing_tables]
+            log.warning(f'缺少表: {missing}')
+            return False
     except Exception as e:
         log.error(f'检查数据库异常: {str(e)}')
-        return localdb_done
+        return False
 
 if __name__ == '__main__':
     import sys

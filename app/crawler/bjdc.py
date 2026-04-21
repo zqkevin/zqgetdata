@@ -186,20 +186,40 @@ class BjdcDataCollector:
                 try:
                     fid = tr.get('fid')
                     valuestr = tr.get('value')
-                    value_dict = self._parse_value_str(valuestr)
                     
+                    # ========== 从 DOM 结构中提取队名和联赛名 ==========
+                    td_list = tr.find_all('td')
+                    if len(td_list) < 8:
+                        logger.debug(f"表格列数不足，跳过：fid={fid}, cols={len(td_list)}")
+                        continue
+                    
+                    # 1. 提取联赛名称（td[1]的<a>标签）
+                    league_td = td_list[1]
+                    league_link = league_td.find('a')
+                    leaguename = league_link.text.strip() if league_link else None
+                    
+                    # 2. 提取主队名称（td[3]的<a>标签）
+                    home_td = td_list[3]
+                    home_link = home_td.find('a')
+                    homename = home_link.text.strip() if home_link else None
+                    
+                    # 3. 提取客队名称（td[5]的<a>标签）
+                    away_td = td_list[5]
+                    away_link = away_td.find('a')
+                    awayname = away_link.text.strip() if away_link else None
+                    
+                    # 4. 从 value 属性中提取其他信息（时间、场次等）
+                    value_dict = self._parse_value_str(valuestr)
                     if not value_dict:
+                        logger.debug(f"解析 value 失败，跳过：fid={fid}")
                         continue
                     
                     matchtime = value_dict.get('matchtime')
-                    homename = value_dict.get('homename')
-                    awayname = value_dict.get('awayname')
-                    leaguename = value_dict.get('leaguename')
                     qsid = value_dict.get('id')
                     schedule_date = value_dict.get('schedule_date')
                                         
                     if not all([matchtime, homename, awayname, leaguename, qsid]):
-                        logger.debug(f"比赛信息不完整，跳过：fid={fid}")
+                        logger.debug(f"比赛信息不完整，跳过：fid={fid}, home={homename}, away={awayname}, league={leaguename}")
                         continue
                                         
                     # 过滤时间（赛前 26 小时内）
@@ -215,7 +235,7 @@ class BjdcDataCollector:
                         match_week = self._get_weekday(matchtime.strftime('%Y-%m-%d'))
                                         
                     # 1. 处理联赛 - 使用与 tczq 相同的策略
-                    league = handle_league_name(leaguename)
+                    league = handle_league_name(leaguename, source_type='bjdc')
                     if not league:
                         logger.warning(f"联赛处理失败：{leaguename}")
                         continue

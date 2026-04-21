@@ -150,10 +150,11 @@ def check_zq_win_pl(match, homegoal, awaygoal):
     
     return spf, zjq, bifen
 
-def handle_league_name(league_name):
+def handle_league_name(league_name, source_type=None):
     """
     根据联赛名称检索联赛信息，如果不存在则新增
     :param league_name: 联赛名称 (全称或简称)
+    :param source_type: 数据来源类型 ('bjdc', 'tczq'等)，用于判断如何处理名称
     :return: 联赛信息对象
     """
     from app.database import localdb, League
@@ -168,24 +169,60 @@ def handle_league_name(league_name):
         except Exception:
             pass
         
-        # 1. 先尝试通过联赛全称查找
+        # 1. 先尝试通过联赛全称精确查找
         league = localdb.query(League).filter_by(league_name=league_name).first()
         
         if not league:
-            # 2. 尝试通过联赛简称查找
+            # 2. 尝试通过联赛简称精确查找
             league = localdb.query(League).filter_by(league_name_abbr=league_name).first()
             
         if not league:
-            # 3. 如果都不存在，检查是否是包含关系 (如“澳大利亚超级联赛”包含“澳超”)
-            # 查询所有联赛，查找是否有简称匹配的
-            # 注意：只有当传入名称长度>3 时才进行模糊匹配，避免“巴西乙”被匹配到“西乙”
-            if len(league_name) > 3:
+            # 3. 关键优化：双向模糊匹配 + 检查会话中的新对象
+            # 先检查当前会话中是否已添加但未提交的对象
+            for obj in localdb.session.new:
+                if isinstance(obj, League):
+                    # 检查是否与待添加的联赛同名
+                    if (obj.league_name == league_name or 
+                        obj.league_name_abbr == league_name or
+                        (obj.league_name and league_name in obj.league_name) or
+                        (obj.league_name_abbr and league_name in obj.league_name_abbr)):
+                        league = obj
+                        log.debug(f"会话中找到匹配联赛：{league_name} -> {obj.league_name}/{obj.league_name_abbr}")
+                        break
+            
+            # 如果会话中没有，再查询数据库进行模糊匹配
+            if not league:
                 all_leagues = localdb.query(League).all()
                 for lg in all_leagues:
-                    # 检查传入的名称是否包含某个联赛的简称
-                    if league_name != lg.league_name and (lg.league_name_abbr in league_name or league_name in lg.league_name):
+                    # 跳过空名称
+                    if not lg.league_name and not lg.league_name_abbr:
+                        continue
+                        
+                    is_match = False
+                    
+                    # 只有当传入名称长度>2时才进行模糊匹配，避免误匹配
+                    if len(league_name) > 2:
+                        # 情况1：传入的是全称，匹配已有记录的简称
+                        # 例如：传入"澳大利亚超级联赛"，匹配简称"澳超"
+                        if lg.league_name_abbr and lg.league_name_abbr in league_name:
+                            is_match = True
+                        # 情况2：传入的是简称，匹配已有记录的全称或简称
+                        # 例如：传入"澳超"，匹配全称"澳大利亚超级联赛"或简称"澳超"
+                        elif lg.league_name and league_name in lg.league_name:
+                            is_match = True
+                        elif lg.league_name_abbr and league_name in lg.league_name_abbr:
+                            is_match = True
+                        # 情况3：传入名称包含已有记录的全称
+                        elif lg.league_name and lg.league_name in league_name:
+                            is_match = True
+                    else:
+                        # 短名称精确匹配
+                        if lg.league_name_abbr == league_name or lg.league_name == league_name:
+                            is_match = True
+                    
+                    if is_match:
                         league = lg
-                        log.debug(f"找到相似联赛：{league_name} -> {lg.league_name} (ID: {lg.league_id})")
+                        log.debug(f"模糊匹配成功：{league_name} -> {lg.league_name}/{lg.league_name_abbr} (ID: {lg.id})")
                         break
         
         if not league:
@@ -199,13 +236,40 @@ def handle_league_name(league_name):
                     
             league = League()
             league.league_id = league_id
-            league.league_name = league_name
-            league.league_name_abbr = league_name  # 默认简称与全称相同
+            
+            # 关键修改：根据来源类型决定如何存储名称
+            if source_type == 'bjdc':
+                # BJDC提供的是简称，存到 league_name_abbr，league_name 留空等待 TCZQ 补充
+                league.league_name = ''  # 全称留空
+                league.league_name_abbr = league_name  # 简称
+                log.info(f"✅ 新增联赛（BJDC简称）：{league_name} (ID: {league_id}, 全称待补充)")
+            else:
+                # 其他来源（如TCZQ），同时存储全称和简称
+                league.league_name = league_name
+                league.league_name_abbr = league_name  # 默认简称与全称相同
+                log.info(f"✅ 新增联赛：{league_name} (ID: {league_id})")
+            
             league.region = ""  # 默认空字符串
             league.country = ""  # 默认空字符串
             league.href = f"/league/{league_id}/"  # 生成默认链接地址
             localdb.add(league, close=False)  # 不关闭会话，避免对象分离
-            log.info(f"✅ 新增联赛：{league_name} (ID: {league_id})")
+        else:
+            # 5. 如果找到已有记录，更新缺失的信息
+            # 关键逻辑：如果当前记录只有简称（league_name为空），而新传入的是全称，则补充全称
+            if not league.league_name and league_name:
+                # 这种情况通常是：BJDC先创建了简称记录，现在TCZQ传入了全称
+                old_abbr = league.league_name_abbr or '(空)'
+                league.league_name = league_name
+                # 如果简称也为空，则用全称填充
+                if not league.league_name_abbr:
+                    league.league_name_abbr = league_name
+                localdb.update(league, close=False)
+                log.info(f"📝 补充联赛全称：{old_abbr} -> {league_name} (ID: {league.id})")
+            # 如果当前记录有全称但无简称，补充简称
+            elif league.league_name and not league.league_name_abbr:
+                league.league_name_abbr = league.league_name
+                localdb.update(league, close=False)
+                log.debug(f"补充联赛简称：{league.league_name}")
         
         # 确保对象数据已加载到内存
         if league:
@@ -232,8 +296,8 @@ def get_or_create_league(league_name, league_name_abbr=None):
     通用联赛处理函数：根据名称查询或创建联赛，返回数据库主键 ID
     
     Args:
-        league_name: 联赛名称（必填）
-        league_name_abbr: 联赛简称（可选，用于更新）
+        league_name: 联赛名称（必填，通常是全称）
+        league_name_abbr: 联赛简称（可选）
     
     Returns:
         int: 联赛的数据库主键 ID，失败返回 None
@@ -248,14 +312,20 @@ def get_or_create_league(league_name, league_name_abbr=None):
         return None
     
     try:
-        league = handle_league_name(league_name)
+        # 关键修改：传递 source_type=None，让 handle_league_name 自动处理
+        # handle_league_name 会先查全称，再查简称，最后才创建
+        league = handle_league_name(league_name, source_type=None)
+        
         if league:
-            # 如果提供了简称且与现有简称不同，更新简称
-            if league_name_abbr and league.league_name_abbr != league_name_abbr:
-                from app.database import localdb
-                league.league_name_abbr = league_name_abbr
-                localdb.update(league, close=False)
-                log.debug(f"更新联赛简称：{league_name} -> {league_name_abbr}")
+            # 如果提供了简称，确保简称也被设置
+            if league_name_abbr:
+                # 如果当前记录的简称为空或与传入的不同，更新简称
+                if not league.league_name_abbr or league.league_name_abbr != league_name_abbr:
+                    from app.database import localdb
+                    old_abbr = league.league_name_abbr
+                    league.league_name_abbr = league_name_abbr
+                    localdb.update(league, close=False)
+                    log.debug(f"更新/补充联赛简称：{old_abbr or '(空)'} -> {league_name_abbr}")
             
             log.debug(f"联赛处理成功：{league_name} -> DB ID: {league.id}")
             return league.id
@@ -311,6 +381,14 @@ def handle_team_name(team_full_name, team_short_name=None, team_code=None, sourc
         # 1. 先尝试通过球队全称查找
         team = localdb.query(Team).filter_by(team_full_name=team_full_name).first()
         
+        # 关键修复：如果数据库中找不到，检查当前会话中是否已添加（防止重复创建）
+        if not team:
+            for obj in localdb.session.new:
+                if isinstance(obj, Team) and obj.team_full_name == team_full_name:
+                    team = obj
+                    log.debug(f"会话中已存在球队：{team_full_name}")
+                    break
+        
         if not team and source_type:
             # 2. 如果找不到，尝试通过别名查找
             alias = localdb.query(TeamAlias).filter_by(
@@ -331,35 +409,49 @@ def handle_team_name(team_full_name, team_short_name=None, team_code=None, sourc
         
         if not team:
             # 4. 如果都不存在，则新增球队
-            # 生成随机的 team_id
-            team_id = random.randint(1000, 99999)
-            # 确保 team_id 唯一
-            while localdb.query(Team).filter_by(team_id=team_id).first():
+            try:
+                # 生成随机的 team_id
                 team_id = random.randint(1000, 99999)
-            
-            team = Team(
-                team_id=team_id,
-                team_code=team_code or str(team_id),
-                team_full_name=team_full_name,
-                team_short_name=team_short_name or team_full_name,
-                team_short_en_name="",  # 默认空字符串
-                created_at=datetime.now(),
-                updated_at=datetime.now()
-            )
-            localdb.add(team, close=False)  # 不关闭会话，避免对象分离
-            log.debug(f"新增球队：{team_full_name} (ID: {team_id})")
-            
-            # 5. 如果是新球队且有来源类型，添加别名记录
-            if source_type:
-                alias = TeamAlias(
-                    team_id=team.id,
-                    alias_name=team_full_name,
-                    source_type=source_type,
-                    is_primary=1,  # 第一个名称作为主别名
-                    remark=f"自动创建 - {source_type} 数据源"
+                # 确保 team_id 唯一
+                while localdb.query(Team).filter_by(team_id=team_id).first():
+                    team_id = random.randint(1000, 99999)
+                
+                team = Team(
+                    team_id=team_id,
+                    team_code=team_code or str(team_id),
+                    team_full_name=team_full_name,
+                    team_short_name=team_short_name or team_full_name,
+                    team_short_en_name="",  # 默认空字符串
+                    created_at=datetime.now(),
+                    updated_at=datetime.now()
                 )
-                localdb.add(alias, close=False)
-                log.debug(f"添加球队别名：{team_full_name} (来源:{source_type})")
+                localdb.add(team, close=False)  # 不关闭会话，避免对象分离
+                log.debug(f"新增球队：{team_full_name} (ID: {team_id})")
+                
+                # 5. 如果是新球队且有来源类型，添加别名记录
+                if source_type:
+                    alias = TeamAlias(
+                        team_id=team.id,
+                        alias_name=team_full_name,
+                        source_type=source_type,
+                        is_primary=1,  # 第一个名称作为主别名
+                        remark=f"自动创建 - {source_type} 数据源"
+                    )
+                    localdb.add(alias, close=False)
+                    log.debug(f"添加球队别名：{team_full_name} (来源:{source_type})")
+            except Exception as create_error:
+                # 如果是唯一键冲突，重新查询
+                if 'Duplicate entry' in str(create_error):
+                    log.warning(f"检测到球队重复创建，重新查询：{team_full_name}")
+                    localdb.rollback()  # 回滚失败的事务
+                    team = localdb.query(Team).filter_by(team_full_name=team_full_name).first()
+                    if team:
+                        log.info(f"✓ 找到已存在的球队：{team_full_name} (ID: {team.id})")
+                    else:
+                        log.error(f"回滚后仍未找到球队：{team_full_name}")
+                        return None
+                else:
+                    raise
         else:
             # 6. 如果找到球队且有来源类型，检查是否需要添加别名
             if source_type:
