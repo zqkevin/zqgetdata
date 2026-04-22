@@ -466,6 +466,7 @@ class BjdcResultCollector:
             BjdcMatch: 匹配到的比赛记录，未找到返回 None
         """
         from datetime import datetime
+        from app.database import TeamAlias
         
         # 获取 API 返回的信息
         home_team_name = result_data.get('allHomeTeam') or result_data.get('homeTeam')
@@ -502,24 +503,107 @@ class BjdcResultCollector:
             if not db_home_team or not db_away_team:
                 continue
             
-            # 匹配主队名称（支持全称和简称）
-            home_match = (
-                db_home_team.team_full_name == home_team_name or
-                db_home_team.team_short_name == home_team_name
-            )
+            # 匹配主队名称（支持全称、简称、别名）
+            home_match = self._match_team_name(db_home_team, home_team_name)
             
-            # 匹配客队名称（支持全称和简称）
-            away_match = (
-                db_away_team.team_full_name == away_team_name or
-                db_away_team.team_short_name == away_team_name
-            )
+            # 匹配客队名称（支持全称、简称、别名）
+            away_match = self._match_team_name(db_away_team, away_team_name)
             
             if home_match and away_match:
                 logger.debug(f"成功匹配比赛: {home_team_name} vs {away_team_name}, match_id={match.match_id}")
                 return match
         
+        # 主队名匹配失败，尝试用客队名+时间反向匹配
+        logger.debug(f"主队名匹配失败，尝试反向匹配: {home_team_name} vs {away_team_name}")
+        for match in matches:
+            db_home_team = match.home_team
+            db_away_team = match.away_team
+            
+            if not db_home_team or not db_away_team:
+                continue
+            
+            # 只匹配客队名
+            away_match = self._match_team_name(db_away_team, away_team_name)
+            
+            if away_match:
+                # 客队名匹配成功，认为是同一场比赛
+                logger.info(f"✓ 通过客队名+时间反向匹配成功: {away_team_name}, match_id={match.match_id}")
+                
+                # 为未匹配的主队添加别名
+                if db_home_team:
+                    self._add_team_alias_if_not_exists(db_home_team.id, home_team_name, 'bjdc_web')
+                    logger.info(f"✓ 为主队添加别名: {db_home_team.team_full_name} <- {home_team_name}")
+                
+                return match
+        
         logger.debug(f"未找到匹配的比赛: {home_team_name} vs {away_team_name}, 日期: {match_date_str}")
         return None
+    
+    def _match_team_name(self, team, team_name: str) -> bool:
+        """
+        匹配球队名称（按优先级：全称 -> 简称 -> 别名）
+        
+        Args:
+            team: Team对象
+            team_name: 待匹配的队名
+            
+        Returns:
+            bool: 是否匹配成功
+        """
+        if not team or not team_name:
+            return False
+        
+        # 1. 匹配全称
+        if team.team_full_name == team_name:
+            return True
+        
+        # 2. 匹配简称
+        if team.team_short_name == team_name:
+            return True
+        
+        # 3. 匹配英文简称
+        if team.team_short_en_name and team.team_short_en_name == team_name:
+            return True
+        
+        # 4. 匹配别名表
+        from app.database import TeamAlias
+        alias = localdb.query(TeamAlias).filter_by(
+            team_id=team.id,
+            alias_name=team_name
+        ).first()
+        
+        if alias:
+            return True
+        
+        return False
+    
+    def _add_team_alias_if_not_exists(self, team_id: int, alias_name: str, source_type: str = 'bjdc'):
+        """
+        为球队添加别名（如果不存在）
+        
+        Args:
+            team_id: 球队ID
+            alias_name: 别名
+            source_type: 来源类型
+        """
+        from app.database import TeamAlias
+        
+        # 检查别名是否已存在
+        existing = localdb.query(TeamAlias).filter_by(
+            team_id=team_id,
+            alias_name=alias_name
+        ).first()
+        
+        if not existing:
+            # 添加新别名
+            new_alias = TeamAlias(
+                team_id=team_id,
+                alias_name=alias_name,
+                source_type=source_type,
+                is_primary=0
+            )
+            localdb.add(new_alias, close=False)
+            logger.debug(f"添加球队别名: team_id={team_id}, alias={alias_name}")
     
     def save_results_to_db(self, results: List[Dict], pending_matches: List[BjdcMatch] = None) -> int:
         """
