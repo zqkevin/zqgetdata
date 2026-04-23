@@ -166,12 +166,16 @@ class BjdcDataCollector:
             
             # 统计本期数据
             from app.database import BjdcMatch, BjdcOddsChangeLog
-            total_matches = localdb.query(BjdcMatch).filter_by(issue=qishu).count()
-            odds_change_count = localdb.query(BjdcOddsChangeLog).join(
-                BjdcMatch, BjdcOddsChangeLog.match_id == BjdcMatch.match_id
-            ).filter(BjdcMatch.issue == qishu).count()
+            from sqlalchemy import func
             
-            logger.info(f'北京单场数据采集完成 - 共{total_matches}场比赛，发生赔率波动的{odds_change_count}场已经记录')
+            total_matches = localdb.query(BjdcMatch).filter_by(issue=qishu).count()
+            
+            # 统计发生赔率波动的比赛场数（去重）
+            odds_change_match_count = localdb.query(func.count(func.distinct(BjdcOddsChangeLog.match_id))).join(
+                BjdcMatch, BjdcOddsChangeLog.match_id == BjdcMatch.match_id
+            ).filter(BjdcMatch.issue == qishu).scalar() or 0
+            
+            logger.info(f'北京单场数据采集完成 - 共{total_matches}场比赛，发生赔率波动的{odds_change_match_count}场已经记录')
             return True
             
         except Exception as e:
