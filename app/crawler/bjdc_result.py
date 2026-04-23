@@ -229,14 +229,15 @@ class BjdcResultCollector:
             
             # 3. 统计时间范围，确定需要爬取的日期
             # 注意：500.com 完场页面以每天上午10点为界
-            # 例如：2026-04-17 09:59 的比赛显示在 2026-04-17 的页面
-            #      2026-04-17 10:00 及之后的比赛显示在 2026-04-18 的页面
+            # 例如：网页 2026-04-21 显示的比赛时间范围：04-21 12:00 到 04-22 09:10（次日10点前）
+            #      网页 2026-04-22 显示的比赛时间范围：04-22 12:00 到 04-23 09:10
+            # 规则：比赛时间 < 10:00 → 前一天的网页；比赛时间 >= 10:00 → 当天的网页
             match_dates = set()
             for m in valid_matches:
                 if m.match_time:
-                    # 如果比赛时间在10点之后，页面日期需要+1天
-                    if m.match_time.hour >= 10:
-                        page_date = (m.match_time.date() + timedelta(days=1))
+                    # 如果比赛时间在10点之前，页面日期需要-1天
+                    if m.match_time.hour < 10:
+                        page_date = (m.match_time.date() - timedelta(days=1))
                     else:
                         page_date = m.match_time.date()
                     match_dates.add(page_date)
@@ -645,10 +646,10 @@ class BjdcResultCollector:
                 home_name = match.home_team.team_full_name if match.home_team else ''
                 away_name = match.away_team.team_full_name if match.away_team else ''
                 # 注意：500.com 完场页面以每天10点为界
-                # 10:00 之前的比赛显示在当天页面，10:00 及之后显示在第二天页面
+                # 规则：比赛时间 < 10:00 → 前一天的网页；比赛时间 >= 10:00 → 当天的网页
                 if match.match_time:
-                    if match.match_time.hour >= 10:
-                        page_date = (match.match_time.date() + timedelta(days=1)).strftime('%Y-%m-%d')
+                    if match.match_time.hour < 10:
+                        page_date = (match.match_time.date() - timedelta(days=1)).strftime('%Y-%m-%d')
                     else:
                         page_date = match.match_time.date().strftime('%Y-%m-%d')
                 else:
