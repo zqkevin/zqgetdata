@@ -150,7 +150,7 @@ class TczqDataCollector:
                             )
                             
                             if home_match and away_match:
-                                logger.info(f"✓ 匹配到BJDC比赛: {bjdc_home.team_full_name} vs {bjdc_away.team_full_name} (时间差:{time_diff/60:.0f}分钟)")
+                                # logger.info(f"✓ 匹配到BJDC比赛: {bjdc_home.team_full_name} vs {bjdc_away.team_full_name} (时间差:{time_diff/60:.0f}分钟)")  # 减少日志输出
                                 
                                 # 补充联赛全称（如果TCZQ提供了全称且BJDC联赛还没有全称）
                                 if league_full_name:
@@ -345,7 +345,7 @@ class TczqDataCollector:
                     )
                     
                     if matched_match:
-                        logger.info(f"✓ 通过联赛+时间匹配到BJDC比赛: match_id={matched_match.match_id}")
+                        # logger.info(f"✓ 通过联赛+时间匹配到BJDC比赛: match_id={matched_match.match_id}")  # 减少日志输出
                         # 使用BJDC比赛的球队ID，并将TCZQ队名添加为别名
                         home_team_id = matched_match.home_team_id
                         away_team_id = matched_match.away_team_id
