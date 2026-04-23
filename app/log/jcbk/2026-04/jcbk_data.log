@@ -15975,3 +15975,17 @@ sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate en
 2026-04-23 19:12:09 - jcbk_data - INFO - 需要获取赛果的比赛: 0 场
 2026-04-23 19:12:09 - jcbk_data - INFO - 没有有效的比赛需要获取赛果
 2026-04-23 19:12:09 - jcbk_data - WARNING - 没有需要获取赛果的比赛
+2026-04-23 19:55:05 - jcbk_data - INFO - 开始更新篮球比赛数据
+2026-04-23 19:55:05 - jcbk_data - INFO - 开始获取篮球比赛数据（带赔率）...
+2026-04-23 19:55:05 - jcbk_data - INFO - 成功获取 2 场篮球比赛
+2026-04-23 19:55:05 - jcbk_data - INFO - 共提取 8 场实际比赛
+2026-04-23 19:55:05 - jcbk_data - INFO - 开始处理比赛数据...
+2026-04-23 19:55:05 - jcbk_data - INFO - 比赛数据处理完成
+2026-04-23 19:55:05 - jcbk_data - INFO - 开始获取篮球赔率数据...
+2026-04-23 19:55:05 - jcbk_data - INFO - 成功获取篮球赔率数据
+2026-04-23 19:55:05 - jcbk_data - INFO - 开始处理 1 条赔率数据
+2026-04-23 19:55:06 - jcbk_data - INFO - 赔率数据处理完成
+2026-04-23 19:55:06 - jcbk_data - INFO - 开始更新篮球比赛结果
+2026-04-23 19:55:06 - jcbk_data - INFO - 需要获取赛果的比赛: 0 场
+2026-04-23 19:55:06 - jcbk_data - INFO - 没有有效的比赛需要获取赛果
+2026-04-23 19:55:06 - jcbk_data - WARNING - 没有需要获取赛果的比赛
