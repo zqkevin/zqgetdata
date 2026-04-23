@@ -8,6 +8,111 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 from config import config
 import time
+import logging
+
+# 获取日志记录器
+logger = logging.getLogger('db_core')
+
+
+class QueryWrapper:
+    """
+    查询包装器，自动处理MySQL连接断开问题
+    拦截 .first(), .all(), .one() 等方法的调用，在连接断开时自动重试
+    """
+    
+    def __init__(self, query_obj, db_instance, retry_count=3, retry_delay=2):
+        self._query = query_obj
+        self._db = db_instance
+        self._retry_count = retry_count
+        self._retry_delay = retry_delay
+    
+    def _is_connection_error(self, e):
+        """判断是否为连接断开错误"""
+        error_msg = str(e).lower()
+        return 'mysql server has gone away' in error_msg or 'connectionabortederror' in error_msg
+    
+    def _reconnect(self):
+        """重新连接数据库"""
+        try:
+            if self._db.session:
+                try:
+                    self._db.session.rollback()
+                except:
+                    pass
+                try:
+                    self._db.session.close()
+                except:
+                    pass
+        except:
+            pass
+        self._db.session = None
+        # 重建会话
+        self._db.session = self._db.Session()
+        logger.warning("数据库连接已重建")
+    
+    def _execute_with_retry(self, func, *args, **kwargs):
+        """带重试机制的执行方法"""
+        last_error = None
+        for attempt in range(self._retry_count):
+            try:
+                # 确保会话有效
+                if not self._db.session or not self._db.session.is_active:
+                    self._reconnect()
+                
+                # 重新构建查询对象（因为会话可能已重建）
+                if attempt > 0:
+                    # 注意：这里需要重新创建查询，但保持相同的过滤条件
+                    # 由于SQLAlchemy的query对象是不可变的，我们需要从原始query复制
+                    pass
+                
+                result = func(*args, **kwargs)
+                return result
+            except Exception as e:
+                last_error = e
+                if self._is_connection_error(e):
+                    logger.warning(f"检测到连接断开，尝试重连 ({attempt+1}/{self._retry_count})...")
+                    self._reconnect()
+                    time.sleep(self._retry_delay * (2 ** attempt))  # 指数退避
+                    continue
+                else:
+                    raise e
+        
+        # 所有重试都失败
+        raise last_error
+    
+    def first(self):
+        """拦截 .first() 方法"""
+        return self._execute_with_retry(self._query.first)
+    
+    def all(self):
+        """拦截 .all() 方法"""
+        return self._execute_with_retry(self._query.all)
+    
+    def one(self):
+        """拦截 .one() 方法"""
+        return self._execute_with_retry(self._query.one)
+    
+    def scalar(self):
+        """拦截 .scalar() 方法"""
+        return self._execute_with_retry(self._query.scalar)
+    
+    def count(self):
+        """拦截 .count() 方法"""
+        return self._execute_with_retry(self._query.count)
+    
+    def __getattr__(self, name):
+        """其他方法直接代理到原始查询对象"""
+        attr = getattr(self._query, name)
+        if callable(attr):
+            # 如果是可调用对象，包装它以支持链式调用
+            def wrapper(*args, **kwargs):
+                result = attr(*args, **kwargs)
+                # 如果返回的是查询对象，继续包装
+                if hasattr(result, 'first') and hasattr(result, 'all'):
+                    return QueryWrapper(result, self._db, self._retry_count, self._retry_delay)
+                return result
+            return wrapper
+        return attr
 
 
 class mydb():
@@ -91,9 +196,9 @@ class mydb():
                     except:
                         self.session = None
 
-    def query(self, obj, close=False, retry_count=5, retry_delay=2):
+    def query(self, obj, close=False, retry_count=3, retry_delay=2):
         """
-        查询数据库
+        查询数据库（返回智能包装的查询对象，自动处理连接断开）
         
         Args:
             obj: 要查询的对象类型
@@ -102,44 +207,17 @@ class mydb():
             retry_delay: 重试间隔（秒）
             
         Returns:
-            查询结果
+            QueryWrapper: 包装后的查询对象，支持 .first(), .all() 等方法，自动重试
         """
-        for attempt in range(retry_count):
-            try:
-                # 检查会话是否有效，如果无效则创建新会话
-                if not self.session or not self.session.is_active:
-                    self.session = self.Session()
-                    
-                da = self.session.query(obj)
-                return da
-            except OperationalError as e:
-                # 捕获连接错误，重试
-                if self.session is not None:
-                    try:
-                        self.session.close()
-                    except:
-                        pass
-                    self.session = None
-                if attempt < retry_count - 1:
-                    time.sleep(retry_delay * (2 ** attempt))  # 指数退避策略
-                    continue
-                else:
-                    raise e
-            except Exception as e:
-                if self.session is not None and close:
-                    try:
-                        self.session.close()
-                        self.session = None
-                    except:
-                        self.session = None
-                raise e
-            finally:
-                if close and self.session is not None:
-                    try:
-                        self.session.close()
-                        self.session = None
-                    except:
-                        self.session = None
+        # 检查会话是否有效，如果无效则创建新会话
+        if not self.session or not self.session.is_active:
+            self.session = self.Session()
+        
+        # 创建原始查询对象
+        query_obj = self.session.query(obj)
+        
+        # 返回包装后的查询对象，自动处理连接断开
+        return QueryWrapper(query_obj, self, retry_count, retry_delay)
 
     def delete(self, obj, close=True, retry_count=5, retry_delay=2):
         """

@@ -172,12 +172,45 @@ def handle_league_name(league_name, source_type=None):
         except Exception:
             pass
         
-        # 1. 先尝试通过联赛全称精确查找
-        league = localdb.query(League).filter_by(league_name=league_name).first()
+        # 1. 先尝试通过联赛全称精确查找（带重试机制）
+        league = None
+        for attempt in range(3):  # 最多重试3次
+            try:
+                league = localdb.query(League).filter_by(league_name=league_name).first()
+                break  # 成功则跳出循环
+            except Exception as e:
+                if 'MySQL server has gone away' in str(e) or 'ConnectionAbortedError' in str(e):
+                    log.warning(f"数据库连接断开，尝试重连 ({attempt+1}/3)...")
+                    try:
+                        localdb.rollback()
+                        localdb.session = localdb.Session()  # 重建会话
+                    except:
+                        pass
+                    import time
+                    time.sleep(2 ** attempt)  # 指数退避
+                    continue
+                else:
+                    raise e  # 其他错误直接抛出
         
         if not league:
-            # 2. 尝试通过联赛简称精确查找
-            league = localdb.query(League).filter_by(league_name_abbr=league_name).first()
+            # 2. 尝试通过联赛简称精确查找（带重试机制）
+            for attempt in range(3):
+                try:
+                    league = localdb.query(League).filter_by(league_name_abbr=league_name).first()
+                    break
+                except Exception as e:
+                    if 'MySQL server has gone away' in str(e) or 'ConnectionAbortedError' in str(e):
+                        log.warning(f"数据库连接断开，尝试重连 ({attempt+1}/3)...")
+                        try:
+                            localdb.rollback()
+                            localdb.session = localdb.Session()
+                        except:
+                            pass
+                        import time
+                        time.sleep(2 ** attempt)
+                        continue
+                    else:
+                        raise e
             
         if not league:
             # 3. 关键优化：双向模糊匹配 + 检查会话中的新对象
@@ -195,47 +228,83 @@ def handle_league_name(league_name, source_type=None):
             
             # 如果会话中没有，再查询数据库进行模糊匹配
             if not league:
-                all_leagues = localdb.query(League).all()
-                for lg in all_leagues:
-                    # 跳过空名称
-                    if not lg.league_name and not lg.league_name_abbr:
-                        continue
-                        
-                    is_match = False
-                    
-                    # 只有当传入名称长度>2时才进行模糊匹配，避免误匹配
-                    if len(league_name) > 2:
-                        # 情况1：传入的是全称，匹配已有记录的简称
-                        # 例如：传入"澳大利亚超级联赛"，匹配简称"澳超"
-                        if lg.league_name_abbr and lg.league_name_abbr in league_name:
-                            is_match = True
-                        # 情况2：传入的是简称，匹配已有记录的全称或简称
-                        # 例如：传入"澳超"，匹配全称"澳大利亚超级联赛"或简称"澳超"
-                        elif lg.league_name and league_name in lg.league_name:
-                            is_match = True
-                        elif lg.league_name_abbr and league_name in lg.league_name_abbr:
-                            is_match = True
-                        # 情况3：传入名称包含已有记录的全称
-                        elif lg.league_name and lg.league_name in league_name:
-                            is_match = True
-                    else:
-                        # 短名称精确匹配
-                        if lg.league_name_abbr == league_name or lg.league_name == league_name:
-                            is_match = True
-                    
-                    if is_match:
-                        league = lg
-                        log.debug(f"模糊匹配成功：{league_name} -> {lg.league_name}/{lg.league_name_abbr} (ID: {lg.id})")
+                # 带重试机制的查询
+                all_leagues = None
+                for attempt in range(3):
+                    try:
+                        all_leagues = localdb.query(League).all()
                         break
+                    except Exception as e:
+                        if 'MySQL server has gone away' in str(e) or 'ConnectionAbortedError' in str(e):
+                            log.warning(f"数据库连接断开，尝试重连 ({attempt+1}/3)...")
+                            try:
+                                localdb.rollback()
+                                localdb.session = localdb.Session()
+                            except:
+                                pass
+                            import time
+                            time.sleep(2 ** attempt)
+                            continue
+                        else:
+                            raise e
+                
+                if all_leagues:
+                    for lg in all_leagues:
+                        # 跳过空名称
+                        if not lg.league_name and not lg.league_name_abbr:
+                            continue
+                                            
+                        is_match = False
+                                        
+                        # 只有当传入名称长度>2时才进行模糊匹配，避免误匹配
+                        if len(league_name) > 2:
+                            # 情况1：传入的是全称，匹配已有记录的简称
+                            # 例如：传入“澳大利亚超级联赛”，匹配简称“澳超”
+                            if lg.league_name_abbr and lg.league_name_abbr in league_name:
+                                is_match = True
+                            # 情况2：传入的是简称，匹配已有记录的全称或简称
+                            # 例如：传入“澳超”，匹配全称“澳大利亚超级联赛”或简称“澳超”
+                            elif lg.league_name and league_name in lg.league_name:
+                                is_match = True
+                            elif lg.league_name_abbr and league_name in lg.league_name_abbr:
+                                is_match = True
+                            # 情况3：传入名称包含已有记录的全称
+                            elif lg.league_name and lg.league_name in league_name:
+                                is_match = True
+                        else:
+                            # 短名称精确匹配
+                            if lg.league_name_abbr == league_name or lg.league_name == league_name:
+                                is_match = True
+                                        
+                        if is_match:
+                            league = lg
+                            log.debug(f"模糊匹配成功：{league_name} -> {lg.league_name}/{lg.league_name_abbr} (ID: {lg.id})")
+                            break
         
         if not league:
             # 4. 如果都不存在，则新增联赛
             import random
             # 生成随机的 league_id
             league_id = random.randint(1000, 9999)
-            # 确保 league_id 唯一
-            while localdb.query(League).filter_by(league_id=league_id).first():
-                league_id = random.randint(1000, 9999)
+            # 确保 league_id 唯一（带重试机制）
+            for attempt in range(3):
+                try:
+                    while localdb.query(League).filter_by(league_id=league_id).first():
+                        league_id = random.randint(1000, 9999)
+                    break
+                except Exception as e:
+                    if 'MySQL server has gone away' in str(e) or 'ConnectionAbortedError' in str(e):
+                        log.warning(f"数据库连接断开，尝试重连 ({attempt+1}/3)...")
+                        try:
+                            localdb.rollback()
+                            localdb.session = localdb.Session()
+                        except:
+                            pass
+                        import time
+                        time.sleep(2 ** attempt)
+                        continue
+                    else:
+                        raise e
                     
             league = League()
             league.league_id = league_id
