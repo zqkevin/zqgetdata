@@ -175,7 +175,7 @@ class BjdcResultCollector:
             tuple: (results, pending_matches) - 爬取的赛果列表和待匹配的比赛列表
         """
         try:
-            logger.info('开始获取北京单场比赛结果...')
+            # logger.info('开始获取北京单场比赛结果...')  # 减少日志输出，由调用方统一记录
             
             # 1. 查询数据库中需要获取赛果的比赛
             from sqlalchemy import func
@@ -779,7 +779,9 @@ class BjdcResultCollector:
         # 统计未匹配的比赛
         unmatched_count = len(pending_matches_dict) - len(matched_match_ids)
         
-        logger.info(f"赛果统计 - 待匹配: {len(pending_matches_dict)}, 网页爬取: {len(results)}, 匹配成功: {matched_count}, 未匹配: {unmatched_count}, 保存: {saved_count}")
+        # 只输出匹配成功的统计
+        if matched_count > 0:
+            logger.info(f"赛果统计 - 待匹配: {len(pending_matches_dict)}, 网页爬取: {len(results)}, 匹配成功: {matched_count}, 保存: {saved_count}")
         return saved_count
     
     def _save_results_old_logic(self, results: List[Dict]) -> int:
@@ -887,8 +889,8 @@ class BjdcResultCollector:
         Returns:
             bool: 成功返回 True，失败返回 False
         """
+        # logger.info('开始获取并保存北京单场比赛结果...')  # 减少日志输出，由调用方统一记录
         try:
-            logger.info('开始获取并保存北京单场比赛结果...')
             
             # 获取比赛结果和待匹配列表
             results, pending_matches = self.fetch_match_results()
@@ -904,7 +906,8 @@ class BjdcResultCollector:
             # 保存到数据库（传入待匹配列表）
             saved_count = self.save_results_to_db(results, pending_matches)
             
-            logger.info(f'成功保存 {saved_count} 条赛果记录')
+            if saved_count > 0:
+                logger.info(f'成功保存 {saved_count} 条赛果记录')
             return saved_count > 0
             
         except Exception as e:

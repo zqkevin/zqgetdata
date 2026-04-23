@@ -115,7 +115,7 @@ class BjdcDataCollector:
         """
         try:
             # 获取当前期数
-            logger.info('开始获取北京单场数据...')
+            # logger.info('开始获取北京单场数据...')  # 减少日志输出
             soup = req_info("https://trade.500.com/bjdc/")
             if not soup:
                 logger.error('联网爬取失败！')
@@ -127,7 +127,7 @@ class BjdcDataCollector:
                 return False
             
             # 1. 处理联赛和比赛数据
-            logger.info(f'处理 {qishu} 期联赛和比赛数据...')
+            # logger.info(f'处理 {qishu} 期联赛和比赛数据...')  # 减少日志输出
             tbodys_list = soup.find_all('tbody', id=lambda x: x is not None and x != '')
             for tbody in tbodys_list:
                 self._process_league_and_match(tbody, qishu)
@@ -164,7 +164,14 @@ class BjdcDataCollector:
             else:
                 logger.warning(f'获取 {qishu} 期上下单双数据失败')
             
-            logger.info('北京单场数据采集完成')
+            # 统计本期数据
+            from app.database import BjdcMatch, BjdcOddsChangeLog
+            total_matches = localdb.query(BjdcMatch).filter_by(issue=qishu).count()
+            odds_change_count = localdb.query(BjdcOddsChangeLog).join(
+                BjdcMatch, BjdcOddsChangeLog.match_id == BjdcMatch.match_id
+            ).filter(BjdcMatch.issue == qishu).count()
+            
+            logger.info(f'北京单场数据采集完成 - 共{total_matches}场比赛，发生赔率波动的{odds_change_count}场已经记录')
             return True
             
         except Exception as e:

@@ -58,7 +58,7 @@ class TczqResultCollector:
             tuple: (results, pending_matches) - API返回的赛果列表和待匹配的比赛列表
         """
         try:
-            logger.info('开始获取体彩足球比赛结果...')
+            # logger.info('开始获取体彩足球比赛结果...')  # 减少日志输出
             
             # 1. 查询数据库中需要获取赛果的比赛
             from datetime import timedelta, datetime
@@ -132,7 +132,7 @@ class TczqResultCollector:
                 logger.info('API 返回的赛果为空')
                 return [], valid_matches
             
-            logger.info(f'成功获取 {len(results)} 条比赛结果')
+            logger.debug(f'成功获取 {len(results)} 条比赛结果')  # 改为DEBUG级别
             return results, valid_matches
             
         except Exception as e:
@@ -443,7 +443,9 @@ class TczqResultCollector:
                 logger.error(traceback.format_exc())
                 continue
         
-        logger.info(f"赛果统计 - 待匹配: {len(pending_matches)}, API返回: {len(results)}, 匹配成功: {matched_count}, 未匹配: {unmatched_api_count}, 保存: {saved_count}")
+        # 只输出匹配成功的统计
+        if matched_count > 0:
+            logger.info(f"赛果统计 - 待匹配: {len(pending_matches)}, API返回: {len(results)}, 匹配成功: {matched_count}, 保存: {saved_count}")
         return saved_count
     
     def _save_results_old_logic(self, results: List[Dict]) -> int:
@@ -553,8 +555,8 @@ class TczqResultCollector:
         Returns:
             bool: 成功返回 True，失败返回 False
         """
+        # logger.info('开始获取并保存体彩足球比赛结果...')  # 减少日志输出，由调用方统一记录
         try:
-            logger.info('开始获取并保存体彩足球比赛结果...')
                 
             # 获取比赛结果和待匹配列表
             results, pending_matches = self.fetch_match_results()
@@ -566,13 +568,12 @@ class TczqResultCollector:
             if not results:
                 logger.warning('API 未返回赛果数据')
                 return False
-                
-            logger.info(f'成功获取 {len(results)} 条比赛结果')
-                
+            
             # 保存到数据库（传入待匹配列表）
             saved_count = self.save_results_to_db(results, pending_matches)
-                
-            logger.info(f'成功保存 {saved_count} 条赛果记录')
+            
+            if saved_count > 0:
+                logger.info(f'成功保存 {saved_count} 条赛果记录')
             return saved_count > 0
                 
         except Exception as e:

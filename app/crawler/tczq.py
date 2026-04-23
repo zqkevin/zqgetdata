@@ -629,9 +629,9 @@ class TczqDataCollector:
                 localdb.commit()  # 提交事务
                     
                 # 处理赔率数据（赔率已经在 all_matches 中）
-                logger.info(f'开始处理 {len(all_matches)} 条赔率数据')
+                # logger.info(f'开始处理 {len(all_matches)} 条赔率数据')  # 减少日志输出
                 self._process_odds_data(all_matches)
-                logger.info('赔率数据处理完成')
+                # logger.info('赔率数据处理完成')  # 减少日志输出
                     
                 return matches
             else:
