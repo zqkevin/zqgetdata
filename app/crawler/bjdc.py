@@ -180,6 +180,7 @@ class BjdcDataCollector:
         :param qishu: 期数
         """
         try:
+            new_match_count = 0  # 统计新增比赛数
             game_date = tbody.get('id').split('_')[0] if '_' in tbody.get('id', '') else ''
             
             for tr in tbody.find_all('tr', class_='vs_lines'):
@@ -266,7 +267,8 @@ class BjdcDataCollector:
                             status=0
                         )
                         localdb.add(new_match, close=False)
-                        logger.info(f'新增比赛：{homename} vs {awayname} (联赛:{leaguename})')
+                        new_match_count += 1
+                        # logger.info(f'新增比赛：{homename} vs {awayname} (联赛:{leaguename})')  # 减少日志输出
                     else:
                         # 更新现有比赛的星期和时间
                         if match_week and not existing_match.match_week:
@@ -290,6 +292,10 @@ class BjdcDataCollector:
             logger.error(f'处理联赛和比赛失败：{e}')
             import traceback
             traceback.print_exc()
+        
+        # 输出统计信息
+        if new_match_count > 0:
+            logger.info(f'本期共新增 {new_match_count} 场比赛')
     
     def _get_zjq(self, soup, qishu):
         """
@@ -645,7 +651,7 @@ class BjdcDataCollector:
                     lose_pl=lose_odd
                 )
                 localdb.add(new_odds, close=False)
-                logger.info(f'新增胜负平赔率：match_id={match_id}, 主胜={win_odd}, 平={draw_odd}, 客胜={lose_odd}')
+                # logger.info(f'新增胜负平赔率：match_id={match_id}, 主胜={win_odd}, 平={draw_odd}, 客胜={lose_odd}')  # 减少日志输出
             else:
                 # 记录赔率变化（如果需要）
                 self._log_odds_change(
@@ -728,7 +734,7 @@ class BjdcDataCollector:
                         change_time=datetime.now()
                     )
                     localdb.add(change_log, close=False)
-                    logger.info(f"✓ {match_info}北单{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
+                    # logger.info(f"✓ {match_info}北单{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")  # 减少日志输出，只记录统计
                 else:
                     logger.debug(f"⊘ 忽略小幅波动: {odds_table}.{field} "
                                f"{current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")

@@ -766,7 +766,7 @@ class BjdcResultCollector:
                         localdb.add(new_result, close=False)
                         logger.debug(f"新增赛果：match_id={matched_match_id}")
                 
-                logger.info(f"✅ 保存赛果成功: {match_info['home_name']} vs {match_info['away_name']}, 比分: {home_score}-{away_score}")
+                logger.debug(f"✅ 保存赛果成功: {match_info['home_name']} vs {match_info['away_name']}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
                 
                 saved_count += 1
                 
@@ -867,7 +867,7 @@ class BjdcResultCollector:
                         localdb.add(new_result, close=False)
                         logger.debug(f"新增赛果：match_id={match_id}")
                 
-                logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")
+                logger.debug(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
                 
                 saved_count += 1
                 

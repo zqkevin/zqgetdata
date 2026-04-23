@@ -867,7 +867,7 @@ class TczqDataCollector:
                         change_time=datetime.now()
                     )
                     localdb.add(change_log, close=False)
-                    logger.info(f"✓ {match_info}{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")
+                    # logger.info(f"✓ {match_info}{field}赔率变化: {current_value:.3f} -> {new_value:.3f} (波动{diff:+.3f})")  # 减少日志输出
                 else:
                     logger.debug(f"⊘ 忽略小幅波动: {odds_table}.{field} "
                                f"{current_value:.3f} -> {new_value:.3f} (diff={diff:.3f})")

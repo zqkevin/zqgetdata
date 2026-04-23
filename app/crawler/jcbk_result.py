@@ -350,7 +350,7 @@ class JcbkResultCollector:
                     match.match_status = 2
                     localdb.update(match, close=False)
                 
-                logger.info(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")
+                logger.debug(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
                 saved_count += 1
                 
             except Exception as e:
@@ -427,7 +427,7 @@ class JcbkResultCollector:
                     match.match_status = 8
                     localdb.update(match, close=False)
                 
-                logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")
+                logger.debug(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
                 saved_count += 1
                 
             except Exception as e:

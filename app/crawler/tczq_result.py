@@ -433,7 +433,7 @@ class TczqResultCollector:
                         localdb.add(new_result, close=False)
                         logger.debug(f"新增赛果：match_id={match_id}")
                 
-                logger.info(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")
+                logger.debug(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
                 
                 saved_count += 1
                 
@@ -533,7 +533,7 @@ class TczqResultCollector:
                         localdb.add(new_result, close=False)
                         logger.debug(f"新增赛果：match_id={match_id}")
                 
-                logger.info(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {result_data.get('homeScore')}-{result_data.get('awayScore')}")
+                logger.debug(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {result_data.get('homeScore')}-{result_data.get('awayScore')}")  # 改为DEBUG级别
                 
                 saved_count += 1
                 
