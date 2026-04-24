@@ -35,8 +35,5 @@ RUN mkdir -p /app/app/log/api \
     /app/app/log/lottery \
     /app/app/log/tczq
 
-# 暴露端口（API 服务）
-EXPOSE 8000
-
 # 启动命令（默认运行 main.py）
 CMD ["python", "main.py"]
