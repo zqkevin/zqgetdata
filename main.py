@@ -224,10 +224,22 @@ if __name__ == '__main__':
             print('操作已取消')
             sys.exit(0)
     
-    localdone = chuck_data()
-    if not localdone or rebuild_db:
-        init_db(rebuild=rebuild_db)
-
+    # 稳健的数据库初始化：无论什么情况都确保表结构存在
+    log.info('检查数据库表结构...')
+    try:
+        localdone = chuck_data()
+        if not localdone or rebuild_db:
+            log.info('数据库表不完整或需要重建，开始初始化...')
+            init_result = init_db(rebuild=rebuild_db)
+            if not init_result:
+                log.error('数据库初始化失败，但将继续尝试运行（可能部分功能不可用）')
+        else:
+            log.info('数据库表结构完整')
+    except Exception as e:
+        log.error(f'数据库检查/初始化异常: {str(e)}')
+        log.warning('尝试继续运行，但可能会遇到数据库错误')
+        import traceback
+        log.error(traceback.format_exc())
 
     log.info('开始任务')
     

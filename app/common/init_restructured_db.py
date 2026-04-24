@@ -17,6 +17,8 @@ from app.database import TczqMatch, BjdcMatch
 # 导入 Base 类用于创建表
 from app.database.tczq_models import Base as TczqBase
 from app.database.bjdc_models import Base as BjdcBase
+from app.database.tcbk_models import Base as TcbkBase
+from app.database.digital_lottery_models import Base as DigitalBase
 
 def check_table_exists(engine, table_name):
     """检查表是否存在"""
@@ -100,7 +102,41 @@ def init_restructured_database():
         else:
             print("✓ 北京单场表已存在，无需创建")
         
-        # 5. 显示最终的表结构
+        # 5. 创建竞彩篮球表
+        print("\n=== 初始化竞彩篮球 (TCBK) 表结构 ===")
+        print("开始创建竞彩篮球表结构...")
+        tcbk_tables_created = []
+        for table in TcbkBase.metadata.tables.values():
+            if not check_table_exists(engine, table.name):
+                table.create(bind=engine)
+                tcbk_tables_created.append(table.name)
+        
+        if tcbk_tables_created:
+            print("✓ 竞彩篮球表结构创建完成!")
+            print("已创建的表:")
+            for tbl in tcbk_tables_created:
+                print(f"  - {tbl}")
+        else:
+            print("✓ 竞彩篮球表已存在，无需创建")
+        
+        # 6. 创建数字彩表
+        print("\n=== 初始化数字彩表结构 ===")
+        print("开始创建数字彩表结构...")
+        digital_tables_created = []
+        for table in DigitalBase.metadata.tables.values():
+            if not check_table_exists(engine, table.name):
+                table.create(bind=engine)
+                digital_tables_created.append(table.name)
+        
+        if digital_tables_created:
+            print("✓ 数字彩表结构创建完成!")
+            print("已创建的表:")
+            for tbl in digital_tables_created:
+                print(f"  - {tbl}")
+        else:
+            print("✓ 数字彩表已存在，无需创建")
+        
+        # 7. 显示最终的表结构
         print("\n=== 数据库表结构总览 ===")
         inspector = inspect(engine)
         all_tables = inspector.get_table_names()
@@ -111,7 +147,9 @@ def init_restructured_database():
         base_tables = [t for t in all_tables if t in ['league', 'team', 'team_alias']]
         tczq_tables = [t for t in all_tables if t.startswith('tczq_')]
         bjdc_tables = [t for t in all_tables if t.startswith('bjdc_')]
-        other_tables = [t for t in all_tables if t not in base_tables + tczq_tables + bjdc_tables]
+        tcbk_tables = [t for t in all_tables if t.startswith('tcbk_')]
+        digital_tables = [t for t in all_tables if t.startswith('digital_') or t == 'lottery_draw']
+        other_tables = [t for t in all_tables if t not in base_tables + tczq_tables + bjdc_tables + tcbk_tables + digital_tables]
         
         if base_tables:
             print("\n📊 基础数据表 (公用):")
@@ -126,6 +164,16 @@ def init_restructured_database():
         if bjdc_tables:
             print(f"\n🏆 北京单场表 ({len(bjdc_tables)}个):")
             for tbl in sorted(bjdc_tables):
+                print(f"  - {tbl}")
+        
+        if tcbk_tables:
+            print(f"\n🏀 竞彩篮球表 ({len(tcbk_tables)}个):")
+            for tbl in sorted(tcbk_tables):
+                print(f"  - {tbl}")
+        
+        if digital_tables:
+            print(f"\n🎲 数字彩表 ({len(digital_tables)}个):")
+            for tbl in sorted(digital_tables):
                 print(f"  - {tbl}")
         
         if other_tables:
