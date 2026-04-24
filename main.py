@@ -130,7 +130,9 @@ def up_db():
         from app.database.tczq_models import Base as TczqBase
         from app.database.bjdc_models import Base as BjdcBase
         
-        db_config = config['local']
+        # 使用 config 中配置的 db_type
+        db_type = config.get('db_type', 'local')
+        db_config = config[db_type]
         engine = create_engine(
             f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
         )

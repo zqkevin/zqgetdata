@@ -31,8 +31,9 @@ def test_database_connection():
         bool: 连接成功返回True，否则返回False
     """
     try:
-        # 获取数据库配置
-        db_config = config['local']
+        # 获取数据库配置（使用 config 中配置的 db_type）
+        db_type = config.get('db_type', 'local')
+        db_config = config[db_type]
         
         # 创建数据库引擎
         engine = create_engine(
@@ -57,7 +58,9 @@ def get_engine():
     Returns:
         engine: SQLAlchemy数据库引擎
     """
-    db_config = config['local']
+    # 使用 config 中配置的 db_type
+    db_type = config.get('db_type', 'local')
+    db_config = config[db_type]
     return create_engine(
         f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
     )

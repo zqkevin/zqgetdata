@@ -29,7 +29,9 @@ def init_restructured_database():
     - 保留原有的 league 和 team 表 (公用)
     - 创建新的 tczq_ 和 bjdc_ 开头的独立表
     """
-    db_config = config['local']
+    # 使用 config 中配置的 db_type
+    db_type = config.get('db_type', 'local')
+    db_config = config[db_type]
     engine = create_engine(f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}")
     
     print("=" * 60)
