@@ -124,7 +124,8 @@ class mydb():
         """
         初始化数据库连接
         """
-        db_config = config['local']
+        db_type = config['db_type']
+        db_config = config[db_type]
         self.engine = create_engine(
             f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}",
             pool_pre_ping=True,  # 增加连接保活，提升稳定性

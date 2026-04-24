@@ -38,9 +38,5 @@ RUN mkdir -p /app/app/log/api \
 # 暴露端口（API 服务）
 EXPOSE 8000
 
-# 健康检查
-HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --retries=3 \
-    CMD python -c "import sys; sys.exit(0)" || exit 1
-
 # 启动命令（默认运行 main.py）
 CMD ["python", "main.py"]
