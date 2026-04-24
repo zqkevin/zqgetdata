@@ -155,27 +155,43 @@ def up_db():
 
 def chuck_data():
     """
-    检查数据库中表是否已存在
+    检查数据库中所有必需的表是否已存在
     Returns:
-        bool: 如果表已存在返回True，否则返回False
+        bool: 如果所有表都存在返回True，否则返回False
     """
     from app.database import localdb
     from sqlalchemy import inspect
     
     try:
-        # 检查关键表是否存在（league, team, tczq_match, bjdc_match）
+        # 检查所有必需的表
         inspector = inspect(localdb.engine)
         existing_tables = inspector.get_table_names()
         
-        required_tables = ['league', 'team', 'tczq_match', 'bjdc_match']
-        all_exist = all(table in existing_tables for table in required_tables)
+        # 定义所有必需的表
+        required_tables = [
+            # 基础表
+            'league', 'team', 'team_alias',
+            # 体彩足球 (TCZQ)
+            'tczq_match', 'tczq_spf', 'tczq_rqspf', 'tczq_bqc', 'tczq_jqs', 'tczq_sfc',
+            'tczq_result', 'tczq_odds_change_log',
+            # 北京单场 (BJDC)
+            'bjdc_match', 'bjdc_spf', 'bjdc_rqspf', 'bjdc_bqc', 'bjdc_jqs', 'bjdc_sfc',
+            'bjdc_result', 'bjdc_odds_change_log',
+            # 竞彩篮球 (TCBK)
+            'tcbk_league', 'tcbk_match', 'tcbk_spf', 'tcbk_rfsf', 'tcbk_dxf', 'tcbk_sfc',
+            'tcbk_result', 'bk_odds_change_log',
+            # 数字彩
+            'digital_lottery_draw'
+        ]
         
-        if all_exist:
-            log.info(f'数据库表已存在，共 {len(existing_tables)} 个表')
+        # 检查哪些表缺失
+        missing_tables = [t for t in required_tables if t not in existing_tables]
+        
+        if not missing_tables:
+            log.info(f'数据库表结构完整，共 {len(existing_tables)} 个表')
             return True
         else:
-            missing = [t for t in required_tables if t not in existing_tables]
-            log.warning(f'缺少表: {missing}')
+            log.warning(f'缺少 {len(missing_tables)} 个表: {missing_tables}')
             return False
     except Exception as e:
         log.error(f'检查数据库异常: {str(e)}')
