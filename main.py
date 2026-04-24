@@ -1,6 +1,14 @@
 import random
 import time
 import os
+from config import config
+from sqlalchemy import create_engine
+
+# 全局数据库配置（根据 config['db_type'] 自动选择环境）
+db_type = config.get('db_type', 'local')
+db_config = config[db_type]
+DB_URL = f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
+
 from app.crawler import (
     TczqDataCollector, TczqResultCollector,
     JcbkDataCollector, JcbkResultCollector,
@@ -119,10 +127,6 @@ def up_db():
     try:
         log.info('开始更新数据库表结构')
         
-        # 导入配置和引擎
-        from config import config
-        from sqlalchemy import create_engine
-        
         # 导入各个模块的模型和 Base 类
         from app.database.digital_lottery_models import Base as DigitalBase
         from app.database.tcbk_models import Base as TcbkBase
@@ -130,12 +134,8 @@ def up_db():
         from app.database.tczq_models import Base as TczqBase
         from app.database.bjdc_models import Base as BjdcBase
         
-        # 使用 config 中配置的 db_type
-        db_type = config.get('db_type', 'local')
-        db_config = config[db_type]
-        engine = create_engine(
-            f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
-        )
+        # 使用全局 DB_URL
+        engine = create_engine(DB_URL)
         
         # 创建所有表（如果不存在）
         DigitalBase.metadata.create_all(engine)
