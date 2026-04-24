@@ -96783,3 +96783,5 @@ WHERE bjdc_match.status = %(status_1)s AND bjdc_match.match_time < %(match_time_
 2026-04-24 15:32:07 - bjdc_data - INFO - 开始更新北京单场足球比赛结果
 2026-04-24 15:32:07 - bjdc_data - INFO - 没有需要获取赛果的比赛
 2026-04-24 15:32:07 - bjdc_data - WARNING - 没有需要获取赛果的比赛
+2026-04-24 17:57:36 - bjdc_data - INFO - 开始更新北京单场足球比赛信息
+2026-04-24 17:57:37 - bjdc_data - INFO - 当前期数：26048
