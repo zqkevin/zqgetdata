@@ -13,7 +13,7 @@ DB_USER = os.getenv('DB_USER', 'soccer')
 DB_PASSWORD = os.getenv('DB_PASSWORD', '123456')
 DB_NAME = os.getenv('DB_NAME', 'soccer_data')
 config = {
-    'db_type': 'local',
+    'db_type': 'ubutun',  # Docker 容器中使用 ubutun 配置
     'database': {
         'host': '172.18.0.4',
         'port': 3306,
