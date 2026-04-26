@@ -213,14 +213,27 @@ class LotteryDataCollector:
     
     def update_latest_lottery_data(self) -> int:
         """
-        更新最新的彩票数据（只获取昨天的数据）
+        更新最新的彩票数据（根据各彩种开奖规律智能判断）
         
         Returns:
             int: 成功保存的记录数
         """
         log.info('开始更新最新彩票数据...')
         
+        # 各彩种的开奖星期配置 (0=周一, 6=周日)
+        lottery_schedule = {
+            'dlt': [0, 2, 5],      # 超级大乐透: 周一、三、六
+            'pl3': list(range(7)),  # 排列3: 每天
+            'pl5': list(range(7)),  # 排列5: 每天
+            'qxc': [1, 4, 6]       # 七星彩: 周二、五、日
+        }
+        
         lottery_types_to_fetch = []
+        
+        from datetime import timedelta
+        today = datetime.now().date()
+        today_weekday = today.weekday()
+        yesterday = today - timedelta(days=1)
         
         # 检查哪些彩种需要获取
         for lottery_type, info in self.lottery_mapping.items():
@@ -233,18 +246,29 @@ class LotteryDataCollector:
                 log.info(f"{info['lottery_name']} 数据库中无记录，需要获取")
                 continue
             
-            from datetime import timedelta
-            today = datetime.now().date()
-            yesterday = today - timedelta(days=1)
+            latest_date = latest_draw.draw_time.date()
+            days_since_latest = (today - latest_date).days
             
-            # 只有当最新一期早于昨天时，才尝试获取
-            if latest_draw.draw_time and latest_draw.draw_time.date() < yesterday:
+            # 获取该彩种的开奖星期配置
+            schedule = lottery_schedule.get(lottery_type, list(range(7)))
+            
+            # 判断今天是否是开奖日
+            is_today_draw_day = today_weekday in schedule
+            
+            # 判断逻辑：
+            # 1. 如果今天是开奖日，且最新数据不是今天 → 需要获取
+            # 2. 如果今天不是开奖日，但最新数据早于昨天 → 需要获取（可能漏采）
+            # 3. 其他情况 → 无需获取
+            
+            if is_today_draw_day and latest_date != today:
                 lottery_types_to_fetch.append(lottery_type)
-                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），早于昨天（{yesterday}），尝试获取")
-            elif latest_draw.draw_time and latest_draw.draw_time.date() == yesterday:
-                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），已是昨天数据，无需获取")
+                weekday_cn = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][today_weekday]
+                log.info(f"{info['lottery_name']} 今天是开奖日({weekday_cn})，最新一期为{latest_draw.draw_num}期（{latest_date}），尝试获取今日数据")
+            elif not is_today_draw_day and latest_date < yesterday:
+                lottery_types_to_fetch.append(lottery_type)
+                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_date}），早于昨天，可能存在漏采，尝试获取")
             else:
-                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），已是今天数据，无需获取")
+                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_date}），数据已最新，无需获取")
         
         if not lottery_types_to_fetch:
             log.info('所有彩种今日数据已存在，无需获取')
