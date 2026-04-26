@@ -265,8 +265,6 @@ class JcbkResultCollector:
                 key = (match_date, home_team, away_team)
                 api_results_map[key] = result_data
         
-        logger.info(f"API 返回 {len(results)} 条赛果，赛果获取成功")
-        
         # 遍历需要获取赛果的比赛，去 API 结果中查找匹配
         for match in pending_matches:
             try:
@@ -359,9 +357,10 @@ class JcbkResultCollector:
                 logger.error(traceback.format_exc())
                 continue
         
-        # 只输出匹配成功的统计
-        if matched_count > 0:
-            logger.info(f"赛果统计 - 待匹配: {len(pending_matches)}, API返回: {len(results)}, 匹配成功: {matched_count}, 保存: {saved_count}")
+        # 输出赛果获取统计
+        if len(pending_matches) > 0:
+            success_rate = (saved_count / len(pending_matches) * 100) if pending_matches else 0
+            logger.info(f"赛果获取完成 - 需获取: {len(pending_matches)}场, 成功: {saved_count}场, 未匹配: {unmatched_api_count}场, 成功率: {success_rate:.1f}%")
         return saved_count
     
     def _save_results_old_logic(self, results: list) -> int:
@@ -438,7 +437,10 @@ class JcbkResultCollector:
                 logger.error(traceback.format_exc())
                 continue
         
-        logger.info(f"赛果统计 - 总数: {len(results)}, 匹配: {matched_count}, 未匹配: {unmatched_count}, 保存: {saved_count}")
+        # 输出赛果获取统计
+        if len(results) > 0:
+            success_rate = (saved_count / len(results) * 100) if results else 0
+            logger.info(f"赛果获取完成 - API返回: {len(results)}场, 成功: {saved_count}场, 未匹配: {unmatched_count}场, 成功率: {success_rate:.1f}%")
         return saved_count
     
     def get_and_save_results(self) -> bool:
