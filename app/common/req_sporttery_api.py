@@ -747,6 +747,12 @@ class SportteryAPI:
             # 一次请求获取所有彩种的数据
             data = self._request(retype='digital', endpoint='draw', params=params)
             response_data = data.get('value', {})
+            
+            # 调试日志：打印API响应的键名
+            from app.log import api_log
+            api_log.debug(f'API返回的顶层键: {list(response_data.keys())}')
+            for key, value in response_data.items():
+                api_log.debug(f'  {key}: {type(value).__name__}, 内容预览: {str(value)[:150]}')
                 
             # 处理返回的数据
             # API 返回的数据键可能是缩写 (如'pls'代表排列 3/5)
@@ -758,14 +764,29 @@ class SportteryAPI:
                 lottery_data = None
                 if api_key in response_data:
                     lottery_data = response_data[api_key]
+                    api_log.debug(f'{lottery_type} 使用API键 {api_key} 获取数据')
                 elif lottery_type in response_data:
                     lottery_data = response_data[lottery_type]
+                    api_log.debug(f'{lottery_type} 使用原始键 {lottery_type} 获取数据')
+                else:
+                    api_log.warning(f'{lottery_type} 在API响应中未找到 (尝试了键: {api_key}, {lottery_type})')
                 
                 # 检查是否是空数据 (某些彩种可能当天没有开奖)
                 if lottery_data and isinstance(lottery_data, dict) and lottery_data.get('lotteryDrawNum'):
                     result[lottery_type] = lottery_data
                 else:
-                    result[lottery_type] = {'error': '未找到对应彩种的数据 (可能当天未开奖)'}
+                    error_msg = '未找到对应彩种的数据'
+                    if not lottery_data:
+                        error_msg += ' (API返回为空)'
+                    elif not isinstance(lottery_data, dict):
+                        error_msg += f' (数据类型异常: {type(lottery_data).__name__})'
+                    elif not lottery_data.get('lotteryDrawNum'):
+                        error_msg += ' (缺少期号字段)'
+                    else:
+                        error_msg += ' (可能当天未开奖)'
+                    
+                    result[lottery_type] = {'error': error_msg}
+                    api_log.warning(f'{lottery_type}: {error_msg}')
         except Exception as e:
             # 如果整体请求失败，为所有有效彩种设置错误信息
             for lottery_type in valid_lottery_types:

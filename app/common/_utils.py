@@ -694,6 +694,16 @@ def get_or_create_tcbk_league(league_id: int, league_name: str, league_name_abbr
 
 
 def req_info(url, qishu=None):
+    """
+    获取网页信息并解析为 BeautifulSoup 对象
+    
+    Args:
+        url: 目标URL
+        qishu: 期数参数（可选）
+    
+    Returns:
+        BeautifulSoup 对象或 None
+    """
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
@@ -709,24 +719,48 @@ def req_info(url, qishu=None):
         url = url if qishu is None else f'{url}?e={qishu}'
         soup = None
         session = requests.Session()
-        retry = Retry(total=3, backoff_factor=0.1, status_forcelist=[ 500, 502, 503, 504 ])
-        adapter = HTTPAdapter(max_retries=retry)
+        # 增强重试策略：包括连接错误
+        retry = Retry(
+            total=3, 
+            backoff_factor=1,  # 增加退避时间：1s, 2s, 4s
+            status_forcelist=[500, 502, 503, 504],
+            allowed_methods=['GET'],
+            raise_on_status=False
+        )
+        adapter = HTTPAdapter(max_retries=retry, pool_connections=10, pool_maxsize=10)
         session.mount('http://', adapter)
         session.mount('https://', adapter)
+        
         for i in range(3):
-            response = session.get(url=url, headers=headers, cookies=cookies, timeout=10)
-            if response.status_code == 200:
-                response.encoding = 'gbk'
-                soup = BeautifulSoup(response.text, 'html.parser')
-                return soup
+            try:
+                response = session.get(url=url, headers=headers, cookies=cookies, timeout=15)
+                if response.status_code == 200:
+                    response.encoding = 'gbk'
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    log.debug(f"成功获取页面: {url}")
+                    return soup
+                else:
+                    log.warning(f"HTTP {response.status_code}, 等待后重试...")
+            except requests.exceptions.ConnectionError as e:
+                log.warning(f"连接失败 (尝试 {i+1}/3): {str(e)}")
+            except requests.exceptions.Timeout as e:
+                log.warning(f"请求超时 (尝试 {i+1}/3): {str(e)}")
+            
+            # 如果不是最后一次尝试，则等待5-10秒后重试
+            if i < 2:
+                wait_time = random.randint(5, 10)  # 随机等待5-10秒
+                log.info(f"网络波动，等待 {wait_time} 秒后重试...")
+                time.sleep(wait_time)
             else:
-                time.sleep(5)
+                log.error(f"已达到最大重试次数，无法获取页面: {url}")
+        
         if soup:
             return soup
         else:
+            log.error(f"无法获取页面内容: {url}")
             return None
     except Exception as e:
-        log.error(f"Error in get_bdgame_info: {traceback.format_exc()}")
+        log.error(f"Error in req_info: {traceback.format_exc()}")
         return None
 
 

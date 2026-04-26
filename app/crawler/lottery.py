@@ -97,6 +97,17 @@ class LotteryDataCollector:
     def _save_lottery_data(self, lottery_type, data):
         """保存彩种数据到数据库"""
         try:
+            # 检查是否是错误响应
+            if isinstance(data, dict) and 'error' in data:
+                log.warning(f"{lottery_type} API返回错误: {data['error']}")
+                return False
+            
+            # 验证必要字段是否存在
+            draw_num = data.get('lotteryDrawNum')
+            if not draw_num:
+                log.warning(f"{lottery_type} API返回数据缺少期号，原始数据: {data}")
+                return False
+            
             model_info = self.lottery_mapping.get(lottery_type)
             if not model_info:
                 log.error(f"未知的彩种类型：{lottery_type}")
@@ -108,18 +119,18 @@ class LotteryDataCollector:
             # 检查是否已存在
             existing = localdb.query(DigitalLotteryDraw).filter(
                 DigitalLotteryDraw.lottery_code == lottery_code,
-                DigitalLotteryDraw.draw_num == data.get('lotteryDrawNum')
+                DigitalLotteryDraw.draw_num == draw_num
             ).first()
             
             if existing:
-                log.info(f"{lottery_name}第{data.get('lotteryDrawNum')}期已存在，跳过")
+                log.info(f"{lottery_name}第{draw_num}期已存在，跳过")
                 return False
             
-            # 创建新记录
+            # 创建新记录 - 使用已验证的 draw_num
             draw = DigitalLotteryDraw(
                 lottery_code=lottery_code,
                 lottery_name=lottery_name,
-                draw_num=data.get('lotteryDrawNum'),
+                draw_num=draw_num,
                 draw_time=self._convert_datetime(data.get('lotteryDrawTime')),
                 draw_result=data.get('lotteryDrawResult'),
                 unsorted_draw_result=data.get('unsortedLotteryDrawResult'),
@@ -143,7 +154,7 @@ class LotteryDataCollector:
                 self._save_prize_levels(draw.id, prize_levels)
                 localdb.commit()
             
-            log.info(f"成功保存{lottery_name}第{data.get('lotteryDrawNum')}期数据")
+            log.info(f"成功保存{lottery_name}第{draw_num}期数据")
             return True
             
         except Exception as e:
@@ -183,12 +194,15 @@ class LotteryDataCollector:
                 
                 lottery_data = data[lottery_type]
                 
+                # 调试日志：打印API返回的数据结构（前100个字符）
+                log.debug(f'{lottery_type} API返回数据类型: {type(lottery_data)}, 内容预览: {str(lottery_data)[:200]}')
+                
                 # 保存数据
                 if self._save_lottery_data(lottery_type, lottery_data):
                     saved_count += 1
                     log.info(f'{self.lottery_mapping[lottery_type]["lottery_name"]}数据保存成功')
                 else:
-                    log.debug(f'{self.lottery_mapping[lottery_type]["lottery_name"]}数据已存在，跳过')
+                    log.debug(f'{self.lottery_mapping[lottery_type]["lottery_name"]}数据已存在或无效，跳过')
                     
         except Exception as e:
             log.error(f'获取彩票数据异常：{e}')
@@ -199,7 +213,7 @@ class LotteryDataCollector:
     
     def update_latest_lottery_data(self) -> int:
         """
-        更新最新的彩票数据（只获取今天的数据）
+        更新最新的彩票数据（只获取昨天的数据）
         
         Returns:
             int: 成功保存的记录数
@@ -219,10 +233,18 @@ class LotteryDataCollector:
                 log.info(f"{info['lottery_name']} 数据库中无记录，需要获取")
                 continue
             
+            from datetime import timedelta
             today = datetime.now().date()
-            if latest_draw.draw_time and latest_draw.draw_time.date() != today:
+            yesterday = today - timedelta(days=1)
+            
+            # 只有当最新一期早于昨天时，才尝试获取
+            if latest_draw.draw_time and latest_draw.draw_time.date() < yesterday:
                 lottery_types_to_fetch.append(lottery_type)
-                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），今日暂无新数据，尝试获取")
+                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），早于昨天（{yesterday}），尝试获取")
+            elif latest_draw.draw_time and latest_draw.draw_time.date() == yesterday:
+                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），已是昨天数据，无需获取")
+            else:
+                log.info(f"{info['lottery_name']} 最新一期为{latest_draw.draw_num}期（{latest_draw.draw_time.date()}），已是今天数据，无需获取")
         
         if not lottery_types_to_fetch:
             log.info('所有彩种今日数据已存在，无需获取')

@@ -17,12 +17,11 @@ LOG_ROOT = Path(__file__).parent
 LOG_ROOT.mkdir(exist_ok=True)
 
 
-def get_log_dir(log_type: str, create_monthly_folder: bool = True) -> Path:
+def get_log_dir(create_monthly_folder: bool = True) -> Path:
     """
-    获取指定类型的日志目录
+    获取日志目录（所有模块共用）
     
     Args:
-        log_type: 日志类型 (tczq, bjdc, lottery, jcbk, api)
         create_monthly_folder: 是否创建按月分类的文件夹
         
     Returns:
@@ -31,9 +30,9 @@ def get_log_dir(log_type: str, create_monthly_folder: bool = True) -> Path:
     if create_monthly_folder:
         # 按年月创建子文件夹
         year_month = datetime.now().strftime('%Y-%m')
-        log_dir = LOG_ROOT / log_type / year_month
+        log_dir = LOG_ROOT / year_month
     else:
-        log_dir = LOG_ROOT / log_type
+        log_dir = LOG_ROOT
     
     # 确保目录存在
     log_dir.mkdir(parents=True, exist_ok=True)
@@ -50,8 +49,8 @@ def setup_logger(
     配置并返回一个日志记录器
     
     Args:
-        name: 日志记录器名称
-        log_type: 日志类型 (tczq, bjdc, lottery, jcbk, api)
+        name: 日志记录器名称（会作为日志中的标识）
+        log_type: 日志类型（仅用于兼容，实际不再使用）
         level: 日志级别
         console_output: 是否同时输出到控制台
         
@@ -59,31 +58,43 @@ def setup_logger(
         logging.Logger: 配置好的日志记录器
     """
     logger = logging.getLogger(name)
-    logger.setLevel(level)
+    logger.setLevel(logging.DEBUG)  # 设置为最低级别，让所有 handler 可以过滤
     
     # 避免重复添加 handler
     if logger.handlers:
         return logger
     
-    # 获取日志目录
-    log_dir = get_log_dir(log_type)
+    # 获取统一的日志目录（所有模块共用）
+    log_dir = get_log_dir()
     
-    # 日志文件名
-    log_file = log_dir / f"{log_type}_data.log"
-    
-    # 创建文件处理器
-    file_handler = logging.FileHandler(log_file, encoding='utf-8')
-    file_handler.setLevel(level)
-    
-    # 设置日志格式
+    # 设置日志格式（包含 logger 名称作为模块标识）
     formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
-    file_handler.setFormatter(formatter)
     
-    # 添加到记录器
-    logger.addHandler(file_handler)
+    # 1. INFO 级别日志处理器（只记录 INFO）
+    info_file = log_dir / "info.log"
+    info_handler = logging.FileHandler(info_file, encoding='utf-8')
+    info_handler.setLevel(logging.INFO)
+    info_handler.addFilter(lambda record: record.levelno == logging.INFO)
+    info_handler.setFormatter(formatter)
+    logger.addHandler(info_handler)
+    
+    # 2. WARNING 级别日志处理器（只记录 WARNING）
+    warning_file = log_dir / "warning.log"
+    warning_handler = logging.FileHandler(warning_file, encoding='utf-8')
+    warning_handler.setLevel(logging.WARNING)
+    warning_handler.addFilter(lambda record: record.levelno == logging.WARNING)
+    warning_handler.setFormatter(formatter)
+    logger.addHandler(warning_handler)
+    
+    # 3. ERROR 级别日志处理器（记录 ERROR 和 CRITICAL）
+    error_file = log_dir / "error.log"
+    error_handler = logging.FileHandler(error_file, encoding='utf-8')
+    error_handler.setLevel(logging.ERROR)
+    error_handler.setFormatter(formatter)
+    logger.addHandler(error_handler)
     
     # 可选：输出到控制台
     if console_output:
@@ -141,7 +152,7 @@ def get_logger(log_type: str, custom_name: str = None) -> logging.Logger:
 
 def cleanup_old_logs(months_to_keep: int = 6):
     """
-    清理指定月数之前的日志文件
+    清理指定月数之前的日志文件夹
     
     Args:
         months_to_keep: 保留最近几个月的日志
@@ -151,29 +162,24 @@ def cleanup_old_logs(months_to_keep: int = 6):
     cutoff_date = datetime.now() - timedelta(days=months_to_keep * 30)
     cutoff_year_month = cutoff_date.strftime('%Y-%m')
     
-    for log_type in ['tczq', 'bjdc', 'jcbk', 'lottery', 'api']:
-        type_dir = LOG_ROOT / log_type
-        if not type_dir.exists():
+    # 遍历所有年月文件夹
+    for folder in LOG_ROOT.iterdir():
+        if not folder.is_dir():
             continue
         
-        # 遍历所有年月文件夹
-        for folder in type_dir.iterdir():
-            if not folder.is_dir():
-                continue
+        try:
+            # 尝试解析文件夹名称为年月格式
+            folder_date = datetime.strptime(folder.name, '%Y-%m')
             
-            try:
-                # 尝试解析文件夹名称为年月格式
-                folder_date = datetime.strptime(folder.name, '%Y-%m')
+            # 如果早于截止日期，删除整个文件夹（包括 info/warning/error 日志）
+            if folder_date < datetime.strptime(cutoff_year_month, '%Y-%m'):
+                import shutil
+                shutil.rmtree(folder)
+                api_log.info(f"已清理旧日志文件夹：{folder}")
                 
-                # 如果早于截止日期，删除整个文件夹
-                if folder_date < datetime.strptime(cutoff_year_month, '%Y-%m'):
-                    import shutil
-                    shutil.rmtree(folder)
-                    api_log.info(f"已清理旧日志文件夹：{folder}")
-                    
-            except ValueError:
-                # 不是年月格式的文件夹，跳过
-                continue
+        except ValueError:
+            # 不是年月格式的文件夹，跳过
+            continue
 
 
 __all__ = [

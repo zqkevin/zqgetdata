@@ -134,35 +134,55 @@ class BjdcDataCollector:
             
             # 2. 获取总进球数据
             logger.info(f'获取 {qishu} 期总进球数据...')
-            zjq_soup = req_info('https://trade.500.com/bjdc/project_fq_jq.php', qishu)
-            if zjq_soup:
-                self._get_zjq(zjq_soup, qishu)
-            else:
-                logger.warning(f'获取 {qishu} 期总进球数据失败')
+            try:
+                zjq_soup = req_info('https://trade.500.com/bjdc/project_fq_jq.php', qishu)
+                if zjq_soup:
+                    self._get_zjq(zjq_soup, qishu)
+                else:
+                    logger.warning(f'获取 {qishu} 期总进球数据失败，将跳过此步骤')
+            except Exception as e:
+                logger.error(f'获取总进球数据异常: {str(e)}')
+                import traceback
+                logger.error(traceback.format_exc())
             
             # 3. 获取比分数据
             logger.info(f'获取 {qishu} 期比分数据...')
-            bifen_soup = req_info('https://trade.500.com/bjdc/project_fq_bf.php', qishu)
-            if bifen_soup:
-                self._get_bifen(bifen_soup, qishu)
-            else:
-                logger.warning(f'获取 {qishu} 期比分数据失败')
+            try:
+                bifen_soup = req_info('https://trade.500.com/bjdc/project_fq_bf.php', qishu)
+                if bifen_soup:
+                    self._get_bifen(bifen_soup, qishu)
+                else:
+                    logger.warning(f'获取 {qishu} 期比分数据失败，将跳过此步骤')
+            except Exception as e:
+                logger.error(f'获取比分数据异常: {str(e)}')
+                import traceback
+                logger.error(traceback.format_exc())
             
             # 4. 获取半全场数据
             logger.info(f'获取 {qishu} 期半全场数据...')
-            bq_soup = req_info('https://trade.500.com/bjdc/project_fq_bq.php', qishu)
-            if bq_soup:
-                self._get_bqc(bq_soup, qishu)
-            else:
-                logger.warning(f'获取 {qishu} 期半全场数据失败')
+            try:
+                bq_soup = req_info('https://trade.500.com/bjdc/project_fq_bq.php', qishu)
+                if bq_soup:
+                    self._get_bqc(bq_soup, qishu)
+                else:
+                    logger.warning(f'获取 {qishu} 期半全场数据失败，将跳过此步骤')
+            except Exception as e:
+                logger.error(f'获取半全场数据异常: {str(e)}')
+                import traceback
+                logger.error(traceback.format_exc())
             
             # 5. 获取上下单双数据
             logger.info(f'获取 {qishu} 期上下单双数据...')
-            ds_soup = req_info('https://trade.500.com/bjdc/project_fq_ds.php', qishu)
-            if ds_soup:
-                self._get_dxs(ds_soup, qishu)
-            else:
-                logger.warning(f'获取 {qishu} 期上下单双数据失败')
+            try:
+                ds_soup = req_info('https://trade.500.com/bjdc/project_fq_ds.php', qishu)
+                if ds_soup:
+                    self._get_dxs(ds_soup, qishu)
+                else:
+                    logger.warning(f'获取 {qishu} 期上下单双数据失败，将跳过此步骤')
+            except Exception as e:
+                logger.error(f'获取上下单双数据异常: {str(e)}')
+                import traceback
+                logger.error(traceback.format_exc())
             
             # 统计本期数据
             from app.database import BjdcMatch, BjdcOddsChangeLog

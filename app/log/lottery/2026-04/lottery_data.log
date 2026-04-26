@@ -8551,3 +8551,30 @@
 2026-04-24 17:57:36 - lottery_data - INFO - 排列 5第26103期已存在，跳过
 2026-04-24 17:57:36 - lottery_data - INFO - 七星彩第26044期已存在，跳过
 2026-04-24 17:57:36 - lottery_data - INFO - 彩票数据更新完成，成功保存 0 条记录
+2026-04-27 07:25:13 - lottery_data - INFO - 开始获取 4 个彩种数据...
+2026-04-27 07:25:14 - lottery_data - WARNING - dlt API返回错误: cannot import name 'common_log' from 'app.log' (E:\my_prog\zqgetdata\app\log\__init__.py)
+2026-04-27 07:25:14 - lottery_data - WARNING - pl3 API返回错误: cannot import name 'common_log' from 'app.log' (E:\my_prog\zqgetdata\app\log\__init__.py)
+2026-04-27 07:25:14 - lottery_data - WARNING - pl5 API返回错误: cannot import name 'common_log' from 'app.log' (E:\my_prog\zqgetdata\app\log\__init__.py)
+2026-04-27 07:25:14 - lottery_data - WARNING - qxc API返回错误: cannot import name 'common_log' from 'app.log' (E:\my_prog\zqgetdata\app\log\__init__.py)
+2026-04-27 07:25:50 - lottery_data - INFO - 开始获取 4 个彩种数据...
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存9条奖级信息
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存超级大乐透第26044期数据
+2026-04-27 07:25:50 - lottery_data - INFO - 超级大乐透数据保存成功
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存3条奖级信息
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存排列 3第26106期数据
+2026-04-27 07:25:50 - lottery_data - INFO - 排列 3数据保存成功
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存1条奖级信息
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存排列 5第26106期数据
+2026-04-27 07:25:50 - lottery_data - INFO - 排列 5数据保存成功
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存6条奖级信息
+2026-04-27 07:25:50 - lottery_data - INFO - 成功保存七星彩第26046期数据
+2026-04-27 07:25:50 - lottery_data - INFO - 七星彩数据保存成功
+2026-04-27 07:31:40 - lottery_data - INFO - 开始更新最新彩票数据...
+2026-04-27 07:31:40 - lottery_data - INFO - 超级大乐透 最新一期为26044期（2026-04-25），早于昨天（2026-04-26），尝试获取
+2026-04-27 07:31:40 - lottery_data - INFO - 排列 3 最新一期为26106期（2026-04-26），已是昨天数据，无需获取
+2026-04-27 07:31:40 - lottery_data - INFO - 排列 5 最新一期为26106期（2026-04-26），已是昨天数据，无需获取
+2026-04-27 07:31:40 - lottery_data - INFO - 七星彩 最新一期为26046期（2026-04-26），已是昨天数据，无需获取
+2026-04-27 07:31:40 - lottery_data - INFO - 开始获取 1 个彩种数据
+2026-04-27 07:31:40 - lottery_data - INFO - 开始获取 1 个彩种数据...
+2026-04-27 07:31:40 - lottery_data - INFO - 超级大乐透第26044期已存在，跳过
+2026-04-27 07:31:40 - lottery_data - INFO - 彩票数据更新完成，成功保存 0 条记录
