@@ -501,7 +501,8 @@ class SportteryAPI:
         value = data.get('value', {})
         total = value.get('total', 0)
         pages = value.get('pages', 0)
-        log.info(f"获取篮球比赛赛果信息，共{total}条，{pages}页")
+        from app.log import jcbk_log as basketball_log
+        basketball_log.info(f"获取篮球比赛赛果信息，共{total}条，{pages}页")
         
         # 获取第一页数据
         pageNo = params.get('pageNo', 1)

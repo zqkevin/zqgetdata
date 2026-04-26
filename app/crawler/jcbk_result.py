@@ -265,7 +265,7 @@ class JcbkResultCollector:
                 key = (match_date, home_team, away_team)
                 api_results_map[key] = result_data
         
-        logger.info(f"API 返回 {len(results)} 条赛果，构建索引 {len(api_results_map)} 条")
+        logger.info(f"API 返回 {len(results)} 条赛果，赛果获取成功")
         
         # 遍历需要获取赛果的比赛，去 API 结果中查找匹配
         for match in pending_matches:
