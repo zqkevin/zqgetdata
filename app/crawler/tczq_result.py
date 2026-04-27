@@ -67,13 +67,14 @@ class TczqResultCollector:
             cutoff_time = datetime.now() - timedelta(hours=4)
             abnormal_cutoff_time = datetime.now() - timedelta(days=4)
             
-            # 关键修复：只有 status=0(待开赛) 和 status=1(进行中) 的比赛才需要获取赛果
-            # - status=0: 待开赛，但 match_time < cutoff_time 说明实际已开赛但未更新状态
-            # - status=1: 进行中，比赛正在进行
-            # - status>=2: 已有明确结果或异常，不需要再获取
+            # 关键修复：只有 status < 3 的比赛才需要获取赛果
+            # - status=0: 待开赛（实际已开赛但未更新状态）
+            # - status=1: 进行中
+            # - status=2: 已完成（但可能未获取赛果数据）
+            # - status>=3: 已有明确结果或异常，不需要再获取
             pending_matches = localdb.query(TczqMatch).filter(
                 TczqMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
-                TczqMatch.status.in_([0, 1])  # 只获取待开赛或进行中的比赛
+                TczqMatch.status < 3  # 只获取 status < 3 的比赛
             ).all()
             
             if not pending_matches:
@@ -178,7 +179,7 @@ class TczqResultCollector:
         from sqlalchemy import func
         matches = localdb.query(TczqMatch).filter(
             func.date(TczqMatch.match_time) == match_date,
-            TczqMatch.status.in_([0, 1])  # 只匹配待开赛或进行中的比赛
+            TczqMatch.status < 3  # 只匹配 status < 3 的比赛
         ).all()
         
         if not matches:

@@ -188,10 +188,10 @@ class BjdcResultCollector:
             # 2. 且未获取赛果（status != 8 AND status != 9）
             #    - status=8: 已获取赛果（正常完成）→ 不需要获取
             #    - status=9: 异常状态（延期、取消、腰斩等）→ 不需要获取
-            # 关键修复：只有 status=0(待开赛) 和 status=1(进行中) 的比赛才需要获取赛果
+            # 关键修复：只有 status < 3 的比赛才需要获取赛果
             pending_matches = localdb.query(BjdcMatch).filter(
                 BjdcMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
-                BjdcMatch.status.in_([0, 1])  # 只获取待开赛或进行中的比赛
+                BjdcMatch.status < 3  # 只获取 status < 3 的比赛
             ).all()
             
             if not pending_matches:
