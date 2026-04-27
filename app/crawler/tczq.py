@@ -84,7 +84,7 @@ class TczqDataCollector:
         if failed_count > 0:
             logger.warning(f'联赛信息处理完成，成功 {len(processed_leagues)} 个，失败 {failed_count} 个')
         else:
-            logger.info(f'联赛信息处理完成，共处理 {len(processed_leagues)} 个联赛')
+            logger.debug(f'联赛信息处理完成，共处理 {len(processed_leagues)} 个联赛')
     
     def _find_match_by_league_and_time(self, league_id: int, match_date: str, match_time: str,
                                        home_team_name: str, away_team_name: str, 
@@ -468,11 +468,6 @@ class TczqDataCollector:
                     logger.info('获取到的比赛列表为空')
                     return False
                 
-                # 处理联赛信息
-                logger.info(f'开始处理 {len(league_list_raw)} 个联赛信息')
-                self._process_league_info(league_list_raw)
-                logger.info('联赛信息处理完成')
-                
                 # 构建联赛 ID 到名称和简称的映射
                 league_map = {}
                 for lg in league_list_raw:
@@ -484,48 +479,52 @@ class TczqDataCollector:
                             league_map[lg_id] = (lg_name, lg_abbr)  # 存储为元组
                     except (ValueError, TypeError):
                         continue
-                logger.debug(f'构建联赛映射: {len(league_map)} 个')
                     
                 # 处理比赛信息
-                logger.info(f'开始处理 {len(all_matches)} 条比赛数据')
                 matches = self._process_match_info(all_matches, league_map)
                 
             if not matches:
                 logger.warning('没有有效的比赛数据')
                 return False
                 
-            # 批量保存到数据库
-            saved_count = 0
+            # 统计新增和更新数量
+            new_count = 0
+            update_count = 0
+            odds_change_count = 0
+            
             for match_data in matches:
                 try:
                     existing_match = localdb.query(TczqMatch).filter_by(match_id=match_data['match_id']).first()
                         
                     if existing_match:
                         # 更新现有记录
-                        logger.debug(f"更新比赛: match_id={match_data['match_id']}, bjdc_match_id={match_data.get('bjdc_match_id')}")
                         for key, value in match_data.items():
                             if hasattr(existing_match, key):
-                                old_value = getattr(existing_match, key)
                                 setattr(existing_match, key, value)
-                                if key == 'bjdc_match_id':
-                                    logger.info(f"✓ 更新 bjdc_match_id: {old_value} -> {value} (match_id={match_data['match_id']})")
                         localdb.update(existing_match, close=False)
-                        logger.debug(f"已调用localdb.update，准备提交")
+                        update_count += 1
                     else:
                         # 创建新记录
                         new_match = TczqMatch(**match_data)
                         localdb.add(new_match, close=False)
-                        if match_data.get('bjdc_match_id'):
-                            logger.info(f"✓ 新建比赛并设置 bjdc_match_id={match_data['bjdc_match_id']} (match_id={match_data['match_id']})")
-                        
-                    saved_count += 1
+                        new_count += 1
                         
                 except Exception as e:
                     logger.error(f"保存比赛数据失败 (match_id={match_data['match_id']}): {str(e)}")
                     continue
-                
-            logger.info(f'成功保存 {saved_count} 条比赛记录')
-            return saved_count > 0
+            
+            # 总结性日志
+            summary_parts = []
+            if new_count > 0:
+                summary_parts.append(f"新增{new_count}场")
+            if update_count > 0:
+                summary_parts.append(f"更新{update_count}场")
+            
+            if summary_parts:
+                logger.info(f"竞彩足球: {', '.join(summary_parts)}")
+            else:
+                logger.info("竞彩足球: 无变化")
+            return (new_count + update_count) > 0
                 
         except Exception as e:
             logger.error(f'采集比赛数据异常：traceback.format_exc()')

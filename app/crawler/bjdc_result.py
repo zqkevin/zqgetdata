@@ -67,48 +67,39 @@ class BjdcResultCollector:
         results = []
         
         try:
-            # 查找所有包含球队名称的元素（主队或客队）
-            home_names = soup.find_all('span', class_='mainName')
-            away_names = soup.find_all('span', class_='clientName')
+            # 关键修复：从 tr 的 gy 属性中提取比赛信息
+            # gy 格式："联赛名,主队,客队"，例如："美职联,西雅图海湾人,达拉斯FC"
+            tr_list = soup.find_all('tr', id=lambda x: x and x.startswith('a'))
             
-            # 每场比赛有一个主队和一个客队
-            match_count = min(len(home_names), len(away_names))
-            
-            for i in range(match_count):
+            for tr in tr_list:
                 try:
-                    home_span = home_names[i]
-                    away_span = away_names[i]
+                    # 提取比赛 ID（从 tr 的 id 属性）
+                    tr_id = tr.get('id', '')  # 例如: a1358307
+                    match_id = tr_id.replace('a', '') if tr_id.startswith('a') else tr_id
                     
-                    # 向上找到比赛行 tr
-                    match_row = home_span.find_parent('tr')
-                    if not match_row:
+                    # 从 gy 属性中提取联赛、主队、客队
+                    gy = tr.get('gy', '')
+                    if not gy:
                         continue
                     
-                    # 提取比赛 ID（从 tr 的 id 属性）
-                    tr_id = match_row.get('id', '')  # 例如: a1405831
-                    # 关键修复：去掉 "a" 前缀，保持与数据库 match_id 格式一致
-                    match_id = tr_id.replace('a', '') if tr_id.startswith('a') else tr_id  # "a1405831" -> "1405831"
+                    gy_parts = gy.split(',')
+                    if len(gy_parts) < 3:
+                        continue
                     
-                    # 提取联赛名称
-                    league_td = match_row.find('td', class_='ssbox_01')
-                    league_name = league_td.get_text(strip=True) if league_td else ''
+                    league_name = gy_parts[0].strip()
+                    home_team_name = gy_parts[1].strip()
+                    away_team_name = gy_parts[2].strip()
                     
                     # 提取时间
-                    time_td = match_row.find_all('td')[2] if len(match_row.find_all('td')) > 2 else None
-                    time_text = time_td.get_text(strip=True) if time_td else ''  # 例如: 04-13 13:00
+                    time_td = tr.find_all('td')[2] if len(tr.find_all('td')) > 2 else None
+                    time_text = time_td.get_text(strip=True) if time_td else ''  # 例如: 04-26 10:40
                     
                     # 提取状态
-                    status_td = match_row.find_all('td')[3] if len(match_row.find_all('td')) > 3 else None
+                    status_td = tr.find_all('td')[3] if len(tr.find_all('td')) > 3 else None
                     status_text = status_td.get_text(strip=True) if status_td else ''  # '完' 表示结束
                     
-                    # 提取主队名称
-                    home_team_name = home_span.get_text(strip=True)
-                    
-                    # 提取客队名称
-                    away_team_name = away_span.get_text(strip=True)
-                    
                     # 提取全场比分（从td[5]的div.pk中的三个a标签）
-                    pk_td = match_row.find_all('td')[5] if len(match_row.find_all('td')) > 5 else None
+                    pk_td = tr.find_all('td')[5] if len(tr.find_all('td')) > 5 else None
                     home_score = None
                     away_score = None
                     
@@ -124,7 +115,7 @@ class BjdcResultCollector:
                                     pass
                     
                     # 提取半场比分
-                    half_score_td = match_row.find_all('td')[7] if len(match_row.find_all('td')) > 7 else None
+                    half_score_td = tr.find_all('td')[7] if len(tr.find_all('td')) > 7 else None
                     half_score_text = half_score_td.get_text(strip=True) if half_score_td else ''  # 例如: 0 - 0
                     
                     half_home_score = None
@@ -156,7 +147,7 @@ class BjdcResultCollector:
                     results.append(result_data)
                     
                 except Exception as e:
-                    logger.debug(f"解析第 {i+1} 场比赛失败: {e}")
+                    logger.debug(f"解析比赛失败 (tr_id={tr.get('id')}): {e}")
                     continue
             
             logger.debug(f"{date_str}: 解析到 {len(results)} 场比赛")
@@ -236,20 +227,18 @@ class BjdcResultCollector:
             
             # 3. 统计时间范围，确定需要爬取的日期
             # 注意：500.com 完场页面以每天上午10点为界
-            # 例如：网页 2026-04-21 显示的比赛时间范围：04-21 12:00 到 04-22 09:10（次日10点前）
-            #      网页 2026-04-22 显示的比赛时间范围：04-22 12:00 到 04-23 09:10
-            # 规则：比赛时间 < 10:00 → 前一天的网页；比赛时间 >= 10:00 → 当天的网页
-            # 关键修复：match_time 在 Python 中已经是北京时间，需要先转回 UTC 再判断
+            # 例如：网页 2026-04-26 显示的比赛时间范围：04-26 10:00 到 04-27 08:10
+            # 规则：比赛时间 >= 10:00 → 当天的网页；比赛时间 < 10:00 → 前一天的网页
             match_dates = set()
             for m in valid_matches:
                 if m.match_time:
-                    # 将北京时间转换为 UTC 时间（减去8小时）
-                    utc_time = m.match_time - timedelta(hours=8)
-                    # 如果 UTC 时间在10点之前，页面日期需要-1天
-                    if utc_time.hour < 10:
-                        page_date = (utc_time.date() - timedelta(days=1))
+                    # 直接使用北京时间判断
+                    if m.match_time.hour >= 10:
+                        # 10点及以后，属于当天的页面
+                        page_date = m.match_time.date()
                     else:
-                        page_date = utc_time.date()  # 使用 UTC 时间的日期
+                        # 10点以前，属于前一天的页面
+                        page_date = m.match_time.date() - timedelta(days=1)
                     match_dates.add(page_date)
             
             if not match_dates:
@@ -479,6 +468,15 @@ class BjdcResultCollector:
         from datetime import datetime
         from app.database import TeamAlias
         
+        # 关键修复：在函数开始时确保事务有效
+        try:
+            if localdb.session and not localdb.session.is_active:
+                logger.warning("检测到无效事务，执行回滚 (_match_game_by_name_and_time)")
+                localdb.rollback()
+        except Exception as e:
+            logger.error(f"事务回滚失败: {e}")
+            return None
+        
         # 获取 API 返回的信息
         home_team_name = result_data.get('allHomeTeam') or result_data.get('homeTeam')
         away_team_name = result_data.get('allAwayTeam') or result_data.get('awayTeam')
@@ -578,6 +576,16 @@ class BjdcResultCollector:
         
         # 4. 匹配别名表
         from app.database import TeamAlias
+        
+        # 关键修复：查询前确保事务有效
+        try:
+            if localdb.session and not localdb.session.is_active:
+                logger.warning("检测到无效事务，执行回滚 (_match_team_name)")
+                localdb.rollback()
+        except Exception as e:
+            logger.error(f"事务回滚失败: {e}")
+            return False
+        
         alias = localdb.query(TeamAlias).filter_by(
             team_id=team.id,
             alias_name=team_name
@@ -618,10 +626,10 @@ class BjdcResultCollector:
     
     def save_results_to_db(self, results: List[Dict], pending_matches: List[BjdcMatch] = None) -> int:
         """
-        保存比赛结果到数据库
+        保存比赛结果到数据库（按日期分组处理）
         
         Args:
-            results: API 返回的比赛结果列表
+            results: 爬取的比赛结果列表
             pending_matches: 需要获取赛果的比赛列表（从 fetch_match_results 传入）
             
         Returns:
@@ -632,36 +640,31 @@ class BjdcResultCollector:
         
         saved_count = 0
         matched_count = 0
-        unmatched_count = 0  # 无法匹配的 BJDC 比赛数
+        unmatched_count = 0
         
         # 如果没有传入 pending_matches，则使用原来的逻辑（向后兼容）
         if pending_matches is None:
             logger.warning("未传入待匹配比赛列表，使用旧逻辑")
             return self._save_results_old_logic(results)
         
-        # 关键修复：在遍历前先检查并回滚无效事务
-        try:
-            if localdb.session and not localdb.session.is_active:
-                logger.warning("检测到无效事务，执行回滚 (save_results_to_db)")
-                localdb.rollback()
-        except Exception:
-            pass
-        
-        # ========== 第一步：构建待匹配比赛的字典索引 ==========
-        # key = match_id, value = {home_name, away_name, date, home_team_id, away_team_id, match_obj}
-        pending_matches_dict = {}
+        # ========== 第一步：按页面日期分组待匹配比赛 ==========
+        # key = page_date (如 '2026-04-25'), value = {match_id: match_info}
+        pending_by_date = {}
         
         for match in pending_matches:
             try:
                 home_name = match.home_team.team_full_name if match.home_team else ''
                 away_name = match.away_team.team_full_name if match.away_team else ''
-                # 注意：500.com 完场页面以每天10点为界
-                # 规则：比赛时间 < 10:00 → 前一天的网页；比赛时间 >= 10:00 → 当天的网页
+                
+                # 计算页面日期（500.com 完场页面规则）
+                # 页面日期 N 显示的是 (N)天10:00 到 (N+1)天09:xx 的比赛
                 if match.match_time:
-                    if match.match_time.hour < 10:
-                        page_date = (match.match_time.date() - timedelta(days=1)).strftime('%Y-%m-%d')
-                    else:
+                    if match.match_time.hour >= 10:
+                        # 10点及以后，属于当天的页面
                         page_date = match.match_time.date().strftime('%Y-%m-%d')
+                    else:
+                        # 10点以前，属于前一天的页面
+                        page_date = (match.match_time.date() - timedelta(days=1)).strftime('%Y-%m-%d')
                 else:
                     page_date = ''
                 
@@ -669,11 +672,14 @@ class BjdcResultCollector:
                     logger.debug(f"比赛信息不完整，跳过: match_id={match.match_id}")
                     continue
                 
-                # 直接使用数据库的 match_id（整数）作为 key
-                pending_matches_dict[match.match_id] = {
+                # 按页面日期分组
+                if page_date not in pending_by_date:
+                    pending_by_date[page_date] = {}
+                
+                pending_by_date[page_date][match.match_id] = {
                     'home_name': home_name,
                     'away_name': away_name,
-                    'match_date': page_date,  # 使用页面日期而非比赛日期
+                    'match_date': page_date,
                     'home_team_id': match.home_team_id,
                     'away_team_id': match.away_team_id,
                     'match_obj': match
@@ -682,143 +688,156 @@ class BjdcResultCollector:
                 logger.error(f"处理比赛信息失败 (match_id={match.match_id}): {e}")
                 continue
         
-        logger.info(f"待匹配比赛: {len(pending_matches_dict)} 场")
+        logger.info(f"待匹配比赛: {len(pending_matches)} 场，分布在 {len(pending_by_date)} 个日期")
         
-        # ========== 第二步：直接使用 Match ID 匹配 ==========
-        matched_match_ids = set()  # 记录已匹配的 match_id
-        
+        # ========== 第二步：按日期分组爬取的赛果 ==========
+        # key = matchDate (如 '2026-04-25'), value = [result_data, ...]
+        results_by_date = {}
         for result_data in results:
-            try:
-                # 从爬虫数据中获取 Match ID（已经是去掉 "a" 的字符串，如 "1405831"）
-                web_match_id_str = result_data.get('matchId')
-                if not web_match_id_str:
-                    continue
-                
-                # 转换为整数，与数据库 match_id 类型一致
-                try:
-                    web_match_id = int(web_match_id_str)
-                except ValueError:
-                    continue
-                
-                # 直接通过 Match ID 查找待匹配比赛
-                if web_match_id not in pending_matches_dict:
-                    # ID 匹配失败，尝试使用队名+时间降级匹配
-                    logger.debug(f"ID 匹配失败，尝试队名+时间匹配: web_match_id={web_match_id}")
-                    match = self._match_game_by_name_and_time(result_data)
-                    if not match:
-                        logger.debug(f"队名+时间匹配也失败，跳过")
-                        continue
-                    # 降级匹配成功
-                    matched_match_id = match.match_id
-                    logger.info(f"✓ 降级匹配成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={matched_match_id}")
-                else:
-                    # ID 匹配成功
-                    matched_match_id = web_match_id
-                
-                # 如果已经匹配过，跳过
-                if matched_match_id in matched_match_ids:
-                    continue
-                
-                matched_count += 1
-                matched_match_ids.add(matched_match_id)
-                
-                # ========== 第三步：保存赛果 ==========
-                # 如果是 ID 匹配，从字典中获取 match 对象；如果是降级匹配，直接使用 match 对象
-                if web_match_id in pending_matches_dict:
-                    match_info = pending_matches_dict[matched_match_id]
-                    match = match_info['match_obj']
-                else:
-                    # 降级匹配，构建 match_info
-                    home_name = match.home_team.team_full_name if match.home_team else '未知'
-                    away_name = match.away_team.team_full_name if match.away_team else '未知'
-                    match_info = {
-                        'home_name': home_name,
-                        'away_name': away_name,
-                        'match_obj': match
-                    }
-                
-                # 检查比分是否为None（比分缺失）
-                home_score = result_data.get('homeScore')
-                away_score = result_data.get('awayScore')
-                
-                # 如果比分缺失，跳过不保存，保持 status=0，等下次再尝试获取
-                if home_score is None or away_score is None:
-                    logger.debug(f"⊘ 比分缺失，跳过: {match_info['home_name']} vs {match_info['away_name']}, match_id={matched_match_id}")
-                    # 从已匹配列表中移除，保持 status=0
-                    matched_match_ids.remove(matched_match_id)
-                    matched_count -= 1
-                    continue
-                
-                # 检查比赛状态（网页爬取的 status 字段）
-                result_status = result_data.get('status', '')  # '完' 表示结束
-                
-                # 使用统一的状态映射函数转换为内部状态码
-                from app.common.match_status import map_to_internal_status, get_status_desc
-                internal_status = map_to_internal_status('bjdc', result_status)
-                
-                # 判断是否为异常状态
-                is_abnormal = internal_status in [3, 4, 5]  # 延期/取消/腰斩/中断
-                abnormal_reason = ''
-                
-                if is_abnormal:
-                    abnormal_reason = f'比赛{result_status}'
-                
-                # 构建数据库字段数据（直接使用爬虫解析后的数据）
-                db_result_data = {
-                    'match_id': matched_match_id,  # 使用整数 match_id
-                    'home_team_goals': home_score,
-                    'away_team_goals': away_score,
-                    'half_time_home_goals': result_data.get('halfHomeScore'),
-                    'half_time_away_goals': result_data.get('halfAwayScore'),
-                }
-                
-                # 过滤掉 None 值的字段（只添加有值的字段）
-                db_result_data = {k: v for k, v in db_result_data.items() if v is not None}
-                
-                # 保存或更新赛果记录
-                existing_result = localdb.query(BjdcMatchResult).filter_by(match_id=matched_match_id).first()
-                
-                if existing_result:
-                    # 更新现有记录
-                    for key, value in db_result_data.items():
-                        setattr(existing_result, key, value)
-                    localdb.update(existing_result, close=False)
-                    logger.debug(f"更新赛果：match_id={matched_match_id}")
-                else:
-                    # 创建新记录
-                    if db_result_data:
-                        new_result = BjdcMatchResult(**db_result_data)
-                        localdb.add(new_result, close=False)
-                        logger.debug(f"新增赛果：match_id={matched_match_id}")
-                
-                # 关键修复：只有成功保存赛果后才更新状态
-                if is_abnormal:
-                    # 异常比赛：使用映射后的状态码（3=延期/取消, 4=腰斩, 5=中断）
-                    match.status = internal_status
-                    localdb.update(match, close=False)
-                    logger.warning(f"⚠️ {abnormal_reason} ({get_status_desc(internal_status)}): {match_info['home_name']} vs {match_info['away_name']}, match_id={matched_match_id}")
-                else:
-                    # 正常比赛：成功保存赛果后，标记为 8（已获取赛果）
-                    match.status = 8
-                    localdb.update(match, close=False)
-                
-                logger.debug(f"✅ 保存赛果成功: {match_info['home_name']} vs {match_info['away_name']}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
-                
-                saved_count += 1
-                
-            except Exception as e:
-                logger.error(f"保存赛果失败: {str(e)}")
-                import traceback
-                logger.error(traceback.format_exc())
+            match_date = result_data.get('matchDate', '')
+            if match_date:
+                if match_date not in results_by_date:
+                    results_by_date[match_date] = []
+                results_by_date[match_date].append(result_data)
+        
+        logger.info(f"爬取赛果: {len(results)} 条，分布在 {len(results_by_date)} 个日期")
+        
+        # ========== 第三步：按日期逐个处理 ==========
+        matched_match_ids = set()
+        
+        for page_date in sorted(pending_by_date.keys()):
+            date_pending = pending_by_date[page_date]
+            date_results = results_by_date.get(page_date, [])
+            
+            logger.info(f"\n处理日期 {page_date}: 待匹配 {len(date_pending)} 场，爬取 {len(date_results)} 条")
+            
+            if not date_results:
+                logger.warning(f"  ⚠️ {page_date} 没有爬取到赛果数据")
+                unmatched_count += len(date_pending)
                 continue
+            
+            # 构建该日期的赛果索引：key = matchId (字符串), value = result_data
+            date_results_dict = {}
+            for result_data in date_results:
+                web_match_id_str = result_data.get('matchId', '')
+                if web_match_id_str:
+                    date_results_dict[web_match_id_str] = result_data
+            
+            # 遍历该日期的待匹配比赛
+            for match_id, match_info in date_pending.items():
+                try:
+                    # 将整数 match_id 转换为字符串，用于匹配
+                    match_id_str = str(match_id)
+                    
+                    # 尝试 ID 匹配
+                    if match_id_str in date_results_dict:
+                        result_data = date_results_dict[match_id_str]
+                        matched_count += 1
+                        matched_match_ids.add(match_id)
+                        logger.debug(f"  ✓ ID 匹配成功: {match_info['home_name']} vs {match_info['away_name']}")
+                    else:
+                        # ID 匹配失败，尝试队名+时间降级匹配
+                        logger.debug(f"  ID 匹配失败，尝试队名+时间匹配: match_id={match_id}")
+                        
+                        # 在该日期的赛果中查找匹配（必须同时匹配主队和客队）
+                        matched_result = None
+                        for result_data in date_results:
+                            home_team = result_data.get('homeTeam', '')
+                            away_team = result_data.get('awayTeam', '')
+                            
+                            # 同时匹配主队和客队（支持全称、简称）
+                            if ((home_team == match_info['home_name'] or 
+                                 match_info['home_name'] in home_team or
+                                 home_team in match_info['home_name']) and
+                                (away_team == match_info['away_name'] or
+                                 match_info['away_name'] in away_team or
+                                 away_team in match_info['away_name'])):
+                                matched_result = result_data
+                                break
+                        
+                        if not matched_result:
+                            logger.debug(f"  ✗ 队名+时间匹配也失败")
+                            unmatched_count += 1
+                            continue
+                        
+                        # 降级匹配成功
+                        result_data = matched_result
+                        matched_count += 1
+                        matched_match_ids.add(match_id)
+                        logger.info(f"  ✓ 降级匹配成功: {match_info['home_name']} vs {match_info['away_name']}")
+                    
+                    # 保存赛果
+                    match = match_info['match_obj']
+                    home_score = result_data.get('homeScore')
+                    away_score = result_data.get('awayScore')
+                    
+                    # 如果比分缺失，跳过
+                    if home_score is None or away_score is None:
+                        logger.debug(f"  ⊘ 比分缺失，跳过")
+                        matched_match_ids.remove(match_id)
+                        matched_count -= 1
+                        continue
+                    
+                    # 检查比赛状态
+                    result_status = result_data.get('status', '')
+                    from app.common.match_status import map_to_internal_status, get_status_desc
+                    internal_status = map_to_internal_status('bjdc', result_status)
+                    is_abnormal = internal_status in [3, 4, 5]
+                    abnormal_reason = f'比赛{result_status}' if is_abnormal else ''
+                    
+                    # 构建数据库字段数据
+                    db_result_data = {
+                        'match_id': match_id,
+                        'home_team_goals': home_score,
+                        'away_team_goals': away_score,
+                        'half_time_home_goals': result_data.get('halfHomeScore'),
+                        'half_time_away_goals': result_data.get('halfAwayScore'),
+                    }
+                    db_result_data = {k: v for k, v in db_result_data.items() if v is not None}
+                    
+                    # 保存或更新赛果记录
+                    existing_result = localdb.query(BjdcMatchResult).filter_by(match_id=match_id).first()
+                    
+                    if existing_result:
+                        for key, value in db_result_data.items():
+                            setattr(existing_result, key, value)
+                        localdb.update(existing_result, close=False)
+                    else:
+                        if db_result_data:
+                            new_result = BjdcMatchResult(**db_result_data)
+                            localdb.add(new_result, close=False)
+                    
+                    # 更新比赛状态
+                    if is_abnormal:
+                        match.status = internal_status
+                        localdb.update(match, close=False)
+                        logger.warning(f"  ⚠️ {abnormal_reason}: {match_info['home_name']} vs {match_info['away_name']}")
+                    else:
+                        match.status = 8
+                        localdb.update(match, close=False)
+                    
+                    saved_count += 1
+                    
+                except Exception as e:
+                    logger.error(f"保存赛果失败 (match_id={match_id}): {str(e)}")
+                    import traceback
+                    logger.error(traceback.format_exc())
+                    continue
+            
+            # 每个日期处理完后提交一次
+            try:
+                localdb.commit()
+                logger.info(f"  ✅ {page_date} 处理完成，保存 {saved_count} 场")
+            except Exception as e:
+                logger.error(f"  ❌ {page_date} 提交失败: {e}")
+                localdb.rollback()
         
-        # 统计未匹配的比赛
-        unmatched_count = len(pending_matches_dict) - len(matched_match_ids)
+        # 输出统计
+        total_pending = sum(len(v) for v in pending_by_date.values())
+        if total_pending > 0:
+            success_rate = (saved_count / total_pending * 100)
+            logger.info(f"\n赛果获取完成 - 需获取: {total_pending}场, 成功: {saved_count}场, 未匹配: {unmatched_count}场, 成功率: {success_rate:.1f}%")
         
-        # 输出赛果获取统计
-        if len(pending_matches_dict) > 0:
-            success_rate = (saved_count / len(pending_matches_dict) * 100) if pending_matches_dict else 0
-            logger.info(f"赛果获取完成 - 需获取: {len(pending_matches_dict)}场, 成功: {saved_count}场, 未匹配: {unmatched_count}场, 成功率: {success_rate:.1f}%")
         return saved_count
     
     def _save_results_old_logic(self, results: List[Dict]) -> int:

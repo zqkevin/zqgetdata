@@ -110,7 +110,7 @@ class TczqResultCollector:
                 logger.info(f'已标记 {abnormal_count} 场异常比赛')
             
             # 输出最终需要获取赛果的比赛数
-            logger.info(f'需要获取赛果的比赛: {len(valid_matches)} 场')
+            logger.debug(f'需要获取赛果的比赛: {len(valid_matches)} 场')
             
             if not valid_matches:
                 logger.info('没有有效的比赛需要获取赛果')
@@ -125,7 +125,7 @@ class TczqResultCollector:
             min_date = min(match_dates)
             max_date = max(match_dates)
             
-            logger.info(f'赛果时间范围: {min_date} 到 {max_date}')
+            logger.debug(f'赛果时间范围: {min_date} 到 {max_date}')
             
             # 4. 使用时间范围向 API 请求赛果
             results = self.api.get_football_match_result(
@@ -137,7 +137,7 @@ class TczqResultCollector:
                 logger.info('API 返回的赛果为空')
                 return [], valid_matches
             
-            logger.debug(f'成功获取 {len(results)} 条比赛结果')  # 改为DEBUG级别
+            logger.debug(f'成功获取 {len(results)} 条比赛结果')
             return results, valid_matches
             
         except Exception as e:
@@ -458,10 +458,18 @@ class TczqResultCollector:
                 logger.error(traceback.format_exc())
                 continue
         
-        # 输出赛果获取统计
+        # 输出赛果获取统计（总结性）
         if len(pending_matches) > 0:
-            success_rate = (saved_count / len(pending_matches) * 100) if pending_matches else 0
-            logger.info(f"赛果获取完成 - 需获取: {len(pending_matches)}场, 成功: {saved_count}场, 未匹配: {unmatched_api_count}场, 成功率: {success_rate:.1f}%")
+            summary_parts = []
+            if saved_count > 0:
+                summary_parts.append(f"获取{saved_count}场")
+            if unmatched_api_count > 0:
+                summary_parts.append(f"未匹配{unmatched_api_count}场")
+            
+            if summary_parts:
+                logger.info(f"竞彩足球赛果: {', '.join(summary_parts)}")
+            else:
+                logger.info("竞彩足球赛果: 无变化")
         return saved_count
     
     def _save_results_old_logic(self, results: List[Dict]) -> int:
@@ -598,8 +606,6 @@ class TczqResultCollector:
             # 保存到数据库（传入待匹配列表）
             saved_count = self.save_results_to_db(results, pending_matches)
             
-            if saved_count > 0:
-                logger.info(f'成功保存 {saved_count} 条赛果记录')
             return saved_count > 0
                 
         except Exception as e:
