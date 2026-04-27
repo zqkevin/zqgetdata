@@ -113,8 +113,8 @@ class JcbkResultCollector:
                         has_postpone_flag = any(keyword in str(match.match_status).lower() for keyword in status_keywords)
                     
                     if not has_postpone_flag:
-                        # 标记为异常状态 (status=2)
-                        match.match_status = 2
+                        # 标记为异常状态 (status=9)
+                        match.match_status = 9
                         localdb.update(match, close=False)
                         abnormal_count += 1
                         home_name = match.home_team_all_name or match.home_team_abb_name or '未知'

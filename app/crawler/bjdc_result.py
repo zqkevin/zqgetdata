@@ -212,8 +212,8 @@ class BjdcResultCollector:
                         has_postpone_flag = any(keyword in str(match.remark).lower() for keyword in postpone_keywords)
                     
                     if not has_postpone_flag:
-                        # 标记为异常状态 (status=2)
-                        match.status = 2
+                        # 标记为异常状态 (status=9)
+                        match.status = 9
                         localdb.update(match, close=False)
                         abnormal_count += 1
                         home_name = match.home_team.team_full_name if match.home_team else '未知'
