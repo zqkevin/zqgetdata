@@ -238,14 +238,17 @@ class BjdcResultCollector:
             # 例如：网页 2026-04-21 显示的比赛时间范围：04-21 12:00 到 04-22 09:10（次日10点前）
             #      网页 2026-04-22 显示的比赛时间范围：04-22 12:00 到 04-23 09:10
             # 规则：比赛时间 < 10:00 → 前一天的网页；比赛时间 >= 10:00 → 当天的网页
+            # 关键修复：match_time 在 Python 中已经是北京时间，需要先转回 UTC 再判断
             match_dates = set()
             for m in valid_matches:
                 if m.match_time:
-                    # 如果比赛时间在10点之前，页面日期需要-1天
-                    if m.match_time.hour < 10:
-                        page_date = (m.match_time.date() - timedelta(days=1))
+                    # 将北京时间转换为 UTC 时间（减去8小时）
+                    utc_time = m.match_time - timedelta(hours=8)
+                    # 如果 UTC 时间在10点之前，页面日期需要-1天
+                    if utc_time.hour < 10:
+                        page_date = (utc_time.date() - timedelta(days=1))
                     else:
-                        page_date = m.match_time.date()
+                        page_date = utc_time.date()
                     match_dates.add(page_date)
             
             if not match_dates:
