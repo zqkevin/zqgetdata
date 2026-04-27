@@ -54,14 +54,16 @@ class JcbkResultCollector:
             # 1. 查询数据库中需要获取赛果的比赛
             from datetime import timedelta, datetime
             
-            # TcbkMatch没有status字段，使用match_date和match_time字段
-            # 查询最近7天的比赛（因为无法判断是否已结束）
+            # TcbkMatch使用match_status字段
+            # 关键修复：筛选条件应该是
+            # 1. 最近7天的比赛（match_date >= seven_days_ago）
+            # 2. 且未获取赛果（match_status != 8，即 match_status in [0, 1, 2, 3, None]）
             seven_days_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
             abnormal_cutoff_date = (datetime.now() - timedelta(days=4)).strftime('%Y-%m-%d')
             
             pending_matches = localdb.query(TcbkMatch).filter(
                 TcbkMatch.match_date >= seven_days_ago,
-                (TcbkMatch.match_status == 0) | (TcbkMatch.match_status == None)  # 只查询待开赛的比賽
+                TcbkMatch.match_status != 8  # 未获取赛果（排除 status=8）
             ).all()
             
             if not pending_matches:
