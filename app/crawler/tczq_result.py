@@ -362,6 +362,11 @@ class TczqResultCollector:
                 
                 # 检查 API 返回的比赛状态
                 match_result_status = result_data.get('matchResultStatus', '')
+                home_score = result_data.get('homeScore')
+                away_score = result_data.get('awayScore')
+                
+                # 调试日志：打印API返回的状态和比分
+                logger.debug(f"API返回 - matchResultStatus={match_result_status}, homeScore={home_score}({type(home_score).__name__}), awayScore={away_score}({type(away_score).__name__})")
                 
                 # 使用统一的状态映射函数转换为内部状态码
                 from app.common.match_status import map_to_internal_status, get_status_desc
@@ -372,9 +377,6 @@ class TczqResultCollector:
                 abnormal_reason = ''
                 
                 # 检查比分是否为异常值
-                home_score = result_data.get('homeScore')
-                away_score = result_data.get('awayScore')
-                
                 if home_score == '取消' or away_score == '取消' or home_score == 'N/A':
                     is_abnormal = True
                     abnormal_reason = '比赛取消'
