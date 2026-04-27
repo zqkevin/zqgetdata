@@ -779,9 +779,10 @@ class BjdcResultCollector:
         # 统计未匹配的比赛
         unmatched_count = len(pending_matches_dict) - len(matched_match_ids)
         
-        # 只输出匹配成功的统计
-        if matched_count > 0:
-            logger.info(f"赛果统计 - 待匹配: {len(pending_matches_dict)}, 网页爬取: {len(results)}, 匹配成功: {matched_count}, 保存: {saved_count}")
+        # 输出赛果获取统计
+        if len(pending_matches_dict) > 0:
+            success_rate = (saved_count / len(pending_matches_dict) * 100) if pending_matches_dict else 0
+            logger.info(f"赛果获取完成 - 需获取: {len(pending_matches_dict)}场, 成功: {saved_count}场, 未匹配: {unmatched_count}场, 成功率: {success_rate:.1f}%")
         return saved_count
     
     def _save_results_old_logic(self, results: List[Dict]) -> int:
@@ -879,7 +880,10 @@ class BjdcResultCollector:
                 logger.error(traceback.format_exc())
                 continue
         
-        logger.info(f"赛果统计 - 总数: {len(results)}, 匹配: {matched_count}, 未匹配: {unmatched_count}, 保存: {saved_count}")
+        # 输出赛果获取统计
+        if len(results) > 0:
+            success_rate = (saved_count / len(results) * 100) if results else 0
+            logger.info(f"赛果获取完成 - API返回: {len(results)}场, 成功: {saved_count}场, 未匹配: {unmatched_count}场, 成功率: {success_rate:.1f}%")
         return saved_count
     
     def get_and_save_results(self) -> bool:
