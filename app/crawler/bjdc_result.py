@@ -702,19 +702,40 @@ class BjdcResultCollector:
                 
                 # 直接通过 Match ID 查找待匹配比赛
                 if web_match_id not in pending_matches_dict:
-                    continue
+                    # ID 匹配失败，尝试使用队名+时间降级匹配
+                    logger.debug(f"ID 匹配失败，尝试队名+时间匹配: web_match_id={web_match_id}")
+                    match = self._match_game_by_name_and_time(result_data)
+                    if not match:
+                        logger.debug(f"队名+时间匹配也失败，跳过")
+                        continue
+                    # 降级匹配成功
+                    matched_match_id = match.match_id
+                    logger.info(f"✓ 降级匹配成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={matched_match_id}")
+                else:
+                    # ID 匹配成功
+                    matched_match_id = web_match_id
                 
                 # 如果已经匹配过，跳过
-                if web_match_id in matched_match_ids:
+                if matched_match_id in matched_match_ids:
                     continue
                 
-                matched_match_id = web_match_id
                 matched_count += 1
                 matched_match_ids.add(matched_match_id)
                 
                 # ========== 第三步：保存赛果 ==========
-                match_info = pending_matches_dict[matched_match_id]
-                match = match_info['match_obj']
+                # 如果是 ID 匹配，从字典中获取 match 对象；如果是降级匹配，直接使用 match 对象
+                if web_match_id in pending_matches_dict:
+                    match_info = pending_matches_dict[matched_match_id]
+                    match = match_info['match_obj']
+                else:
+                    # 降级匹配，构建 match_info
+                    home_name = match.home_team.team_full_name if match.home_team else '未知'
+                    away_name = match.away_team.team_full_name if match.away_team else '未知'
+                    match_info = {
+                        'home_name': home_name,
+                        'away_name': away_name,
+                        'match_obj': match
+                    }
                 
                 # 检查比分是否为None（比分缺失）
                 home_score = result_data.get('homeScore')
