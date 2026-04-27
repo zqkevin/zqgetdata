@@ -248,7 +248,7 @@ class BjdcResultCollector:
                     if utc_time.hour < 10:
                         page_date = (utc_time.date() - timedelta(days=1))
                     else:
-                        page_date = utc_time.date()
+                        page_date = utc_time.date()  # 使用 UTC 时间的日期
                     match_dates.add(page_date)
             
             if not match_dates:
