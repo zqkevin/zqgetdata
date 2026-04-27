@@ -365,9 +365,6 @@ class TczqResultCollector:
                 home_score = result_data.get('homeScore')
                 away_score = result_data.get('awayScore')
                 
-                # 调试日志：打印API返回的状态和比分
-                logger.debug(f"API返回 - matchResultStatus={match_result_status}, homeScore={home_score}({type(home_score).__name__}), awayScore={away_score}({type(away_score).__name__})")
-                
                 # 使用统一的状态映射函数转换为内部状态码
                 from app.common.match_status import map_to_internal_status, get_status_desc
                 internal_status = map_to_internal_status('tczq', match_result_status)
@@ -376,13 +373,24 @@ class TczqResultCollector:
                 is_abnormal = False
                 abnormal_reason = ''
                 
-                # 检查比分是否为异常值
-                if home_score == '取消' or away_score == '取消' or home_score == 'N/A':
+                # 关键修复：根据 matchResultStatus 判断比赛状态
+                # '1' = 进行中/未结束（比分可能是 'N/A'），不应该获取赛果
+                # '2' = 已完成，应该获取赛果
+                # '3' = 异常
+                if match_result_status == '1':
+                    # 比赛未结束，跳过不处理
+                    logger.debug(f"⏰ 比赛未结束: {home_name} vs {away_name}, matchResultStatus={match_result_status}, 比分={home_score}-{away_score}")
+                    continue  # 跳过这场比赛，不保存赛果
+                elif match_result_status == '2':
+                    # 比赛已完成，正常处理
+                    pass
+                elif match_result_status == '3':
+                    # 异常状态
                     is_abnormal = True
-                    abnormal_reason = '比赛取消'
-                elif internal_status not in [2, 8]:  # 如果不是已完成或已获取赛果，可能是异常状态
-                    is_abnormal = True
-                    abnormal_reason = f'比赛状态异常 (matchResultStatus={match_result_status}, {get_status_desc(internal_status)})'
+                    abnormal_reason = f'比赛异常 (matchResultStatus={match_result_status})'
+                else:
+                    # 未知状态，默认为已完成
+                    logger.debug(f"未知状态 matchResultStatus={match_result_status}, 按已完成处理")
                 
                 # 转换 API 字段名为数据库字段名
                 db_result_data = {}
@@ -478,6 +486,8 @@ class TczqResultCollector:
                 
                 # 检查 API 返回的比赛状态
                 match_result_status = result_data.get('matchResultStatus', '')
+                home_score = result_data.get('homeScore')
+                away_score = result_data.get('awayScore')
                 
                 # 使用统一的状态映射函数转换为内部状态码
                 from app.common.match_status import map_to_internal_status, get_status_desc
@@ -487,16 +497,21 @@ class TczqResultCollector:
                 is_abnormal = False
                 abnormal_reason = ''
                 
-                # 检查比分是否为异常值
-                home_score = result_data.get('homeScore')
-                away_score = result_data.get('awayScore')
-                
-                if home_score == '取消' or away_score == '取消' or home_score == 'N/A':
+                # 关键修复：根据 matchResultStatus 判断比赛状态
+                if match_result_status == '1':
+                    # 比赛未结束，跳过不处理
+                    logger.debug(f"⏰ 比赛未结束: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, matchResultStatus={match_result_status}")
+                    continue  # 跳过这场比赛
+                elif match_result_status == '2':
+                    # 比赛已完成，正常处理
+                    pass
+                elif match_result_status == '3':
+                    # 异常状态
                     is_abnormal = True
-                    abnormal_reason = '比赛取消'
-                elif internal_status not in [2, 8]:  # 如果不是已完成或已获取赛果，可能是异常状态
-                    is_abnormal = True
-                    abnormal_reason = f'比赛状态异常 (matchResultStatus={match_result_status}, {get_status_desc(internal_status)})'
+                    abnormal_reason = f'比赛异常 (matchResultStatus={match_result_status})'
+                else:
+                    # 未知状态，默认为已完成
+                    logger.debug(f"未知状态 matchResultStatus={match_result_status}, 按已完成处理")
                 
                 # 转换 API 字段名为数据库字段名
                 db_result_data = {}
