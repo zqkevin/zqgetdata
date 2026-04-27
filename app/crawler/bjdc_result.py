@@ -185,11 +185,13 @@ class BjdcResultCollector:
             
             # 关键修复：筛选条件应该是
             # 1. 比赛时间已过4小时以上（match_time < cutoff_time）
-            # 2. 且未获取赛果（status != 8，即 status in [0, 1, 2, 3, 4, 5, 9]）
-            #    注意：status=0 是待开赛，但如果 match_time < cutoff_time，说明已经开赛了只是没更新状态
+            # 2. 且未获取赛果（status != 8 AND status != 9）
+            #    - status=8: 已获取赛果（正常完成）→ 不需要获取
+            #    - status=9: 异常状态（延期、取消、腰斩等）→ 不需要获取
             pending_matches = localdb.query(BjdcMatch).filter(
                 BjdcMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
-                BjdcMatch.status != 8  # 未获取赛果（排除 status=8）
+                BjdcMatch.status != 8,  # 排除已获取赛果
+                BjdcMatch.status != 9   # 排除异常状态
             ).all()
             
             if not pending_matches:

@@ -57,13 +57,16 @@ class JcbkResultCollector:
             # TcbkMatch使用match_status字段
             # 关键修复：筛选条件应该是
             # 1. 最近7天的比赛（match_date >= seven_days_ago）
-            # 2. 且未获取赛果（match_status != 8，即 match_status in [0, 1, 2, 3, None]）
+            # 2. 且未获取赛果（match_status != 8 AND match_status != 9）
+            #    - match_status=8: 已获取赛果（正常完成）→ 不需要获取
+            #    - match_status=9: 异常状态（延期、取消、腰斩等）→ 不需要获取
             seven_days_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
             abnormal_cutoff_date = (datetime.now() - timedelta(days=4)).strftime('%Y-%m-%d')
             
             pending_matches = localdb.query(TcbkMatch).filter(
                 TcbkMatch.match_date >= seven_days_ago,
-                TcbkMatch.match_status != 8  # 未获取赛果（排除 status=8）
+                TcbkMatch.match_status != 8,  # 排除已获取赛果
+                TcbkMatch.match_status != 9   # 排除异常状态
             ).all()
             
             if not pending_matches:

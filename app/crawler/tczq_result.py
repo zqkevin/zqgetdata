@@ -69,10 +69,13 @@ class TczqResultCollector:
             
             # 关键修复：筛选条件应该是
             # 1. 比赛时间已过4小时以上（match_time < cutoff_time）
-            # 2. 且未获取赛果（status != 8，即 status in [0, 1, 2, 3, 4, 5, 9]）
+            # 2. 且未获取赛果（status != 8 AND status != 9）
+            #    - status=8: 已获取赛果（正常完成）→ 不需要获取
+            #    - status=9: 异常状态（延期、取消、腰斩等）→ 不需要获取
             pending_matches = localdb.query(TczqMatch).filter(
                 TczqMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
-                TczqMatch.status != 8  # 未获取赛果（排除 status=8）
+                TczqMatch.status != 8,  # 排除已获取赛果
+                TczqMatch.status != 9   # 排除异常状态
             ).all()
             
             if not pending_matches:
@@ -177,7 +180,8 @@ class TczqResultCollector:
         from sqlalchemy import func
         matches = localdb.query(TczqMatch).filter(
             func.date(TczqMatch.match_time) == match_date,
-            TczqMatch.status != 8  # 未获取赛果（排除 status=8）
+            TczqMatch.status != 8,  # 排除已获取赛果
+            TczqMatch.status != 9   # 排除异常状态
         ).all()
         
         if not matches:
