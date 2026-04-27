@@ -158,7 +158,7 @@ class JcbkResultCollector:
             
             if not results:
                 logger.info('API 返回的赛果为空')
-                return [], valid_matches
+                return [], []
             
             logger.debug(f'成功获取 {len(results)} 条比赛结果')  # 改为DEBUG级别
             return results, valid_matches
@@ -311,15 +311,24 @@ class JcbkResultCollector:
                 home_score = result_data.get('homeScore')
                 away_score = result_data.get('awayScore')
                 
-                if home_score == '取消' or away_score == '取消' or home_score == 'N/A' or home_score == 0:
-                    is_abnormal = True
-                    abnormal_reason = '比赛取消'
-                elif result_status in ['取消', '延期', '腰斩']:
-                    is_abnormal = True
-                    abnormal_reason = f'比赛{result_status}'
-                elif pool_status in ['Cancelled', 'Postponed']:
-                    is_abnormal = True
-                    abnormal_reason = f'比赛{pool_status}'
+                # 关键修复：根据 status 判断比赛状态
+                # status=1: 进行中/未结束（比分可能是0-0），不应该获取赛果
+                # status=2: 已完成，应该获取赛果
+                if api_status == 1:
+                    # 比赛未结束，跳过不处理
+                    logger.debug(f"⏰ 比赛未结束: {home_name} vs {away_name}, status={api_status}, 比分={home_score}-{away_score}")
+                    continue  # 跳过这场比赛，不保存赛果
+                elif api_status == 2:
+                    # 比赛已完成，正常处理
+                    pass
+                else:
+                    # 未知状态，检查是否有明确的取消标识
+                    if result_status in ['取消', '延期', '腰斩']:
+                        is_abnormal = True
+                        abnormal_reason = f'比赛{result_status}'
+                    elif pool_status in ['Cancelled', 'Postponed']:
+                        is_abnormal = True
+                        abnormal_reason = f'比赛{pool_status}'
                 
                 # 转换字段
                 db_result_data = {}
@@ -386,6 +395,7 @@ class JcbkResultCollector:
                 match_result_status = result_data.get('matchResultStatus', '')
                 result_status = result_data.get('resultStatus', '')
                 pool_status = result_data.get('poolStatus', '')
+                api_status = result_data.get('status')
                 
                 is_abnormal = False
                 abnormal_reason = ''
@@ -393,15 +403,22 @@ class JcbkResultCollector:
                 home_score = result_data.get('homeScore')
                 away_score = result_data.get('awayScore')
                 
-                if home_score == '取消' or away_score == '取消' or home_score == 'N/A' or home_score == 0:
-                    is_abnormal = True
-                    abnormal_reason = '比赛取消'
-                elif result_status in ['取消', '延期', '腰斩']:
-                    is_abnormal = True
-                    abnormal_reason = f'比赛{result_status}'
-                elif pool_status in ['Cancelled', 'Postponed']:
-                    is_abnormal = True
-                    abnormal_reason = f'比赛{pool_status}'
+                # 关键修复：根据 status 判断比赛状态
+                if api_status == 1:
+                    # 比赛未结束，跳过不处理
+                    logger.debug(f"⏰ 比赛未结束: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, status={api_status}")
+                    continue  # 跳过这场比赛
+                elif api_status == 2:
+                    # 比赛已完成，正常处理
+                    pass
+                else:
+                    # 未知状态，检查是否有明确的取消标识
+                    if result_status in ['取消', '延期', '腰斩']:
+                        is_abnormal = True
+                        abnormal_reason = f'比赛{result_status}'
+                    elif pool_status in ['Cancelled', 'Postponed']:
+                        is_abnormal = True
+                        abnormal_reason = f'比赛{pool_status}'
                 
                 db_result_data = {}
                 for key, value in result_data.items():
