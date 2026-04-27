@@ -353,8 +353,8 @@ class JcbkResultCollector:
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {home_name} vs {away_name}, match_id={match_id}")
                 else:
-                    # 正常比赛：标记状态为2（已完成，已获取赛果）
-                    match.match_status = 2
+                    # 正常比赛：成功保存赛果后，标记为 8（已获取赛果）
+                    match.match_status = 8
                     localdb.update(match, close=False)
                 
                 logger.debug(f"✅ 保存赛果成功: {home_name} vs {away_name}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别
