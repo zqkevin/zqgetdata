@@ -183,9 +183,13 @@ class BjdcResultCollector:
             cutoff_time = self.nowtime - timedelta(hours=4)
             abnormal_cutoff_time = self.nowtime - timedelta(days=4)
             
+            # 关键修复：筛选条件应该是
+            # 1. 比赛时间已过4小时以上（match_time < cutoff_time）
+            # 2. 且未获取赛果（status != 8，即 status in [0, 1, 2, 3, 4, 5, 9]）
+            #    注意：status=0 是待开赛，但如果 match_time < cutoff_time，说明已经开赛了只是没更新状态
             pending_matches = localdb.query(BjdcMatch).filter(
-                BjdcMatch.status == 0,  # 只查询待开赛的比賽 (status=0)
-                BjdcMatch.match_time < cutoff_time  # 比赛已结束4小时以上
+                BjdcMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
+                BjdcMatch.status != 8  # 未获取赛果（排除 status=8）
             ).all()
             
             if not pending_matches:
