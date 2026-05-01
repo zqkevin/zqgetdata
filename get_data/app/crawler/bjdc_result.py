@@ -813,7 +813,8 @@ class BjdcResultCollector:
                         localdb.update(match, close=False)
                         logger.warning(f"  ⚠️ {abnormal_reason}: {match_info['home_name']} vs {match_info['away_name']}")
                     else:
-                        match.status = 2
+                        # 正常比赛：成功保存赛果后，标记为8（已获取赛果）
+                        match.status = 8
                         localdb.update(match, close=False)
                     
                     saved_count += 1
@@ -922,8 +923,8 @@ class BjdcResultCollector:
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
                 else:
-                    # 正常比赛：成功保存赛果后，标记为 2（已完成）
-                    match.status = 2
+                    # 正常比赛：成功保存赛果后，标记为8（已获取赛果）
+                    match.status = 8
                     localdb.update(match, close=False)
                 
                 logger.debug(f"✅ 保存赛果成功: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, 比分: {home_score}-{away_score}")  # 改为DEBUG级别

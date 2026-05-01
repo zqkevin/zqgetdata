@@ -67,14 +67,13 @@ class TczqResultCollector:
             cutoff_time = datetime.now() - timedelta(hours=4)
             abnormal_cutoff_time = datetime.now() - timedelta(days=4)
             
-            # 关键修复：只有 status < 3 的比赛才需要获取赛果
+            # 关键修复：只有 status < 2 的比赛才需要获取赛果
             # - status=0: 待开赛（实际已开赛但未更新状态）
             # - status=1: 进行中
-            # - status=2: 已完成（但可能未获取赛果数据）
-            # - status>=3: 已有明确结果或异常，不需要再获取
+            # - status>=2: 已有明确结果或已获取赛果，不需要再获取
             pending_matches = localdb.query(TczqMatch).filter(
                 TczqMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
-                TczqMatch.status < 3  # 只获取 status < 3 的比赛
+                TczqMatch.status < 2  # 只获取 status < 2 的比赛（排除已完成和异常的）
             ).all()
             
             if not pending_matches:
@@ -183,7 +182,7 @@ class TczqResultCollector:
         from sqlalchemy import func
         matches = localdb.query(TczqMatch).filter(
             func.date(TczqMatch.match_time) == match_date,
-            TczqMatch.status < 3  # 只匹配 status < 3 的比赛
+            TczqMatch.status < 2  # 只匹配 status < 2 的比赛（排除已完成和异常的）
         ).all()
         
         if not matches:
@@ -432,8 +431,8 @@ class TczqResultCollector:
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {home_name} vs {away_name}, match_id={match_id}")
                 else:
-                    # 正常比赛：标记状态为2（已完成）
-                    match.status = 2
+                    # 正常比赛：成功保存赛果后，标记状态为8（已获取赛果）
+                    match.status = 8
                     localdb.update(match, close=False)
                 
                 # 保存或更新赛果记录
@@ -550,8 +549,8 @@ class TczqResultCollector:
                     localdb.update(match, close=False)
                     logger.warning(f"⚠️ {abnormal_reason}: {result_data.get('homeTeam')} vs {result_data.get('awayTeam')}, match_id={match_id}")
                 else:
-                    # 正常比赛：标记状态为2（已完成）
-                    match.status = 2
+                    # 正常比赛：成功保存赛果后，标记状态为8（已获取赛果）
+                    match.status = 8
                     localdb.update(match, close=False)
                 
                 # 保存或更新赛果记录

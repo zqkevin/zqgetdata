@@ -11,11 +11,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="soccer_data@192.168.2.18" uuid="7fedba59-c932-4713-b408-74a1abcfdd58">
+    <data-source source="LOCAL" name="soccer_data@115.190.125.52" uuid="7fedba59-c932-4713-b408-74a1abcfdd58">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://192.168.2.18:3306/soccer_data</jdbc-url>
+      <jdbc-url>jdbc:mysql://115.190.125.52:3306/soccer_data</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="soccer_data@localhost" uuid="91491a16-dcdb-4aab-9346-30139e6e8e1a">
