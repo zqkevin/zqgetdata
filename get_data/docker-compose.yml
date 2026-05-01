@@ -1,0 +1,38 @@
+services:
+  zqgetdata:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zqgetdata_collector
+    restart: unless-stopped
+    
+    # 挂载项目目录
+    volumes:
+      - /root/pyvenv/zqget:/app
+    
+    # 时区设置
+    environment:
+      - TZ=Asia/Shanghai
+    
+    # 使用 1panel 网络
+    networks:
+      - 1panel-network
+    
+    # DNS 配置（解决容器内域名解析问题）
+    dns:
+      - 8.8.8.8
+      - 114.114.114.114
+      - 223.5.5.5
+    
+    # 日志配置
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# 使用 1panel 的外部网络
+networks:
+  1panel-network:
+    external: true
+    name: 1panel-network
