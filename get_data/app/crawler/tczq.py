@@ -90,10 +90,10 @@ class TczqDataCollector:
                                        home_team_name: str, away_team_name: str, 
                                        league_full_name: str = None, source_type: str = 'tczq'):
         """
-        通过比赛时间查找BJDC中已存在的比赛，并将当前队名作为别名添加
+        通过联赛和比赛时间查找BJDC中已存在的比赛，并将当前队名作为别名添加
         
         Args:
-            league_id: TCZQ联赛ID（未使用）
+            league_id: TCZQ联赛ID（用于匹配BJDC联赛）
             match_date: 比赛日期 (YYYY-MM-DD)
             match_time: 比赛时间 (HH:MM:SS)
             home_team_name: 主队名称
@@ -116,67 +116,83 @@ class TczqDataCollector:
                 logger.warning(f"时间格式错误：{match_datetime_str}")
                 return None
             
-            # 查找同一天的BJDC比赛
+            # 【关键修复】首先通过联赛ID和时间范围筛选
             from sqlalchemy import and_
             existing_matches = localdb.query(BjdcMatch).filter(
                 and_(
-                    BjdcMatch.match_time >= datetime.strptime(match_date, "%Y-%m-%d"),
-                    BjdcMatch.match_time < datetime.strptime(match_date, "%Y-%m-%d") + timedelta(days=1)
+                    BjdcMatch.league_id == league_id,  # 必须联赛相同
+                    BjdcMatch.match_time >= match_datetime - timedelta(minutes=30),  # 时间前30分钟
+                    BjdcMatch.match_time <= match_datetime + timedelta(minutes=30)   # 时间后30分钟
                 )
             ).all()
             
-            for existing_match in existing_matches:
-                # 检查时间是否接近（±30分钟）
-                if existing_match.match_time:
-                    try:
-                        time_diff = abs((match_datetime - existing_match.match_time).total_seconds())
-                        
-                        if time_diff <= 1800:  # 30分钟 = 1800秒
-                            # 检查队名是否相似（前4个字符）
-                            bjdc_home = localdb.query(Team).filter_by(id=existing_match.home_team_id).first()
-                            bjdc_away = localdb.query(Team).filter_by(id=existing_match.away_team_id).first()
-                            
-                            if not bjdc_home or not bjdc_away:
-                                continue
-                            
-                            # 模糊匹配队名（前4个字符）
-                            home_match = (
-                                home_team_name[:4] in bjdc_home.team_full_name or
-                                bjdc_home.team_full_name[:4] in home_team_name
-                            )
-                            away_match = (
-                                away_team_name[:4] in bjdc_away.team_full_name or
-                                bjdc_away.team_full_name[:4] in away_team_name
-                            )
-                            
-                            if home_match and away_match:
-                                # logger.info(f"✓ 匹配到BJDC比赛: {bjdc_home.team_full_name} vs {bjdc_away.team_full_name} (时间差:{time_diff/60:.0f}分钟)")  # 减少日志输出
-                                
-                                # 补充联赛全称（如果TCZQ提供了全称且BJDC联赛还没有全称）
-                                if league_full_name:
-                                    bjdc_league = localdb.query(League).filter_by(id=existing_match.league_id).first()
-                                    if bjdc_league and not bjdc_league.league_name:
-                                        bjdc_league.league_name = league_full_name
-                                        localdb.update(bjdc_league, close=False)
-                                        logger.info(f"✓ 补充联赛全称: league_id={bjdc_league.id}, full_name={league_full_name}")
-                                
-                                # 将当前队名作为别名添加到已存在的球队
-                                if bjdc_home.team_full_name != home_team_name:
-                                    self._add_team_alias_if_not_exists(
-                                        existing_match.home_team_id, home_team_name, source_type
-                                    )
-                                
-                                if bjdc_away.team_full_name != away_team_name:
-                                    self._add_team_alias_if_not_exists(
-                                        existing_match.away_team_id, away_team_name, source_type
-                                    )
-                                
-                                return existing_match
-                    except Exception as e:
-                        logger.debug(f"时间比较失败：{e}")
-                        continue
+            logger.debug(f"联赛ID={league_id}, 时间范围[{match_datetime - timedelta(minutes=30)}, {match_datetime + timedelta(minutes=30)}], 找到{len(existing_matches)}场候选比赛")
             
-            return None
+            if not existing_matches:
+                logger.debug(f"未找到同联赛且时间接近的BJDC比赛")
+                return None
+            
+            # 在候选比赛中，通过队名进一步确认（只需要找到时间最接近的一场）
+            best_match = None
+            min_time_diff = float('inf')
+            
+            for existing_match in existing_matches:
+                # 计算时间差
+                if existing_match.match_time:
+                    time_diff = abs((match_datetime - existing_match.match_time).total_seconds())
+                    
+                    # 检查队名是否相似（前4个字符）
+                    bjdc_home = localdb.query(Team).filter_by(id=existing_match.home_team_id).first()
+                    bjdc_away = localdb.query(Team).filter_by(id=existing_match.away_team_id).first()
+                    
+                    if not bjdc_home or not bjdc_away:
+                        continue
+                    
+                    # 模糊匹配队名（前4个字符）
+                    home_match = (
+                        home_team_name[:4] in bjdc_home.team_full_name or
+                        bjdc_home.team_full_name[:4] in home_team_name
+                    )
+                    away_match = (
+                        away_team_name[:4] in bjdc_away.team_full_name or
+                        bjdc_away.team_full_name[:4] in away_team_name
+                    )
+                    
+                    if home_match and away_match:
+                        # 选择时间最接近的比赛
+                        if time_diff < min_time_diff:
+                            min_time_diff = time_diff
+                            best_match = existing_match
+            
+            if best_match:
+                logger.debug(f"✓ 匹配到BJDC比赛: match_id={best_match.match_id}, 时间差={min_time_diff/60:.0f}分钟")
+                
+                # 补充联赛全称（如果TCZQ提供了全称且BJDC联赛还没有全称）
+                if league_full_name:
+                    bjdc_league = localdb.query(League).filter_by(id=best_match.league_id).first()
+                    if bjdc_league and not bjdc_league.league_name:
+                        bjdc_league.league_name = league_full_name
+                        localdb.update(bjdc_league, close=False)
+                        logger.info(f"✓ 补充联赛全称: league_id={bjdc_league.id}, full_name={league_full_name}")
+                
+                # 将当前队名作为别名添加到已存在的球队
+                bjdc_home = localdb.query(Team).filter_by(id=best_match.home_team_id).first()
+                bjdc_away = localdb.query(Team).filter_by(id=best_match.away_team_id).first()
+                
+                if bjdc_home and bjdc_home.team_full_name != home_team_name:
+                    self._add_team_alias_if_not_exists(
+                        best_match.home_team_id, home_team_name, source_type
+                    )
+                
+                if bjdc_away and bjdc_away.team_full_name != away_team_name:
+                    self._add_team_alias_if_not_exists(
+                        best_match.away_team_id, away_team_name, source_type
+                    )
+                
+                return best_match
+            else:
+                logger.debug(f"队名不匹配，未找到合适的BJDC比赛")
+                return None
             
         except Exception as e:
             logger.error(f"查找比赛失败：{e}")
