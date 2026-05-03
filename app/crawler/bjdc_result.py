@@ -173,7 +173,6 @@ class BjdcResultCollector:
             from sqlalchemy import func
             
             cutoff_time = self.nowtime - timedelta(hours=4)
-            abnormal_cutoff_time = self.nowtime - timedelta(days=4)
             
             # 关键修复：筛选条件应该是
             # 1. 比赛时间已过4小时以上（match_time < cutoff_time）
@@ -190,55 +189,24 @@ class BjdcResultCollector:
                 logger.info('没有需要获取赛果的比赛')
                 return [], []
             
-            # 2. 检查并标记异常比赛（开赛超过4天且无延期标识）
-            abnormal_count = 0
-            valid_matches = []
-            
-            for match in pending_matches:
-                # 检查是否开赛超过4天
-                if match.match_time and match.match_time < abnormal_cutoff_time:
-                    # 检查是否有延期标识（remark中包含延期相关关键词）
-                    has_postpone_flag = False
-                    if match.remark:
-                        postpone_keywords = ['延期', '推迟', '改期', 'postpone', 'delayed']
-                        has_postpone_flag = any(keyword in str(match.remark).lower() for keyword in postpone_keywords)
-                    
-                    if not has_postpone_flag:
-                        # 标记为异常状态 (status=9)
-                        match.status = 9
-                        localdb.update(match, close=False)
-                        abnormal_count += 1
-                        home_name = match.home_team.team_full_name if match.home_team else '未知'
-                        away_name = match.away_team.team_full_name if match.away_team else '未知'
-                        logger.warning(f"⚠️ 比赛异常: {home_name} vs {away_name}, 开赛时间: {match.match_time}, 已超过4天")
-                        continue
-                
-                valid_matches.append(match)
-            
-            if abnormal_count > 0:
-                logger.info(f'已标记 {abnormal_count} 场异常比赛')
-            
-            # 输出最终需要获取赛果的比赛数
-            logger.info(f'需要获取赛果的比赛: {len(valid_matches)} 场')
-            
-            if not valid_matches:
-                logger.info('没有有效的比赛需要获取赛果')
-                return [], []
+            # 输出需要获取赛果的比赛数
+            logger.info(f'需要获取赛果的比赛: {len(pending_matches)} 场')
             
             # 3. 统计时间范围，确定需要爬取的日期
             # 注意：500.com 完场页面以每天上午10点为界
-            # 例如：网页 2026-04-26 显示的比赛时间范围：04-26 10:00 到 04-27 08:10
-            # 规则：比赛时间 >= 10:00 → 当天的网页；比赛时间 < 10:00 → 前一天的网页
+            # 经过实际验证：页面日期 N 显示的是 (N-1)天10:00 到 N天09:xx 的比赛
+            # 例如：网页 2026-04-29 显示的比赛时间范围：04-28 10:00 到 04-29 09:xx
+            # 规则：比赛时间 >= 10:00 → 后一天的页面；比赛时间 < 10:00 → 当天的页面
             match_dates = set()
-            for m in valid_matches:
+            for m in pending_matches:
                 if m.match_time:
                     # 直接使用北京时间判断
                     if m.match_time.hour >= 10:
-                        # 10点及以后，属于当天的页面
-                        page_date = m.match_time.date()
+                        # 10点及以后，属于后一天的页面
+                        page_date = m.match_time.date() + timedelta(days=1)
                     else:
-                        # 10点以前，属于前一天的页面
-                        page_date = m.match_time.date() - timedelta(days=1)
+                        # 10点以前，属于当天的页面
+                        page_date = m.match_time.date()
                     match_dates.add(page_date)
             
             if not match_dates:
@@ -266,7 +234,7 @@ class BjdcResultCollector:
                 logger.info(f'{date_str}: 爬取到 {len(day_results)} 场比赛')
             
             logger.info(f'总共爬取到 {len(all_results)} 条比赛结果')
-            return all_results, valid_matches
+            return all_results, pending_matches
             
         except Exception as e:
             logger.error(f'获取比赛结果失败：{e}')
@@ -657,14 +625,15 @@ class BjdcResultCollector:
                 away_name = match.away_team.team_full_name if match.away_team else ''
                 
                 # 计算页面日期（500.com 完场页面规则）
-                # 页面日期 N 显示的是 (N)天10:00 到 (N+1)天09:xx 的比赛
+                # 经过实际验证：页面日期 N 显示的是 (N-1)天10:00 到 N天09:xx 的比赛
+                # 规则：比赛时间 >= 10:00 → 后一天的页面；比赛时间 < 10:00 → 当天的页面
                 if match.match_time:
                     if match.match_time.hour >= 10:
-                        # 10点及以后，属于当天的页面
-                        page_date = match.match_time.date().strftime('%Y-%m-%d')
+                        # 10点及以后，属于后一天的页面
+                        page_date = (match.match_time.date() + timedelta(days=1)).strftime('%Y-%m-%d')
                     else:
-                        # 10点以前，属于前一天的页面
-                        page_date = (match.match_time.date() - timedelta(days=1)).strftime('%Y-%m-%d')
+                        # 10点以前，属于当天的页面
+                        page_date = match.match_time.date().strftime('%Y-%m-%d')
                 else:
                     page_date = ''
                 

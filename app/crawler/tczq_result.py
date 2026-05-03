@@ -65,58 +65,26 @@ class TczqResultCollector:
             from sqlalchemy import func
             
             cutoff_time = datetime.now() - timedelta(hours=4)
-            abnormal_cutoff_time = datetime.now() - timedelta(days=4)
             
-            # 关键修复：只有 status < 2 的比赛才需要获取赛果
+            # 关键修复：只有 status < 3 的比赛才需要获取赛果
             # - status=0: 待开赛（实际已开赛但未更新状态）
             # - status=1: 进行中
-            # - status>=2: 已有明确结果或已获取赛果，不需要再获取
+            # - status=2: 已结束（从API获知比赛结束，但还未获取详细赛果）← 需要获取赛果
+            # - status>=3: 已有明确结果或已获取赛果，不需要再获取
             pending_matches = localdb.query(TczqMatch).filter(
                 TczqMatch.match_time < cutoff_time,  # 比赛已结束4小时以上
-                TczqMatch.status < 2  # 只获取 status < 2 的比赛（排除已完成和异常的）
+                TczqMatch.status < 3  # 获取 status < 3 的比赛（包括已结束但未获取赛果的）
             ).all()
             
             if not pending_matches:
                 logger.info('没有需要获取赛果的比赛')
                 return [], []
             
-            # 2. 检查并标记异常比赛（开赛超过4天且无延期标识）
-            abnormal_count = 0
-            valid_matches = []
-            
-            for match in pending_matches:
-                # 检查是否开赛超过4天
-                if match.match_time and match.match_time < abnormal_cutoff_time:
-                    # 检查是否有延期标识（remark中包含延期相关关键词）
-                    has_postpone_flag = False
-                    if match.remark:
-                        postpone_keywords = ['延期', '推迟', '改期', 'postpone', 'delayed']
-                        has_postpone_flag = any(keyword in str(match.remark).lower() for keyword in postpone_keywords)
-                    
-                    if not has_postpone_flag:
-                        # 标记为异常状态 (status=9)
-                        match.status = 9
-                        localdb.update(match, close=False)
-                        abnormal_count += 1
-                        home_name = match.home_team.team_full_name if match.home_team else '未知'
-                        away_name = match.away_team.team_full_name if match.away_team else '未知'
-                        logger.warning(f"⚠️ 比赛异常: {home_name} vs {away_name}, 开赛时间: {match.match_time}, 已超过4天")
-                        continue
-                
-                valid_matches.append(match)
-            
-            if abnormal_count > 0:
-                logger.info(f'已标记 {abnormal_count} 场异常比赛')
-            
-            # 输出最终需要获取赛果的比赛数
-            logger.debug(f'需要获取赛果的比赛: {len(valid_matches)} 场')
-            
-            if not valid_matches:
-                logger.info('没有有效的比赛需要获取赛果')
-                return [], []
+            # 输出需要获取赛果的比赛数
+            logger.debug(f'需要获取赛果的比赛: {len(pending_matches)} 场')
             
             # 3. 统计时间范围
-            match_dates = [m.match_time.date() for m in valid_matches if m.match_time]
+            match_dates = [m.match_time.date() for m in pending_matches if m.match_time]
             if not match_dates:
                 logger.warning('无法提取比赛日期')
                 return [], []
@@ -134,14 +102,14 @@ class TczqResultCollector:
                 )
             except Exception as e:
                 logger.warning(f'API 请求失败，跳过本次赛果获取: {e}')
-                return [], valid_matches
+                return [], pending_matches
             
             if not results:
                 logger.info('API 返回的赛果为空')
                 return [], valid_matches
             
             logger.debug(f'成功获取 {len(results)} 条比赛结果')
-            return results, valid_matches
+            return results, pending_matches
             
         except Exception as e:
             logger.error(f'获取比赛结果失败：{e}')
@@ -182,7 +150,7 @@ class TczqResultCollector:
         from sqlalchemy import func
         matches = localdb.query(TczqMatch).filter(
             func.date(TczqMatch.match_time) == match_date,
-            TczqMatch.status < 2  # 只匹配 status < 2 的比赛（排除已完成和异常的）
+            TczqMatch.status < 3  # 只匹配 status < 3 的比赛（包括已结束但未获取赛果的）
         ).all()
         
         if not matches:
@@ -322,48 +290,78 @@ class TczqResultCollector:
             logger.warning("未传入待匹配比赛列表，使用旧逻辑")
             return self._save_results_old_logic(results)
         
-        # 构建 API 赛果的快速查找字典：key = (日期, 主队名, 客队名)
+        # 构建 API 赛果的快速查找字典
+        # 优先级1: 按 matchId 索引（最精确）
+        api_results_by_id = {}
+        # 优先级2: 按 (日期, 主队名, 客队名) 索引（降级方案）
         api_results_map = {}
+        
         for result_data in results:
+            match_id = result_data.get('matchId')
             home_team = result_data.get('allHomeTeam') or result_data.get('homeTeam', '')
             away_team = result_data.get('allAwayTeam') or result_data.get('awayTeam', '')
             match_date = result_data.get('matchDate', '')
             
+            # 构建 matchId 索引
+            if match_id:
+                api_results_by_id[str(match_id)] = result_data
+            
+            # 构建队名+日期索引（降级方案）
             if home_team and away_team and match_date:
                 key = (match_date, home_team, away_team)
                 api_results_map[key] = result_data
         
-        logger.info(f"API 返回 {len(results)} 条赛果，构建索引 {len(api_results_map)} 条")
+        logger.info(f"API 返回 {len(results)} 条赛果，构建 matchId 索引 {len(api_results_by_id)} 条，队名索引 {len(api_results_map)} 条")
         
         # 遍历需要获取赛果的比赛，去 API 结果中查找匹配
         for match in pending_matches:
             try:
-                # 构建匹配键
-                home_name = match.home_team.team_full_name if match.home_team else ''
-                away_name = match.away_team.team_full_name if match.away_team else ''
-                match_date_str = match.match_time.strftime('%Y-%m-%d') if match.match_time else ''
+                # 初始化变量（避免 UnboundLocalError）
+                home_name = ''
+                away_name = ''
+                api_result = None
+                match_id_str = str(match.match_id) if match.match_id else None
                 
-                if not all([home_name, away_name, match_date_str]):
-                    logger.debug(f"比赛信息不完整，跳过: match_id={match.match_id}")
-                    continue
+                # 【优先级1】尝试通过 matchId 精确匹配
+                if match_id_str and match_id_str in api_results_by_id:
+                    api_result = api_results_by_id[match_id_str]
+                    logger.debug(f"✓ matchId 匹配成功: {match_id_str}")
                 
-                # 在 API 结果中查找匹配
-                api_result = api_results_map.get((match_date_str, home_name, away_name))
-                
+                # 【优先级2】如果 matchId 匹配失败，尝试队名+时间匹配
                 if not api_result:
-                    # 尝试反向匹配（主客场互换）
-                    api_result = api_results_map.get((match_date_str, away_name, home_name))
-                    if api_result:
-                        logger.debug(f"主客场互换匹配: {home_name} vs {away_name}")
+                    home_name = match.home_team.team_full_name if match.home_team else ''
+                    away_name = match.away_team.team_full_name if match.away_team else ''
+                    match_date_str = match.match_time.strftime('%Y-%m-%d') if match.match_time else ''
+                    
+                    if not all([home_name, away_name, match_date_str]):
+                        logger.debug(f"比赛信息不完整，跳过: match_id={match.match_id}")
+                        continue
+                    
+                    # 在 API 结果中查找匹配
+                    api_result = api_results_map.get((match_date_str, home_name, away_name))
+                    
+                    if not api_result:
+                        # 尝试反向匹配（主客场互换）
+                        api_result = api_results_map.get((match_date_str, away_name, home_name))
+                        if api_result:
+                            logger.debug(f"主客场互换匹配: {home_name} vs {away_name}")
                 
                 if not api_result:
                     unmatched_api_count += 1
-                    logger.debug(f"未找到赛果: {home_name} vs {away_name} ({match_date_str})")
+                    home_name = match.home_team.team_full_name if match.home_team else '未知'
+                    away_name = match.away_team.team_full_name if match.away_team else '未知'
+                    logger.debug(f"未找到赛果: {home_name} vs {away_name} (match_id={match.match_id})")
                     continue
                 
                 matched_count += 1
                 match_id = match.match_id
                 result_data = api_result
+                
+                # 确保 home_name 和 away_name 已定义（用于日志输出）
+                # 如果通过 matchId 匹配，需要从 API 结果中获取队名
+                if not home_name or not away_name:
+                    home_name = result_data.get('allHomeTeam') or result_data.get('homeTeam', '未知')
+                    away_name = result_data.get('allAwayTeam') or result_data.get('awayTeam', '未知')
                 
                 # 检查 API 返回的比赛状态
                 match_result_status = result_data.get('matchResultStatus', '')

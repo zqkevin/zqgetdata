@@ -470,10 +470,19 @@ def handle_team_name(team_full_name, team_short_name=None, team_code=None, sourc
         
         if not team and source_type:
             # 2. 如果找不到，尝试通过别名查找
+            # 【优化1】先查指定source_type的别名
             alias = localdb.query(TeamAlias).filter_by(
                 alias_name=team_full_name,
                 source_type=source_type
             ).first()
+            
+            # 【优化1】如果没有，再查所有source_type的别名（跨数据源共享）
+            if not alias:
+                alias = localdb.query(TeamAlias).filter_by(
+                    alias_name=team_full_name
+                ).first()
+                if alias:
+                    log.debug(f"通过跨数据源别名找到球队：{team_full_name} -> {alias.team_id}")
             
             if alias:
                 team = localdb.query(Team).filter_by(id=alias.team_id).first()
@@ -485,6 +494,13 @@ def handle_team_name(team_full_name, team_short_name=None, team_code=None, sourc
         if not team and team_short_name:
             # 3. 尝试通过球队简称查找
             team = localdb.query(Team).filter_by(team_short_name=team_short_name).first()
+        
+        # 【优化2】暂时禁用包含关系匹配，避免错误匹配（如“奥地利维也纳”vs“奥地利维也纳青年队”）
+        # 原因：前缀/后缀匹配无法区分一队和二队、青年队等
+        # 解决方案：依靠简称和别名表进行匹配
+        # if not team and len(team_full_name) >= 6:
+        #     ... 包含关系匹配逻辑已禁用 ...
+        pass
         
         if not team:
             # 4. 如果都不存在，则新增球队
