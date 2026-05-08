@@ -171,7 +171,30 @@ class JcbkResultCollector:
             logger.error(traceback.format_exc())
             return [], []
     
-    def _match_game_by_name_and_time(self, result_data: dict) -> TcbkMatch:
+    def _match_game_by_id_or_name(self, result_data: dict) -> TcbkMatch:
+        """
+        通过 matchId 或队名+时间匹配数据库中的比赛
+        优先级：matchId > 队名+日期
+        
+        Args:
+            result_data: API 返回的赛果数据
+            
+        Returns:
+            TcbkMatch: 匹配到的比赛记录，未找到返回 None
+        """
+        # 方法1：优先使用 matchId 匹配（最可靠）
+        match_id = result_data.get('matchId')
+        if match_id:
+            try:
+                match = localdb.query(TcbkMatch).filter_by(match_id=int(match_id)).first()
+                if match:
+                    logger.debug(f"✅ 通过 matchId 匹配成功: {match_id}")
+                    return match
+            except Exception as e:
+                logger.warning(f"通过 matchId 匹配失败: {e}")
+        
+        # 方法2：降级为队名+日期匹配
+        return self._match_game_by_name_and_time(result_data)
         """
         通过队名和开赛时间匹配数据库中的比赛
         
@@ -258,16 +281,26 @@ class JcbkResultCollector:
         matched_count = 0
         unmatched_api_count = 0
         
-        # 构建 API 赛果的快速查找字典
-        api_results_map = {}
+        # 构建 API 赛果的快速查找字典（两种索引方式）
+        api_results_map = {}  # (match_date, home_team, away_team) -> result_data
+        api_results_by_id = {}  # match_id -> result_data
+        
         for result_data in results:
             home_team = result_data.get('allHomeTeam') or result_data.get('homeTeam', '')
             away_team = result_data.get('allAwayTeam') or result_data.get('awayTeam', '')
             match_date = result_data.get('matchDate', '')
+            match_id = result_data.get('matchId')
             
             if home_team and away_team and match_date:
                 key = (match_date, home_team, away_team)
                 api_results_map[key] = result_data
+            
+            # 关键优化：建立 matchId 索引
+            if match_id:
+                try:
+                    api_results_by_id[int(match_id)] = result_data
+                except (ValueError, TypeError):
+                    pass
         
         # 遍历需要获取赛果的比赛，去 API 结果中查找匹配
         for match in pending_matches:
@@ -280,13 +313,21 @@ class JcbkResultCollector:
                     logger.debug(f"比赛信息不完整，跳过: match_id={match.match_id}")
                     continue
                 
-                # 在 API 结果中查找匹配
-                api_result = api_results_map.get((match_date_str, home_name, away_name))
+                # 关键优化：优先使用 matchId 匹配（最可靠）
+                api_result = None
+                if match.match_id and match.match_id in api_results_by_id:
+                    api_result = api_results_by_id[match.match_id]
+                    logger.debug(f"✅ 通过 matchId 匹配成功: {match.match_id}")
                 
+                # 降级：使用队名+日期匹配
+                if not api_result:
+                    api_result = api_results_map.get((match_date_str, home_name, away_name))
+                
+                # 尝试主客场互换
                 if not api_result:
                     api_result = api_results_map.get((match_date_str, away_name, home_name))
                     if api_result:
-                        logger.debug(f"主客场互换匹配: {home_name} vs {away_name}")
+                        logger.debug(f"⚠️ 主客场互换匹配: {home_name} vs {away_name}")
                 
                 if not api_result:
                     unmatched_api_count += 1
