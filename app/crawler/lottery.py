@@ -133,7 +133,7 @@ class LotteryDataCollector:
                 draw_num=draw_num,
                 draw_time=self._convert_datetime(data.get('lotteryDrawTime')),
                 draw_result=data.get('lotteryDrawResult'),
-                unsorted_draw_result=data.get('unsortedLotteryDrawResult'),
+                unsorted_draw_result=data.get('lotteryUnsortDrawresult'),
                 pool_balance_after_draw=data.get('poolBalanceAfterdraw'),
                 sale_begin_time=self._convert_datetime(data.get('saleBeginTime')),
                 sale_end_time=self._convert_datetime(data.get('saleEndTime')),
