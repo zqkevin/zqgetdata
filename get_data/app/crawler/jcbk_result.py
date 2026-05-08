@@ -76,26 +76,40 @@ class JcbkResultCollector:
             
             for match in pending_matches:
                 # 检查比赛是否已经开始（开赛时间距离现在不超过4小时的不获取赛果）
-                if match.match_date and match.match_time:
+                match_datetime = None
+                
+                # 关键修复：match_time可能已经是完整datetime，也可能是只有时间
+                if match.match_time:
                     try:
-                        # 组合日期和时间字符串
-                        match_datetime_str = f"{match.match_date} {match.match_time}"
-                        # 尝试解析为datetime对象
-                        match_datetime = datetime.strptime(match_datetime_str, '%Y-%m-%d %H:%M')
-                        
-                        # 计算距离开赛的时间差（小时）
-                        hours_until_match = (match_datetime - now).total_seconds() / 3600
-                        
-                        # 如果距离开赛还有超过-4小时（即还没开赛或开赛不到4小时），跳过
-                        if hours_until_match > -4:
-                            not_started_count += 1
-                            home_name = match.home_team_all_name or match.home_team_abb_name or '未知'
-                            away_name = match.away_team_all_name or match.away_team_abb_name or '未知'
-                            logger.debug(f"⏰ 比赛未结束: {home_name} vs {away_name}, 开赛时间: {match_datetime_str}, 距离开赛还有 {hours_until_match:.1f} 小时")
-                            continue
+                        # 尝试直接解析match_time（可能是完整datetime）
+                        if isinstance(match.match_time, str):
+                            # 如果包含空格，说明是完整datetime格式
+                            if ' ' in match.match_time:
+                                match_datetime = datetime.strptime(match.match_time.strip(), '%Y-%m-%d %H:%M:%S')
+                            else:
+                                # 只有时间，需要和match_date组合
+                                if match.match_date:
+                                    match_datetime_str = f"{match.match_date} {match.match_time}"
+                                    match_datetime = datetime.strptime(match_datetime_str, '%Y-%m-%d %H:%M')
+                        elif hasattr(match.match_time, 'strftime'):
+                            # 已经是datetime对象
+                            match_datetime = match.match_time
                     except ValueError as e:
-                        logger.warning(f"无法解析比赛时间: {match.match_date} {match.match_time}, 错误: {e}")
-                        # 如果无法解析时间，继续处理（可能是旧数据）
+                        logger.warning(f"无法解析比赛时间: match_date={match.match_date}, match_time={match.match_time}, 错误: {e}")
+                        match_datetime = None
+                
+                # 如果成功解析了时间，检查是否已结束
+                if match_datetime:
+                    # 计算距离开赛的时间差（小时）
+                    hours_until_match = (match_datetime - now).total_seconds() / 3600
+                    
+                    # 如果距离开赛还有超过-4小时（即还没开赛或开赛不到4小时），跳过
+                    if hours_until_match > -4:
+                        not_started_count += 1
+                        home_name = match.home_team_all_name or match.home_team_abb_name or '未知'
+                        away_name = match.away_team_all_name or match.away_team_abb_name or '未知'
+                        logger.debug(f"⏰ 比赛未结束: {home_name} vs {away_name}, 开赛时间: {match_datetime}, 距离开赛还有 {hours_until_match:.1f} 小时")
+                        continue
                 
                 # 检查是否开赛超过4天且无延期标识（异常比赛）
                 if match.match_date and match.match_date < abnormal_cutoff_date:
