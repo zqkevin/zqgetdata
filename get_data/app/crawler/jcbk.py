@@ -93,11 +93,32 @@ class JcbkDataCollector:
                 match_record.match_week = match.get('matchWeek')
                 match_record.match_date = match.get('matchDate')
                 
-                # 处理 match_time 字段
+                # 处理 match_time 字段 - 关键修复：组合日期和时间
                 match_time = match.get('matchTime')
-                if match_time is not None:
-                    if hasattr(match_time, 'strftime'):
-                        match_record.match_time = match_time.strftime('%Y-%m-%d %H:%M:%S')
+                business_date = match.get('businessDate') or match.get('matchDate')
+                
+                if match_time is not None and business_date:
+                    try:
+                        # matchTime是时间字符串如"00:30"，需要组合日期
+                        if isinstance(match_time, str) and ':' in match_time:
+                            # 组合日期和时间
+                            full_datetime_str = f"{business_date} {match_time}"
+                            match_record.match_time = datetime.strptime(full_datetime_str, "%Y-%m-%d %H:%M")
+                        elif hasattr(match_time, 'strftime'):
+                            # 如果已经是datetime对象
+                            match_record.match_time = match_time
+                        else:
+                            # 其他情况，尝试直接转换
+                            match_record.match_time = str(match_time)
+                    except Exception as e:
+                        logger.warning(f"时间解析失败: {e}, businessDate={business_date}, matchTime={match_time}")
+                        match_record.match_time = datetime.now()
+                elif match_time is not None:
+                    # 只有时间没有日期，使用当前日期
+                    if isinstance(match_time, str) and ':' in match_time:
+                        from datetime import date
+                        full_datetime_str = f"{date.today()} {match_time}"
+                        match_record.match_time = datetime.strptime(full_datetime_str, "%Y-%m-%d %H:%M")
                     else:
                         match_record.match_time = str(match_time)
                 
@@ -153,7 +174,31 @@ class JcbkDataCollector:
                 
                 match_record.match_name = match.get('matchName', f"{match.get('homeTeamName', '')} vs {match.get('awayTeamName', '')}")
                 match_record.group_name = match.get('groupName', '')
-                match_record.match_status = match.get('matchStatus')
+                
+                # 关键修复：matchStatus可能为None，需要根据其他字段推断状态
+                match_status = match.get('matchStatus')
+                if match_status is None:
+                    # API未返回matchStatus时，根据poolStatus和sellStatus推断
+                    pool_status = match.get('poolStatus', '')
+                    sell_status = match.get('sellStatus', '1')
+                    
+                    # sellStatus: 0=停售(已结束), 1=销售中, 2=待销售
+                    try:
+                        sell_status_int = int(sell_status) if sell_status else 1
+                    except (ValueError, TypeError):
+                        sell_status_int = 1
+                    
+                    if sell_status_int == 0 or pool_status == 'Finished':
+                        match_record.match_status = 2  # 已结束
+                    elif sell_status_int == 2 or pool_status == 'Pending':
+                        match_record.match_status = 0  # 待开赛
+                    else:
+                        match_record.match_status = 0  # 默认为待开赛
+                else:
+                    try:
+                        match_record.match_status = int(match_status)
+                    except (ValueError, TypeError):
+                        match_record.match_status = 0
                 
                 # 处理 sell_status
                 sell_status = match.get('sellStatus', 1 if match.get('poolStatus') == 'Selling' else 0)

@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-05-03T23:36:26.163922",
+  "api_version": "v4",
+  "summary": {
+    "competitions": {
+      "total": 13,
+      "by_country": {
+        "Brazil": [
+          "BSA"
+        ],
+        "England": [
+          "ELC",
+          "PL"
+        ],
+        "Europe": [
+          "CL",
+          "EC"
+        ],
+        "France": [
+          "FL1"
+        ],
+        "Germany": [
+          "BL1"
+        ],
+        "Italy": [
+          "SA"
+        ],
+        "Netherlands": [
+          "DED"
+        ],
+        "Portugal": [
+          "PPL"
+        ],
+        "South America": [
+          "CLI"
+        ],
+        "Spain": [
+          "PD"
+        ],
+        "World": [
+          "WC"
+        ]
+      },
+      "codes": [
+        "BSA",
+        "ELC",
+        "PL",
+        "CL",
+        "EC",
+        "FL1",
+        "BL1",
+        "SA",
+        "DED",
+        "PPL",
+        "CLI",
+        "PD",
+        "WC"
+      ]
+    },
+    "areas": {
+      "total": 272
+    },
+    "teams_sample": {
+      "competition": "Premier League",
+      "total": 20,
+      "fields_available": [
+        "area",
+        "id",
+        "name",
+        "shortName",
+        "tla",
+        "crest",
+        "address",
+        "website",
+        "founded",
+        "clubColors",
+        "venue",
+        "runningCompetitions",
+        "coach",
+        "squad",
+        "staff",
+        "lastUpdated"
+      ]
+    }
+  }
+}

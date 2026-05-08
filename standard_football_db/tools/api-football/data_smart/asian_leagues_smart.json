@@ -1,0 +1,202 @@
+{
+  "日职联_J1": {
+    "league_id": 98,
+    "total_teams": 20,
+    "teams_list": [
+      "Consadole Sapporo",
+      "Jubilo Iwata",
+      "Kashiwa Reysol",
+      "Sanfrecce Hiroshima",
+      "Shonan Bellmare",
+      "Urawa",
+      "Nagoya Grampus",
+      "Vissel Kobe",
+      "Kashima",
+      "Cerezo Osaka",
+      "FC Tokyo",
+      "Gamba Osaka",
+      "Kawasaki Frontale",
+      "Sagan Tosu",
+      "Yokohama F. Marinos",
+      "Kyoto Sanga",
+      "Machida Zelvia",
+      "Tokyo Verdy",
+      "Albirex Niigata",
+      "Avispa Fukuoka"
+    ],
+    "sample_teams": [
+      {
+        "id": 279,
+        "name": "Consadole Sapporo",
+        "code": "SAP",
+        "country": "Japan",
+        "founded": 1935,
+        "logo": "https://media.api-sports.io/football/teams/279.png",
+        "venue": "Daiwa House Premist Dome",
+        "capacity": 53845,
+        "players": [],
+        "player_count": 0
+      },
+      {
+        "id": 280,
+        "name": "Jubilo Iwata",
+        "code": "IWA",
+        "country": "Japan",
+        "founded": 1970,
+        "logo": "https://media.api-sports.io/football/teams/280.png",
+        "venue": "Yamaha Stadium",
+        "capacity": 15165,
+        "players": [],
+        "player_count": 0
+      }
+    ],
+    "requests_used": 3
+  },
+  "韩K联_K1": {
+    "league_id": 292,
+    "total_teams": 14,
+    "teams_list": [
+      "Gangwon FC",
+      "Daegu FC",
+      "Seoul E-Land FC",
+      "Daejeon Citizen",
+      "Asan Mugunghwa",
+      "Suwon City FC",
+      "Gwangju FC",
+      "Jeju United FC",
+      "Jeonbuk Motors",
+      "Incheon United",
+      "Pohang Steelers",
+      "FC Seoul",
+      "Ulsan Hyundai FC",
+      "Gimcheon Sangmu FC"
+    ],
+    "sample_teams": [
+      {
+        "id": 2746,
+        "name": "Gangwon FC",
+        "code": "GAN",
+        "country": "South-Korea",
+        "founded": 2008,
+        "logo": "https://media.api-sports.io/football/teams/2746.png",
+        "venue": "Gangneung Stadium",
+        "capacity": 33000,
+        "players": [],
+        "player_count": 0
+      },
+      {
+        "id": 2747,
+        "name": "Daegu FC",
+        "code": "DAE",
+        "country": "South-Korea",
+        "founded": 2002,
+        "logo": "https://media.api-sports.io/football/teams/2747.png",
+        "venue": "DGB Arena",
+        "capacity": 12415,
+        "players": [],
+        "player_count": 0
+      }
+    ],
+    "requests_used": 3
+  },
+  "沙职联_SPL": {
+    "league_id": 307,
+    "total_teams": 18,
+    "teams_list": [
+      "Al Khaleej Saihat",
+      "Al-Ahli Jeddah",
+      "Al-Fateh",
+      "Al-Hilal Saudi FC",
+      "Al-Qadisiyah FC",
+      "Al-Ettifaq",
+      "Al-Raed",
+      "Al Taawon",
+      "Al Wehda Club",
+      "Al-Ittihad FC",
+      "Al-Nassr",
+      "Al Shabab",
+      "Al-Fayha",
+      "Damac",
+      "Al Orubah",
+      "Al Okhdood",
+      "Al Kholood",
+      "Al Riyadh"
+    ],
+    "sample_teams": [
+      {
+        "id": 2928,
+        "name": "Al Khaleej Saihat",
+        "code": null,
+        "country": "United-Arab-Emirates",
+        "founded": 1945,
+        "logo": "https://media.api-sports.io/football/teams/2928.png",
+        "venue": "Prince Mohamed bin Fahd Stadium",
+        "capacity": 35000,
+        "players": [],
+        "player_count": 0
+      },
+      {
+        "id": 2929,
+        "name": "Al-Ahli Jeddah",
+        "code": "AHL",
+        "country": "Saudi-Arabia",
+        "founded": 1937,
+        "logo": "https://media.api-sports.io/football/teams/2929.png",
+        "venue": "Prince Abdullah al-Faisal Stadium",
+        "capacity": 27000,
+        "players": [],
+        "player_count": 0
+      }
+    ],
+    "requests_used": 3
+  },
+  "中超_CSL": {
+    "league_id": 169,
+    "total_teams": 16,
+    "teams_list": [
+      "Beijing Guoan",
+      "Shanghai Shenhua",
+      "Changchun Yatai",
+      "SHANGHAI SIPG",
+      "Tianjin Teda",
+      "Henan Jianye",
+      "Shandong Luneng",
+      "Hangzhou Greentown",
+      "Shijiazhuang Y. J.",
+      "Qingdao Jonoon",
+      "Meizhou Kejia",
+      "Nantong Zhiyun",
+      "Chengdu Better City",
+      "Sichuan Jiuniu",
+      "Wuhan Three Towns",
+      "Qingdao Youth Island"
+    ],
+    "sample_teams": [
+      {
+        "id": 830,
+        "name": "Beijing Guoan",
+        "code": "BEI",
+        "country": "China",
+        "founded": 1992,
+        "logo": "https://media.api-sports.io/football/teams/830.png",
+        "venue": "Workers' Stadium",
+        "capacity": 68000,
+        "players": [],
+        "player_count": 0
+      },
+      {
+        "id": 833,
+        "name": "Shanghai Shenhua",
+        "code": "SHA",
+        "country": "China",
+        "founded": 1993,
+        "logo": "https://media.api-sports.io/football/teams/833.png",
+        "venue": "Shanghai Stadium",
+        "capacity": 56842,
+        "players": [],
+        "player_count": 0
+      }
+    ],
+    "requests_used": 3
+  }
+}

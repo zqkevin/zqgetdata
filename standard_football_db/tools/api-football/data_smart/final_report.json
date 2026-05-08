@@ -1,0 +1,57 @@
+{
+  "timestamp": "2026-05-05T22:29:00.170610",
+  "account": "zqkevin6006@gmail.com (免费)",
+  "api_usage": {
+    "total_requests_used": 13,
+    "max_requests": 95,
+    "remaining": 82,
+    "usage_percentage": 13.7
+  },
+  "data_summary": {
+    "leagues_covered": 4,
+    "total_teams_found": 68,
+    "teams_detailed": 8,
+    "total_players_fetched": 0
+  },
+  "leagues_detail": [
+    {
+      "name": "日职联_J1",
+      "league_id": 98,
+      "teams_count": 20,
+      "sample_analyzed": 2,
+      "requests_used": 3
+    },
+    {
+      "name": "韩K联_K1",
+      "league_id": 292,
+      "teams_count": 14,
+      "sample_analyzed": 2,
+      "requests_used": 3
+    },
+    {
+      "name": "沙职联_SPL",
+      "league_id": 307,
+      "teams_count": 18,
+      "sample_analyzed": 2,
+      "requests_used": 3
+    },
+    {
+      "name": "中超_CSL",
+      "league_id": 169,
+      "teams_count": 16,
+      "sample_analyzed": 2,
+      "requests_used": 3
+    }
+  ],
+  "efficiency_analysis": {
+    "requests_per_league": 3,
+    "teams_per_request": 5.2,
+    "strategy": "获取所有球队列表 + 每联赛2支球队完整阵容"
+  },
+  "recommendation": {
+    "current_usage": "13/95 (13.7%)",
+    "monthly_budget": "100 requests",
+    "can_fetch_more": true,
+    "suggestion": "当前策略高效，可继续获取更多联赛或球队详情"
+  }
+}

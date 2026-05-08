@@ -1,0 +1,290 @@
+{
+  "英超 (Premier League)": {
+    "id": 39,
+    "name": "Premier League",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/39.png",
+    "country": "England",
+    "country_code": "GB-ENG",
+    "country_flag": "https://media.api-sports.io/flags/gb-eng.svg",
+    "seasons": [
+      {
+        "year": 2023,
+        "start": "2023-08-11",
+        "end": "2024-05-19",
+        "current": false
+      },
+      {
+        "year": 2024,
+        "start": "2024-08-16",
+        "end": "2025-05-25",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-08-15",
+        "end": "2026-05-24",
+        "current": true
+      }
+    ],
+    "country_zh": "英格兰",
+    "name_en": "Premier League",
+    "name_zh": "英超"
+  },
+  "西甲 (La Liga)": {
+    "id": 140,
+    "name": "La Liga",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/140.png",
+    "country": "Spain",
+    "country_code": "ES",
+    "country_flag": "https://media.api-sports.io/flags/es.svg",
+    "seasons": [
+      {
+        "year": 2023,
+        "start": "2023-08-11",
+        "end": "2024-05-26",
+        "current": false
+      },
+      {
+        "year": 2024,
+        "start": "2024-08-15",
+        "end": "2025-05-25",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-08-15",
+        "end": "2026-05-24",
+        "current": true
+      }
+    ],
+    "country_zh": "西班牙",
+    "name_en": "La Liga",
+    "name_zh": "西甲"
+  },
+  "德甲 (Bundesliga)": {
+    "id": 78,
+    "name": "Bundesliga",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/78.png",
+    "country": "Germany",
+    "country_code": "DE",
+    "country_flag": "https://media.api-sports.io/flags/de.svg",
+    "seasons": [
+      {
+        "year": 2023,
+        "start": "2023-08-18",
+        "end": "2024-05-27",
+        "current": false
+      },
+      {
+        "year": 2024,
+        "start": "2024-08-23",
+        "end": "2025-05-26",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-08-22",
+        "end": "2026-05-16",
+        "current": true
+      }
+    ],
+    "country_zh": "德国",
+    "name_en": "Bundesliga",
+    "name_zh": "德甲"
+  },
+  "意甲 (Serie A)": {
+    "id": 135,
+    "name": "Serie A",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/135.png",
+    "country": "Italy",
+    "country_code": "IT",
+    "country_flag": "https://media.api-sports.io/flags/it.svg",
+    "seasons": [
+      {
+        "year": 2023,
+        "start": "2023-08-19",
+        "end": "2024-05-26",
+        "current": false
+      },
+      {
+        "year": 2024,
+        "start": "2024-08-17",
+        "end": "2025-05-25",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-08-23",
+        "end": "2026-05-24",
+        "current": true
+      }
+    ],
+    "country_zh": "意大利",
+    "name_en": "Serie A",
+    "name_zh": "意甲"
+  },
+  "法甲 (Ligue 1)": {
+    "id": 61,
+    "name": "Ligue 1",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/61.png",
+    "country": "France",
+    "country_code": "FR",
+    "country_flag": "https://media.api-sports.io/flags/fr.svg",
+    "seasons": [
+      {
+        "year": 2023,
+        "start": "2023-08-11",
+        "end": "2024-06-02",
+        "current": false
+      },
+      {
+        "year": 2024,
+        "start": "2024-08-16",
+        "end": "2025-05-29",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-08-17",
+        "end": "2026-05-16",
+        "current": true
+      }
+    ],
+    "country_zh": "法国",
+    "name_en": "Ligue 1",
+    "name_zh": "法甲"
+  },
+  "日职联 (J1 League)": {
+    "id": 98,
+    "name": "J1 League",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/98.png",
+    "country": "Japan",
+    "country_code": "JP",
+    "country_flag": "https://media.api-sports.io/flags/jp.svg",
+    "seasons": [
+      {
+        "year": 2024,
+        "start": "2024-02-23",
+        "end": "2024-12-08",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-02-14",
+        "end": "2025-12-06",
+        "current": false
+      },
+      {
+        "year": 2026,
+        "start": "2026-02-06",
+        "end": "2026-05-24",
+        "current": true
+      }
+    ],
+    "country_zh": "日本",
+    "name_en": "J1 League",
+    "name_zh": "日职联"
+  },
+  "韩K联 (K League 1)": {
+    "id": 292,
+    "name": "K League 1",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/292.png",
+    "country": "South-Korea",
+    "country_code": "KR",
+    "country_flag": "https://media.api-sports.io/flags/kr.svg",
+    "seasons": [
+      {
+        "year": 2024,
+        "start": "2024-03-01",
+        "end": "2024-11-24",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-02-15",
+        "end": "2025-12-07",
+        "current": false
+      },
+      {
+        "year": 2026,
+        "start": "2026-02-28",
+        "end": "2026-12-30",
+        "current": true
+      }
+    ],
+    "country_zh": "韩国",
+    "name_en": "K League 1",
+    "name_zh": "韩K联"
+  },
+  "沙职联 (Saudi Pro League)": {
+    "id": 307,
+    "name": "Pro League",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/307.png",
+    "country": "Saudi-Arabia",
+    "country_code": "SA",
+    "country_flag": "https://media.api-sports.io/flags/sa.svg",
+    "seasons": [
+      {
+        "year": 2023,
+        "start": "2023-08-11",
+        "end": "2024-05-27",
+        "current": false
+      },
+      {
+        "year": 2024,
+        "start": "2024-08-22",
+        "end": "2025-05-26",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-08-28",
+        "end": "2026-05-21",
+        "current": true
+      }
+    ],
+    "country_zh": "沙特阿拉伯",
+    "name_en": "Saudi Pro League",
+    "name_zh": "沙职联"
+  },
+  "中超 (Chinese Super League)": {
+    "id": 169,
+    "name": "Super League",
+    "type": "League",
+    "logo": "https://media.api-sports.io/football/leagues/169.png",
+    "country": "China",
+    "country_code": "CN",
+    "country_flag": "https://media.api-sports.io/flags/cn.svg",
+    "seasons": [
+      {
+        "year": 2024,
+        "start": "2024-03-01",
+        "end": "2024-11-02",
+        "current": false
+      },
+      {
+        "year": 2025,
+        "start": "2025-02-22",
+        "end": "2025-11-22",
+        "current": false
+      },
+      {
+        "year": 2026,
+        "start": "2026-03-06",
+        "end": "2026-11-08",
+        "current": true
+      }
+    ],
+    "country_zh": "中国",
+    "name_en": "Chinese Super League",
+    "name_zh": "中超"
+  }
+}

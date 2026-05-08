@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-05-05T21:38:54.765790",
+  "api_info": {
+    "name": "TheSportsDB",
+    "version": "v1",
+    "free_tier_limit": "100 requests/day",
+    "api_key_used": null
+  },
+  "leagues_tested": 7,
+  "leagues_with_data": 7,
+  "teams_analyzed": 3,
+  "total_players_found": 0,
+  "leagues_summary": [
+    {
+      "league": "English Premier League",
+      "teams_found": 10,
+      "sample_teams": [
+        "Arsenal",
+        "Aston Villa",
+        "Bournemouth",
+        "Brentford",
+        "Brighton and Hove Albion"
+      ]
+    },
+    {
+      "league": "Spanish La Liga",
+      "teams_found": 10,
+      "sample_teams": [
+        "Athletic Bilbao",
+        "Atlético Madrid",
+        "Barcelona",
+        "Celta Vigo",
+        "Deportivo Alavés"
+      ]
+    },
+    {
+      "league": "German Bundesliga",
+      "teams_found": 10,
+      "sample_teams": [
+        "Bayer Leverkusen",
+        "Bayern Munich",
+        "Borussia Dortmund",
+        "Borussia Mönchengladbach",
+        "Eintracht Frankfurt"
+      ]
+    },
+    {
+      "league": "Italian Serie A",
+      "teams_found": 10,
+      "sample_teams": [
+        "AC Milan",
+        "Atalanta",
+        "Bologna",
+        "Cagliari",
+        "Como"
+      ]
+    },
+    {
+      "league": "French Ligue 1",
+      "teams_found": 10,
+      "sample_teams": [
+        "Angers",
+        "Auxerre",
+        "Brest",
+        "Le Havre",
+        "Lens"
+      ]
+    },
+    {
+      "league": "Japanese J1 League",
+      "teams_found": 10,
+      "sample_teams": [
+        "Albirex Niigata",
+        "Avispa Fukuoka",
+        "Cerezo Osaka",
+        "Fagiano Okayama",
+        "FC Tokyo"
+      ]
+    },
+    {
+      "league": "Chinese Super League",
+      "teams_found": 10,
+      "sample_teams": [
+        "Beijing Guoan",
+        "Chengdu Rongcheng",
+        "Chongqing Tonglianglong",
+        "Dalian Yingbo",
+        "Henan FC"
+      ]
+    }
+  ],
+  "coverage_assessment": {
+    "european_leagues": "✅ 覆盖良好",
+    "asian_leagues": "⚠️ 部分覆盖（需要验证）",
+    "chinese_leagues": "❓ 需要测试",
+    "data_quality": "中等（免费版本）"
+  }
+}

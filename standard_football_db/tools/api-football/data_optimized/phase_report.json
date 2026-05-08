@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-05-05T22:36:45.532476",
+  "phase": "1-2",
+  "account": "zqkevin6006@gmail.com",
+  "quota_usage": {
+    "daily_used": 13,
+    "daily_max": 80,
+    "remaining": 67,
+    "usage_percentage": 16.2
+  },
+  "data_summary": {
+    "leagues_covered": 4,
+    "total_teams": 68,
+    "squads_fetched": 8,
+    "total_players": 0
+  },
+  "leagues_detail": [
+    {
+      "name": "日职联_J1",
+      "league_id": 98,
+      "teams_count": 20,
+      "squads_sampled": 2
+    },
+    {
+      "name": "韩K联_K1",
+      "league_id": 292,
+      "teams_count": 14,
+      "squads_sampled": 2
+    },
+    {
+      "name": "沙职联_SPL",
+      "league_id": 307,
+      "teams_count": 18,
+      "squads_sampled": 2
+    },
+    {
+      "name": "中超_CSL",
+      "league_id": 169,
+      "teams_count": 16,
+      "squads_sampled": 2
+    }
+  ],
+  "next_steps": {
+    "recommendation": "继续获取剩余球队的完整阵容",
+    "estimated_requests": 60,
+    "can_continue_today": true
+  }
+}

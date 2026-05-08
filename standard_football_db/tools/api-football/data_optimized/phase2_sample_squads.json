@@ -1,0 +1,122 @@
+{
+  "日职联_J1": [
+    {
+      "id": 279,
+      "name": "Consadole Sapporo",
+      "code": "SAP",
+      "country": "Japan",
+      "founded": 1935,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/279.png",
+      "venue_name": "Daiwa House Premist Dome",
+      "venue_city": "Sapporo",
+      "venue_capacity": 53845,
+      "players": [],
+      "player_count": 0
+    },
+    {
+      "id": 280,
+      "name": "Jubilo Iwata",
+      "code": "IWA",
+      "country": "Japan",
+      "founded": 1970,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/280.png",
+      "venue_name": "Yamaha Stadium",
+      "venue_city": "Iwata",
+      "venue_capacity": 15165,
+      "players": [],
+      "player_count": 0
+    }
+  ],
+  "韩K联_K1": [
+    {
+      "id": 2746,
+      "name": "Gangwon FC",
+      "code": "GAN",
+      "country": "South-Korea",
+      "founded": 2008,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/2746.png",
+      "venue_name": "Gangneung Stadium",
+      "venue_city": "Gangneung",
+      "venue_capacity": 33000,
+      "players": [],
+      "player_count": 0
+    },
+    {
+      "id": 2747,
+      "name": "Daegu FC",
+      "code": "DAE",
+      "country": "South-Korea",
+      "founded": 2002,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/2747.png",
+      "venue_name": "DGB Arena",
+      "venue_city": "Daegu",
+      "venue_capacity": 12415,
+      "players": [],
+      "player_count": 0
+    }
+  ],
+  "沙职联_SPL": [
+    {
+      "id": 2928,
+      "name": "Al Khaleej Saihat",
+      "code": null,
+      "country": "United-Arab-Emirates",
+      "founded": 1945,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/2928.png",
+      "venue_name": "Prince Mohamed bin Fahd Stadium",
+      "venue_city": "Dammam",
+      "venue_capacity": 35000,
+      "players": [],
+      "player_count": 0
+    },
+    {
+      "id": 2929,
+      "name": "Al-Ahli Jeddah",
+      "code": "AHL",
+      "country": "Saudi-Arabia",
+      "founded": 1937,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/2929.png",
+      "venue_name": "Prince Abdullah al-Faisal Stadium",
+      "venue_city": "Jeddah",
+      "venue_capacity": 27000,
+      "players": [],
+      "player_count": 0
+    }
+  ],
+  "中超_CSL": [
+    {
+      "id": 830,
+      "name": "Beijing Guoan",
+      "code": "BEI",
+      "country": "China",
+      "founded": 1992,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/830.png",
+      "venue_name": "Workers' Stadium",
+      "venue_city": "Beijing",
+      "venue_capacity": 68000,
+      "players": [],
+      "player_count": 0
+    },
+    {
+      "id": 833,
+      "name": "Shanghai Shenhua",
+      "code": "SHA",
+      "country": "China",
+      "founded": 1993,
+      "national": false,
+      "logo": "https://media.api-sports.io/football/teams/833.png",
+      "venue_name": "Shanghai Stadium",
+      "venue_city": "Shanghai",
+      "venue_capacity": 56842,
+      "players": [],
+      "player_count": 0
+    }
+  ]
+}
