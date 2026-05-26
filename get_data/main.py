@@ -171,6 +171,8 @@ def chuck_data():
         required_tables = [
             # 基础表
             'league', 'team', 'team_alias',
+            # 联赛分类表
+            'league_region', 'league_country', 'league_level',
             # 体彩足球 (TCZQ)
             'tczq_match', 'tczq_spf_odds', 'tczq_handicap_spf_odds', 
             'tczq_ht_ft_odds', 'tczq_total_goal_odds', 'tczq_score_odds',

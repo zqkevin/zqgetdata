@@ -23,8 +23,12 @@ class League(Base):
     league_id = Column(Integer, unique=True, nullable=False, index=True)  # 联赛 ID
     league_name = Column(String(100), nullable=False)  # 联赛全称
     league_name_abbr = Column(String(20), nullable=False)  # 联赛简称
-    region = Column(String(50))  # 联赛地区
-    country = Column(String(50))  # 联赛国家
+    
+    # 分类关联字段
+    region_id = Column(Integer, nullable=True, index=True)  # 地区ID（关联 league_region）
+    country_id = Column(Integer, nullable=True, index=True)  # 国家ID（关联 league_country）
+    level_id = Column(Integer, nullable=True, index=True)  # 等级ID（关联 league_level）
+    
     href = Column(String(255), nullable=False)  # 联赛链接地址
     
     # 创建时间和更新时间
@@ -60,6 +64,76 @@ class TeamAlias(Base):
     
     # 创建时间
     created_at = Column(DateTime, default=datetime.now)
+
+
+# ========== 联赛分类相关模型 ==========
+# 地区表 (Region)
+class LeagueRegion(Base):
+    """
+    联赛地区分类表
+    例如：亚洲、欧洲、南美洲、北美洲、非洲、大洋洲、国际等
+    """
+    __tablename__ = 'league_region'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    region_code = Column(String(20), unique=True, nullable=False, index=True)  # 地区代码，如 ASIA, EUROPE, INTERNATIONAL
+    region_name = Column(String(50), nullable=False)  # 地区名称，如 亚洲、欧洲、国际
+    region_name_en = Column(String(50))  # 地区英文名称
+    description = Column(Text)  # 地区描述
+    
+    # 创建时间和更新时间
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    
+    def __repr__(self):
+        return f"<LeagueRegion(id={self.id}, region_name='{self.region_name}')>"
+
+
+# 国家表 (Country)
+class LeagueCountry(Base):
+    """
+    联赛国家/地区表
+    例如：中国、英格兰、西班牙、德国等
+    """
+    __tablename__ = 'league_country'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    country_code = Column(String(10), unique=True, nullable=False, index=True)  # 国家代码，如 CHN, ENG, ESP
+    country_name = Column(String(50), nullable=False)  # 国家名称，如 中国、英格兰
+    country_name_en = Column(String(50))  # 国家英文名称
+    region_id = Column(Integer, nullable=True, index=True)  # 所属地区ID（不强制外键，避免循环依赖）
+    fifa_code = Column(String(10))  # FIFA国家代码
+    iso_code = Column(String(10))  # ISO国家代码
+    
+    # 创建时间和更新时间
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    
+    def __repr__(self):
+        return f"<LeagueCountry(id={self.id}, country_name='{self.country_name}')>"
+
+
+# 联赛等级表 (Level)
+class LeagueLevel(Base):
+    """
+    联赛等级分类表
+    例如：顶级联赛、二级联赛、杯赛、青年联赛等
+    """
+    __tablename__ = 'league_level'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    level_code = Column(String(20), unique=True, nullable=False, index=True)  # 等级代码，如 TIER_1, TIER_2, CUP
+    level_name = Column(String(50), nullable=False)  # 等级名称，如 顶级联赛、二级联赛、杯赛
+    level_name_en = Column(String(50))  # 等级英文名称
+    sort_order = Column(Integer, default=0)  # 排序顺序（数字越小等级越高）
+    description = Column(Text)  # 等级描述
+    
+    # 创建时间和更新时间
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    
+    def __repr__(self):
+        return f"<LeagueLevel(id={self.id}, level_name='{self.level_name}')>"
 
 
 # ========== 以下是通用赔率模型基类 (Mixin) ==========

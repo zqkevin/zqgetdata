@@ -19,6 +19,7 @@ from app.database.tczq_models import Base as TczqBase
 from app.database.bjdc_models import Base as BjdcBase
 from app.database.tcbk_models import Base as TcbkBase
 from app.database.digital_lottery_models import Base as DigitalBase
+from app.common.init_league_classification import init_league_classification
 
 def check_table_exists(engine, table_name):
     """检查表是否存在"""
@@ -136,7 +137,16 @@ def init_restructured_database():
         else:
             print("✓ 数字彩表已存在，无需创建")
         
-        # 7. 显示最终的表结构
+        # 7. 初始化联赛分类数据
+        print("\n=== 初始化联赛分类数据 ===")
+        print("开始初始化地区、国家、等级数据...")
+        classification_result = init_league_classification()
+        if classification_result:
+            print("✓ 联赛分类数据初始化完成!")
+        else:
+            print("⚠ 联赛分类数据初始化失败，但不影响其他功能")
+        
+        # 8. 显示最终的表结构
         print("\n=== 数据库表结构总览 ===")
         inspector = inspect(engine)
         all_tables = inspector.get_table_names()
